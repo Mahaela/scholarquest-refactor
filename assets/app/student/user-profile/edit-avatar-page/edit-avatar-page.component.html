@@ -1,0 +1,11 @@
+<div class="container" fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutAlign="center">
+  <div fxLayoutGap="25px" fxFlex="50" fxLayoutAlign="right">
+      <md-card>
+        <sq-avatar></sq-avatar>
+      </md-card>
+  </div>
+   <div  fxLayoutGap="25px" fxFlex="50">
+    <sq-button-grid-card title="Face" [options]="editAvatarService.getCursors()"></sq-button-grid-card>
+    <!--<sq-button-grid-card title="Cursor Follower" patchValue="cursorFollower" initApi="/getStudent" [options]="cursorFollowerService.getCursorFollowers()"></sq-button-grid-card>-->
+  </div>
+</div>

@@ -1,0 +1,123 @@
+.container{
+    display: inline-block;
+    width: 450px;
+    padding-left: 50px;
+}
+
+#wrapper{
+    width: 1200px;
+    margin:auto;
+}
+
+#words{
+    display: inline-block;
+    width: 600px;
+    background-color:blueviolet;
+    border: solid blue;
+    padding-top: 10px;
+}
+
+#definitions{
+    display: inline-block;
+    width: 450px;
+    background-color:deepskyblue;
+    border: solid blue;
+    float: right;
+    min-height: 100px;
+    padding-top: 10px;
+
+}
+
+.word{
+    vertical-align:top;
+    display: inline-block;
+    border: solid violet;
+    height: 75px;
+    width: 100px;
+    background-color:blanchedalmond;
+    line-height: 70px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.dropContainer{
+    vertical-align:top;
+    display: inline-block;
+    border: dashed violet;
+    height: 75px;
+    width: 350px;
+    background-color:blanchedalmond;
+}
+
+.definition{
+    vertical-align:top;
+    display: inline-block;
+    height: 75px;
+    display: block;
+    border: solid violet;
+    height: 70px;
+    width: 345px;
+    background-color:blanchedalmond;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.definition p{
+    margin-top: 10px;
+}
+
+#submitButton{
+    margin: auto;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+#replayButton{
+    margin: auto;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.bWrapper{
+    text-align: center;
+}
+
+#score{
+    margin:auto;
+    display: block;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.winContainer{
+     vertical-align:top;
+    display: inline-block;
+    border: solid green;
+    height: 75px;
+    width: 350px;
+    background-color:blanchedalmond;
+}
+
+.winDef{
+    vertical-align:top;
+    display: inline-block;
+    height: 75px;
+    display: block;
+    border: solid green;
+    height: 70px;
+    width: 345px;
+    background-color:blanchedalmond;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.winWord{
+     vertical-align:top;
+    display: inline-block;
+    border: solid green;
+    height: 75px;
+    width: 100px;
+    background-color:blanchedalmond;
+    line-height: 70px;
+    text-align: center;
+}

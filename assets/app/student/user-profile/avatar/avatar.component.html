@@ -1,0 +1,6 @@
+<div id="avatarWrapper" (mouseenter)="arrows()" (mouseleave)="arrows()">
+    <img [src]="firstAvatarImg" id="firstAvatarImg"  #firstdAvatar/>
+    <img [src]="secondAvatarImg" id="secondAvatarImg"  #secondAvatar/>
+    <img src="../../../assets/clip-art/ArrowRight.png" id="avatarRArrow" (click)="avatarScrollUp(firstAvatar, secondAvatar)"  />
+    <img src="../../../assets/clip-art/ArrowLeft.png" id="avatarLArrow" (click)="avatarScrollDown(firstAvatar, secondAvatar)" />
+</div>

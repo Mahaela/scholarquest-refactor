@@ -1,0 +1,26 @@
+<div id="wrapper">
+    <div class="container" id="words" #wordContainer>
+        <div *ngFor="let item of vocabulary">
+            <!--<p class="word" sqCorrectStyling [index]="item[2]" [correctIndexes]="correctIndexes">{{item[0]}}</p>
+            <div class="dropContainer" [dragula]='"first-bag"' sqCorrectStyling [index]="item[2]" [correctIndexes]="correctIndexes" > </div>
+        </div>
+    </div>
+    <div class="container" id="definitions" >
+        <div *ngIf="submitButtonDisplay">
+            <div class="bWrapper">
+                <button (click)="submit()" class="btn btn-primary" id="submitButton" >Submit</button>
+             </div>
+        </div>
+        <div *ngIf="scoreDisplay">
+           <p id="score">Score: {{score}}</p>
+            <div class="bWrapper">
+                <button (click)="playAgain()" class="btn btn-primary" id="replayButton" >Play Again</button>
+            </div>
+            </div>
+        <div  [dragula]='"first-bag"' id="definitionsDragContainer"  >
+            <div *ngFor="let item of vocabulary| shuffle; let k = index" id="definition_{{k}}" class="definition" sqCorrectStyling [index]="item[2]" [correctIndexes]="correctIndexes">
+                <p>{{item[1]}}</p>-->
+            <!--</div>-->
+        </div>
+     </div>
+</div>

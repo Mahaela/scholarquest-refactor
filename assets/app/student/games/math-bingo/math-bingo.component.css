@@ -1,0 +1,93 @@
+body{
+    background-color:white;
+    color: black;
+    font-size: 20px;
+    font-family: Verdana, Arial;
+}
+
+h1, th{
+    font-family: Georgia, "Times New Roman";
+}
+
+h1{
+    text-align: center;
+    font-size: 28px;
+}
+
+table{
+    vertical-align: top; 
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+
+th, td{
+    padding: 10px;
+    border: 2px #666 solid;
+    text-align: center;
+}
+
+p{
+    text-align: center;
+}
+
+#score{
+    text-align: center;
+    
+}
+#free, .pickedBG{
+    background-color: #f66;
+}
+
+#hover{
+    background-color: rgba(220, 220, 220, 0.5);
+
+}
+
+.row{
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+
+#function{
+    text-align: right;
+}
+
+#timer{
+    text-align: left;
+}
+
+#wrapper{
+    margin: auto;
+}
+
+.picked{
+    background-color: aqua;
+}
+
+.win{
+    border: solid darkblue;
+    background-color: aqua;
+}
+
+#clock{
+    text-align: center;
+}
+
+#formula{
+    text-align: center;
+    margin-top: 2em;
+}
+
+#equation{
+    text-align: center;
+}
+
+#backdrop{
+    margin-top: 100px;
+    margin-left: 150px;
+    margin-right: 150px;
+    background-color: cornsilk;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}

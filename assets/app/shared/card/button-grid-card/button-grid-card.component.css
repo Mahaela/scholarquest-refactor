@@ -1,0 +1,14 @@
+img {
+    display: block;
+    width: 90px;
+    height: 90px;
+    margin: auto;  
+}
+
+.imgWrapper {
+    display: inline-flex;
+    border: solid grey;
+    width: 100PX;
+    height: 100px;
+    cursor: pointer;
+}

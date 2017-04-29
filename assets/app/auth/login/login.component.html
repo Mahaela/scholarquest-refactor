@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md" >
+      <h1>Login</h1>
+       <hr />
+        <div id="wrapper">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <label for="email" style="width:500px">Email</label>
+                <div class="form-group name">
+                    <input type="text"
+                        class="form-control"
+                        id="email"
+                        formControlName="email">
+                </div>
+                <div class="form-group name">
+                    <label for="email" style="width:500px">Password</label>
+                    <input type="password"
+                        class="form-control"
+                        id="password"
+                        formControlName="pwd">
+                </div>
+                 <div id="bwrapper">
+                   <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Submit</button> <br /><br />
+               </div>
+                 <p *ngIf="incUsernameOrPwd" class="error">Incorrect Username or Password</p>
+                <p *ngIf="serverError" class="error">An error has occurred. Please try again later</p>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>

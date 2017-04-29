@@ -1,0 +1,12 @@
+.active-link {
+    color: mediumpurple;
+}
+.coin{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+#coinWrapper{
+    width: 150px;
+}

@@ -1,11 +1,46 @@
 <div class="container" fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutAlign="center">
   <div fxLayoutGap="25px" fxFlex="50" fxLayoutAlign="right">
       <md-card>
-        <sq-avatar></sq-avatar>
+        <sq-avatar #avatar (menuClicked)="changeMenu($event)" edit="true"></sq-avatar>
       </md-card>
   </div>
-   <div  fxLayoutGap="25px" fxFlex="50">
-    <sq-button-grid-card title="Face" [options]="editAvatarService.getCursors()"></sq-button-grid-card>
-    <!--<sq-button-grid-card title="Cursor Follower" patchValue="cursorFollower" initApi="/getStudent" [options]="cursorFollowerService.getCursorFollowers()"></sq-button-grid-card>-->
-  </div>
+  <div fxLayoutGap="25px" fxFlex="50" fxLayoutAlign="right">
+  <md-tab-group>
+    <md-tab label="Face">
+      <sq-button-grid-card
+          #faceCard 
+          title="Face" 
+          [options]="faceOptions"
+          [miniOptions]="avatarService.getFaceColors()"
+          (buttonClicked)="changeFace($event)"
+          (miniButtonClicked)="changeFaceList($event)">
+        </sq-button-grid-card>
+    </md-tab>
+    <md-tab label="Eyes">
+      <sq-button-grid-card
+          #eyesCard 
+          title="Eyes" 
+          [options]="eyesOptions"
+          [miniOptions]="avatarService.getEyesColors()"
+          (buttonClicked)="changeEyes($event)"
+          (miniButtonClicked)="changeEyesList($event)">
+        </sq-button-grid-card>
+    </md-tab>
+    <md-tab label="Nose">
+      <sq-button-grid-card
+          #noseCard
+          title="Nose" 
+          [options]="avatarService.getNoses()"
+          (buttonClicked)="changeNose($event)">
+        </sq-button-grid-card>
+  </md-tab>
+  <md-tab label="Mouth">
+    <sq-button-grid-card 
+        #mouthCards
+        title="Mouth" 
+        [options]="avatarService.getLips()"
+        (buttonClicked)="changeLips($event)">
+      </sq-button-grid-card>
+    </md-tab>
+  </md-tab-group>
 </div>

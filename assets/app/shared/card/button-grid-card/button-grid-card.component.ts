@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter, ViewChildren, QueryList, AfterContentInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, AfterContentInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
+import { MdGridList } from '@angular/material';
 
 import { ButtonComponent } from '../button/button.component';
 
@@ -9,54 +10,95 @@ import { ApiService } from '../../utils/api.service';
   templateUrl: './button-grid-card.component.html',
   styleUrls: ['./button-grid-card.component.css']
 })
-export class ButtonGridCardComponent implements AfterContentInit{
+export class ButtonGridCardComponent implements AfterContentInit, AfterViewInit{
+  
+    @Input('hoverColor') hoverColor: string = 'blue';
+    @Input('selectedColor') selectedColor: string = 'green';
+    @Input('backgroundColor') backgroundColor: string = 'grey';
 
     @Input('title') title: string;
     @Input('columns') columns: number = 4;
-    @Input('options') options: any;
+    @Input('options') options: any[];
+    @Input('miniOptions') miniOptions: any[];
     @Input('patchValue') patchValue: string;
     @Input('initApi') initApi: string;
 
-    @Output() buttonClicked = new EventEmitter<number>();
+    @Output() buttonClicked = new EventEmitter<string>();
+    @Output() miniButtonClicked = new EventEmitter<string>();
 
-    @ViewChildren(ButtonComponent) buttons: QueryList<ButtonComponent>;
+    @ViewChild('miniList') miniList: MdGridList;
+    @ViewChild('normList') normList: MdGridList;
 
-    constructor(private apiService: ApiService){}
+    private normTiles: any[];
+    private miniTiles: any[]
+
+    constructor(private apiService: ApiService, private renderer: Renderer){}
 
     /* 
      * get the initial data to set the selected button
      */ 
+
+    ngAfterViewInit(){
+      this.normTiles = this.normList._tiles.toArray();
+      if(this.miniTiles) this.miniTiles = this.miniList._tiles.toArray();
+    }
+
     ngAfterContentInit(){
       if(this.initApi) this.apiService.post(this.initApi).subscribe(
         (data) => {
-          this.buttons.forEach(button => {
-            if(button.index == data[this.patchValue]) button.setSelected(true)
-            }
-          )
         }
       )
+    }
+
+    setOptions(options: any){
+      this.options = options;
     }
 
     /*
      * called when a button is clicked
      */  
-    clicked(index: number){
-
-      var params= {}
-      params[this.patchValue] = index;
-
-      // // update the DB with the new value
-      this.apiService.patch(params).subscribe();
-
-      // let the parent know which button was selected
+    clicked(index: string){
+       for(var i = 0; i < this.options.length; i++){
+        if (this.options[i].index == index) this.normTiles[i]._setStyle('background-color', this.selectedColor);
+        else this.normTiles[i]._setStyle('background-color', null);
+      }
+    
       this.buttonClicked.emit(index);
+    }
 
-      this.buttons.forEach(button => {
+    miniClicked(index: string){
+      this.miniButtonClicked.emit(index);
+    }
 
-        // if the button was previously selected, unselect it
-        if(button.getSelected()) button.setSelected(false);
-        
-        if(button.index == index) button.setSelected(true);
-      })
+    onMouseOverTile(index: string){
+      for(var i = 0; i < this.options.length; i++){
+        if (this.options[i].index == index){
+          this.normTiles[i]._setStyle('background-color', this.hoverColor);
+        }
+      }
+    }
+
+    onMouseLeaveTile(index: string){
+      for(var i = 0; i < this.options.length; i++){
+        if (this.options[i].index == index){
+          this.normTiles[i]._setStyle('background-color', null);
+        }
+      }
+    }
+
+    onMouseOverMiniTile(index: string){
+      for(var i = 0; i < this.miniOptions.length; i++){
+        if (this.miniOptions[i].index == index){
+          this.miniTiles[i]._setStyle('background-color', this.hoverColor);
+        }
+      }
+    }
+
+    onMouseLeaveMiniTile(index: string){
+      for(var i = 0; i < this.miniOptions.length; i++){
+        if (this.miniOptions[i].index == index){
+          this.miniTiles[i]._setStyle('background-color', null);
+        }
+      }
     }
 }

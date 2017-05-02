@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AvatarComponent } from './avatar/avatar.component';
 import { CursorFollowerListComponent } from './cursor-follower/cursor-follower-list/cursor-follower-list.component';
@@ -14,7 +15,7 @@ import { CursorComponent } from './cursor/cursor.component';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { EditAvatarPageComponent } from './edit-avatar-page/edit-avatar-page.component';
 import { CardModule } from '../../shared/card/card.module';
-import { EditAvatarService } from './edit-avatar-page/edit-avatar.service'
+import { AvatarService } from './avatar-service/avatar.service';
 
 const routes: Routes = [
 	{ path: '', component: UserProfilePageComponent },
@@ -24,11 +25,12 @@ const routes: Routes = [
 
 @NgModule({
 	imports: [
+		//BrowserAnimationsModule,
 		CommonModule,
 		MaterialModule,
 		FlexLayoutModule,
 		CardModule,
-		RouterModule.forChild(routes)
+		RouterModule.forChild(routes),
 	],
 	declarations: [
 		UserProfilePageComponent,
@@ -39,6 +41,6 @@ const routes: Routes = [
         CursorComponent,
 		EditAvatarPageComponent,
 	],
-    providers: [ CursorFollowerService, CursorService, EditAvatarService ],
+    providers: [ CursorFollowerService, CursorService, AvatarService ],
 })
 export default class UserProfileModule {}

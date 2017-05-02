@@ -3,12 +3,10 @@ img {
     width: 90px;
     height: 90px;
     margin: auto;  
+    background-color: white;
 }
 
-.imgWrapper {
-    display: inline-flex;
-    border: solid grey;
-    width: 100PX;
-    height: 100px;
+md-grid-tile {
+    border: solid grey 2px;
     cursor: pointer;
 }

@@ -1,6 +1,15 @@
-<div id="avatarWrapper" (mouseenter)="arrows()" (mouseleave)="arrows()">
-    <img [src]="firstAvatarImg" id="firstAvatarImg"  #firstdAvatar/>
-    <img [src]="secondAvatarImg" id="secondAvatarImg"  #secondAvatar/>
-    <img src="../../../assets/clip-art/ArrowRight.png" id="avatarRArrow" (click)="avatarScrollUp(firstAvatar, secondAvatar)"  />
-    <img src="../../../assets/clip-art/ArrowLeft.png" id="avatarLArrow" (click)="avatarScrollDown(firstAvatar, secondAvatar)" />
+<div id="avatarWrapper" [style.display]="(edit != undefined ? 'inline-block' : '')">
+    <img [src]="faceImg">
+    <img [src]="eyesImg">
+    <img [src]="noseImg">
+    <img [src]="lipsImg"> 
+</div>
+<div class="editMenu" *ngIf="edit">
+    <button (click)="menuClicked.emit('face')">Face</button>
+    <br>
+    <button (click)="menuClicked.emit('eyes')">Eyes</button>
+    <br>
+    <button (click)="menuClicked.emit('nose')">Nose</button>
+    <br>
+    <button (click)="menuClicked.emit('mouth')">Mouth</button>
 </div>

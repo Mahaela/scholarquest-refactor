@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpModule } from "@angular/http";
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MdButtonModule } from '@angular/material';
 import { RouterModule }   from '@angular/router';
+
 import 'hammerjs';
 
 import { AppComponent } from "./app.component";
-//import { CardModule } from "./shared/card/card.module"
+import { CardModule } from "./shared/card/card.module"
 import { AuthService } from "./auth/auth.service";
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -51,21 +53,19 @@ import { ApiService } from './shared/utils/api.service'
     ],  
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
         MaterialModule,
         FlexLayoutModule,
         MdButtonModule,
-        //CardModule,
         RouterModule.forRoot([ 
             { path: '', redirectTo: '/home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'games', component: GamesComponent },
-            //{ path: 'games', component: GamesComponent, children: GAMES_ROUTES },
             { path: 'profile', loadChildren: './student/user-profile/user-profile.module' },
             { path: 'signup', component: CapacitySignupComponent },
-            //{ path: 'signup', component: SignupComponent, children: SIGNUP_ROUTES },
             { path: 'login', component: LoginComponent }, ])
 
     ],

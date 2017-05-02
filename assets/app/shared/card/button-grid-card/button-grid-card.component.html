@@ -1,8 +1,22 @@
 <md-card>
     <md-card-title>{{title}}</md-card-title>
-    <md-grid-list [cols]=columns rowHeight="100px" md-row-height="fit">
-        <md-grid-tile *ngFor="let option of options">
-           <sq-button [img]=option.img [index]=option.index (click)="clicked(option.index)"></sq-button>
+    <div *ngIf="miniOptions">
+        <md-grid-list #miniList *ngIf="miniOptions" [cols]="miniOptions.length" rowHeight="20px">
+            <md-grid-tile *ngFor="let miniOption of miniOptions"
+                (click)="miniClicked(miniOption.index)"
+                (mouseover)="onMouseOverMiniTile(miniOption.index)"
+                (mouseleave)="onMouseLeaveMiniTile(miniOption.index)">
+            <img [src]=miniOption.img/>
+            </md-grid-tile>
+        </md-grid-list>
+        <br>
+    </div>
+    <md-grid-list #normList [cols]=columns rowHeight="100px">
+        <md-grid-tile *ngFor="let option of options"
+            (click)="clicked(option.index)"
+            (mouseover)="onMouseOverTile(option.index)"
+            (mouseleave)="onMouseLeaveTile(option.index)">
+           <img [src]=option.img/>
         </md-grid-tile>
     </md-grid-list>
 </md-card>

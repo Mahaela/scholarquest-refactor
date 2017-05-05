@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 
 import { AvatarService } from '../avatar-service/avatar.service';
 import { AvatarComponent } from '../avatar/avatar.component';
+import { ButtonGridCardComponent } from '../../../shared/card/button-grid-card/button-grid-card.component';
 
 @Component({
   templateUrl: './edit-avatar-page.component.html',
@@ -15,6 +16,8 @@ export class EditAvatarPageComponent {
   private menuDisplayed = 'face';
 
   @ViewChild('avatar') avatar: AvatarComponent;
+  @ViewChild('faceCard') faceCard: ButtonGridCardComponent;
+  @ViewChild('eyesCard') eyesCard: ButtonGridCardComponent;
 
   constructor(private avatarService: AvatarService){
     this.faceOptions = avatarService.getFacesColor1();
@@ -35,7 +38,7 @@ export class EditAvatarPageComponent {
         break;
       }
       case '03':{
-        this.faceOptions = this.avatarService.getFacesColor3();
+       this.faceOptions = this.avatarService.getFacesColor3();
         break;
       }
       case '04':{

@@ -13,7 +13,7 @@
         <div class="col-sm-4">
             <div id="wrapper">
                 
-            <table>
+            <table #table>
                 <tr>
                     <th width="20%">B</th>
                     <th width="20%">I</th>
@@ -23,39 +23,39 @@
                 </tr>
                 
                 <tr>
-                    <td #square0 (click)="checkCorrect('0')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square1 (click)="checkCorrect('1')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square2 (click)="checkCorrect('2')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square3 (click)="checkCorrect('3')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square4 (click)="checkCorrect('4')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('0')" sqHighlightMathBingo [gameFinished]="gameFinished">111</td>
+                    <td (click)="checkCorrect('1')" sqHighlightMathBingo [gameFinished]="gameFinished">111</td>
+                    <td (click)="checkCorrect('2')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('3')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('4')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
                 </tr>
                 <tr>
-                    <td #square5 (click)="checkCorrect('5')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square6 (click)="checkCorrect('6')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square7 (click)="checkCorrect('7')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square8 (click)="checkCorrect('8')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square9 (click)="checkCorrect('9')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('5')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('6')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('7')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('8')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('9')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
                 </tr>
                 <tr>
-                    <td #square10 (click)="checkCorrect('10')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square11 (click)="checkCorrect('11')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square12 id="free" class="picked">FREE</td>
-                    <td #square13 (click)="checkCorrect('13')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square14 (click)="checkCorrect('14')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('10')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('11')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td id="free" class="picked">FREE</td>
+                    <td (click)="checkCorrect('13')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('14')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
                 </tr>
                 <tr>
-                    <td #square15 (click)="checkCorrect('15')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square16 (click)="checkCorrect('16')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square17 (click)="checkCorrect('17')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square18 (click)="checkCorrect('18')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square19 (click)="checkCorrect('19')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('15')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('16')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('17')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('18')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('19')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
                 </tr>
                 <tr>
-                    <td #square20 (click)="checkCorrect('20')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square21 (click)="checkCorrect('21')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square22 (click)="checkCorrect('22')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square23 (click)="checkCorrect('23')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td #square24 (click)="checkCorrect('24')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('20')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('21')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('22')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('23')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                    <td (click)="checkCorrect('24')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
                 </tr>
                 </table>
             </div>

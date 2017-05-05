@@ -11,7 +11,7 @@
         </md-grid-list>
         <br>
     </div>
-    <md-grid-list #normList [cols]=columns rowHeight="100px">
+    <md-grid-list #normList [cols]=columns rowHeight="100px" (change)="change()">
         <md-grid-tile *ngFor="let option of options"
             (click)="clicked(option.index)"
             (mouseover)="onMouseOverTile(option.index)"

@@ -109,8 +109,7 @@ export class AvatarService {
                     this.eyes3Cl1, this.eyes3Cl2, this.eyes3Cl3, this.eyes3Cl4, this.eyes3Cl5, this.eyes3Cl6,
                     this.eyes4Cl1, this.eyes4Cl2, this.eyes4Cl3, this.eyes4Cl4, this.eyes4Cl5, this.eyes4Cl6,
                     this.eyes5Cl1, this.eyes5Cl2, this.eyes5Cl3, this.eyes5Cl4, this.eyes5Cl5, this.eyes5Cl6,
-                    this.eyes6
-    ]
+                    this.eyes6]
 
     private nose1 = { img: require('../../../assets/avatars/nose/nose1.png'), index: '01' };
     private nose2 = { img: require('../../../assets/avatars/nose/nose2.png'), index: '02' };

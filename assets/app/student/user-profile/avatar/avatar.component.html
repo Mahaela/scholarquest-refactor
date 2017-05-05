@@ -4,12 +4,3 @@
     <img [src]="noseImg">
     <img [src]="lipsImg"> 
 </div>
-<div class="editMenu" *ngIf="edit">
-    <button (click)="menuClicked.emit('face')">Face</button>
-    <br>
-    <button (click)="menuClicked.emit('eyes')">Eyes</button>
-    <br>
-    <button (click)="menuClicked.emit('nose')">Nose</button>
-    <br>
-    <button (click)="menuClicked.emit('mouth')">Mouth</button>
-</div>

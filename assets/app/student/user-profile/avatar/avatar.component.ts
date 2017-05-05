@@ -16,8 +16,6 @@ export class AvatarComponent {
     private noseImg: string;
     private lipsImg: string;
 
-    @Input('edit') edit: boolean;
-
     // when a menu is selected, tell the parent component so that it can update the menu displayed
     @Output() menuClicked = new EventEmitter<string>();
 

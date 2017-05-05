@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, Renderer, ContentChildren } from '@angular/core';
 import { MathBingoEquationsSecondService } from './equations/math-bingo-equations-second.service';
 import { Equation } from './equations/equation';
 import { StudentService } from '../../student.service';
@@ -10,34 +10,14 @@ import { StudentService } from '../../student.service';
     providers: [MathBingoEquationsSecondService]
 })
 export class MathBingoComponent implements AfterViewInit {
-    @ViewChild('square0') square0;
-    @ViewChild('square1') square1;
-    @ViewChild('square2') square2;
-    @ViewChild('square3') square3;
-    @ViewChild('square4') square4;
-    @ViewChild('square5') square5;
-    @ViewChild('square6') square6;
-    @ViewChild('square7') square7;
-    @ViewChild('square8') square8;
-    @ViewChild('square9') square9;
-    @ViewChild('square10') square10;
-    @ViewChild('square11') square11;
-    @ViewChild('square12') square12;
-    @ViewChild('square13') square13;
-    @ViewChild('square14') square14;
-    @ViewChild('square15') square15;
-    @ViewChild('square16') square16;
-    @ViewChild('square17') square17;
-    @ViewChild('square18') square18;
-    @ViewChild('square19') square19;
-    @ViewChild('square20') square20;
-    @ViewChild('square21') square21;
-    @ViewChild('square22') square22;
-    @ViewChild('square23') square23;
-    @ViewChild('square24') square24;
+
+
+    @ViewChild('table') table : ElementRef;
+
+    @ContentChildren('td') td;
 
     private squares = [];
-    private nums = [];
+    private equations = [];
     private numSquares = 24;
     private cNums = [];
     private cNumsIndex;
@@ -50,71 +30,48 @@ export class MathBingoComponent implements AfterViewInit {
     private gameFinished = false;
     private equation = "";
 
-    constructor(private equationsSecond: MathBingoEquationsSecondService, private renderer: Renderer, private studentService: StudentService) {
-        this.nums = this.equationsSecond.getNums();
-        this.initcNums();
+    constructor(private equationsSecond: MathBingoEquationsSecondService, private renderer: Renderer, private studentService: StudentService, private elementRef: ElementRef) {
+        this.equations = this.equationsSecond.getEquations();
         this.initClock();
         this.score = 0;
     }
 
     ngAfterViewInit() {
+
+       //get the table data cells 
+        for(var i = 0; i < Object.keys(document.body.querySelectorAll('td')).length; ++i){
+            this.squares.push(document.body.querySelectorAll('td')[i]);
+        }
+
         this.initGameboard();
-        this.setFormula();
-        this.squares = [[this.square0, false], [this.square1, false], [this.square2, false], [this.square3, false],
-        [this.square4, false], [this.square5, false], [this.square6, false], [this.square7, false], [this.square8, false],
-        [this.square9, false], [this.square10, false], [this.square11, false], [this.square12, true], [this.square13, false],
-        [this.square14, false], [this.square15, false], [this.square16, false], [this.square17, false], [this.square18, false],
-        [this.square19, false], [this.square20, false], [this.square21, false], [this.square22, false], [this.square23, false],
-        [this.square24, false]];
+       // this.setFormula();
     }
 
-    initcNums() {
-        for (var i = 0; i < this.nums.length; i++) {
-            this.cNums.push(this.nums[i]);
-        }
-
-        var tempVal;
-        var randIndex;
-        var currIndex = this.cNums.length;
-
-        while (0 !== currIndex) {
-
-            // Pick a remaining element...
-            randIndex = Math.floor(Math.random() * currIndex);
-            currIndex -= 1;
-
-            // And swap it with the current element.
-            tempVal = this.cNums[currIndex];
-            this.cNums[currIndex] = this.cNums[randIndex];
-            this.cNums[randIndex] = tempVal;
-        }
-    }
 
     initGameboard() {
-        this.square0.nativeElement.textContent = this.cNums[0].getSolution();
-        this.square1.nativeElement.textContent = this.cNums[1].getSolution();
-        this.square2.nativeElement.textContent = this.cNums[2].getSolution();
-        this.square3.nativeElement.textContent = this.cNums[3].getSolution();
-        this.square4.nativeElement.textContent = this.cNums[4].getSolution();
-        this.square5.nativeElement.textContent = this.cNums[5].getSolution();
-        this.square6.nativeElement.textContent = this.cNums[6].getSolution();
-        this.square7.nativeElement.textContent = this.cNums[7].getSolution();
-        this.square8.nativeElement.textContent = this.cNums[8].getSolution();
-        this.square9.nativeElement.textContent = this.cNums[9].getSolution();
-        this.square10.nativeElement.textContent = this.cNums[10].getSolution();
-        this.square11.nativeElement.textContent = this.cNums[11].getSolution();
-        this.square13.nativeElement.textContent = this.cNums[12].getSolution();
-        this.square14.nativeElement.textContent = this.cNums[13].getSolution();
-        this.square15.nativeElement.textContent = this.cNums[14].getSolution();
-        this.square16.nativeElement.textContent = this.cNums[15].getSolution();
-        this.square17.nativeElement.textContent = this.cNums[16].getSolution();
-        this.square18.nativeElement.textContent = this.cNums[17].getSolution();
-        this.square19.nativeElement.textContent = this.cNums[18].getSolution();
-        this.square20.nativeElement.textContent = this.cNums[19].getSolution();
-        this.square21.nativeElement.textContent = this.cNums[20].getSolution();
-        this.square22.nativeElement.textContent = this.cNums[21].getSolution();
-        this.square23.nativeElement.textContent = this.cNums[22].getSolution();
-        this.square24.nativeElement.textContent = this.cNums[23].getSolution();
+
+        // for (var i = 0; i < this.nums.length; i++) {
+        //     this.cNums.push(this.nums[i]);
+        // }
+
+        // var tempVal;
+        // var randIndex;
+
+        var equations = this.equationsSecond.getEquations();
+        
+        for (var i = 0; i < this.squares.length; i++){
+
+            // Pick a remaining element...
+            var randIndex = Math.floor(Math.random() * this.equations.length);
+
+            // And swap it with the current element.
+            var tempVal = this.equations[i];
+            this.equations[i] = this.equations[randIndex];
+            this.equations[randIndex] = tempVal;
+
+            this.squares[i].textContent = this.equations[i].solutions;
+            console.log(this.equations[i].solutions);
+        }
     }
 
     initClock() {

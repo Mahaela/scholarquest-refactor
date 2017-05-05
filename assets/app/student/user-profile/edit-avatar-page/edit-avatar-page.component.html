@@ -1,7 +1,7 @@
 <div class="container" fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutAlign="center">
   <div fxLayoutGap="25px" fxFlex="50" fxLayoutAlign="right">
       <md-card>
-        <sq-avatar #avatar (menuClicked)="changeMenu($event)" edit="true"></sq-avatar>
+        <sq-avatar #avatar (menuClicked)="changeMenu($event)"></sq-avatar>
       </md-card>
   </div>
   <div fxLayoutGap="25px" fxFlex="50" fxLayoutAlign="right">
@@ -28,7 +28,6 @@
     </md-tab>
     <md-tab label="Nose">
       <sq-button-grid-card
-          #noseCard
           title="Nose" 
           [options]="avatarService.getNoses()"
           (buttonClicked)="changeNose($event)">
@@ -36,7 +35,6 @@
   </md-tab>
   <md-tab label="Mouth">
     <sq-button-grid-card 
-        #mouthCards
         title="Mouth" 
         [options]="avatarService.getLips()"
         (buttonClicked)="changeLips($event)">

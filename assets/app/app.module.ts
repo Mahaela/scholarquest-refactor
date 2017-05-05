@@ -7,7 +7,6 @@ import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MdButtonModule } from '@angular/material';
 import { RouterModule }   from '@angular/router';
-
 import 'hammerjs';
 
 import { AppComponent } from "./app.component";
@@ -15,13 +14,6 @@ import { CardModule } from "./shared/card/card.module"
 import { AuthService } from "./auth/auth.service";
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { GamesComponent } from './student/games/games.component';
-import { MathBingoComponent } from './student/games/math-bingo/math-bingo.component';
-import { HighlightMathBingoDirective } from './student/games/math-bingo/highlight-math-bingo.directive';
-import { GamesListComponent } from './student/games/games-list/games-list.component';
-import { VocabMatchComponent } from './student/games/vocab-match/vocab-match.component';
-import { CorrectStylingDirective } from './student/games/vocab-match/correct-styling.directive';
-import { VocabMatchReloadComponent } from './student/games/vocab-match/vocab-match-reload.component';
 import { StudentService } from './student/student.service';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
@@ -38,13 +30,6 @@ import { ApiService } from './shared/utils/api.service'
         AppComponent,
         HomeComponent,
         NavbarComponent,
-        GamesComponent,
-        GamesListComponent,
-        MathBingoComponent,
-        HighlightMathBingoDirective,
-        VocabMatchComponent,
-        CorrectStylingDirective,
-        VocabMatchReloadComponent,
         LoginComponent,
         SignupComponent,
         CapacitySignupComponent,
@@ -63,7 +48,7 @@ import { ApiService } from './shared/utils/api.service'
         RouterModule.forRoot([ 
             { path: '', redirectTo: '/home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-            { path: 'games', component: GamesComponent },
+            { path: 'games', loadChildren: './student/games/games.module.ts' },
             { path: 'profile', loadChildren: './student/user-profile/user-profile.module' },
             { path: 'signup', component: CapacitySignupComponent },
             { path: 'login', component: LoginComponent }, ])

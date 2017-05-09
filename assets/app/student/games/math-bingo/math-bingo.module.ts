@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -17,7 +16,6 @@ const routes: Routes = [
 	imports: [
 		//BrowserAnimationsModule,
 		CommonModule,
-		MaterialModule,
 		FlexLayoutModule,
 		RouterModule.forChild(routes),
 	],

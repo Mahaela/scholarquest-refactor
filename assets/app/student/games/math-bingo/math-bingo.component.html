@@ -1,19 +1,12 @@
-<div id="backdrop">
-    <h1>Math Bingo</h1>
-    <br />
-    <h4 id="score">{{scoreText}}</h4>
-    <div class="row">
-        <div class="col-sm-4">
-            <br />
-            <br />
-            <h3 id="clock">{{timeLeft}}</h3>
-            <br />
-            <br />
-        </div>  
-        <div class="col-sm-4">
-            <div id="wrapper">
-                
-            <table #table>
+<div class="container" fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutAlign="center">
+    <div fxLayoutGap="25px" fxFlex="25">
+        <h3>{{timeLeft}}</h3>
+    </div>
+    <div fxLayoutGap="25px" fxFlex="50" style="background-color: red">
+        <h1>Math Bingo</h1>
+        <h3 id="score">{{scoreText}}</h3>
+        <span>
+            <table>
                 <tr>
                     <th width="20%">B</th>
                     <th width="20%">I</th>
@@ -21,50 +14,15 @@
                     <th width="20%">G</th>
                     <th width="20%">O</th>
                 </tr>
-                
-                <tr>
-                    <td (click)="checkCorrect('0')" sqHighlightMathBingo [gameFinished]="gameFinished">111</td>
-                    <td (click)="checkCorrect('1')" sqHighlightMathBingo [gameFinished]="gameFinished">111</td>
-                    <td (click)="checkCorrect('2')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('3')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('4')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
+                <tr *ngFor="let row of numRows; let r = index;">
+                    <td *ngFor="let cols of numCols; let c = index;" (click)="checkCorrect(r * numCols.length + c)"></td>
                 </tr>
-                <tr>
-                    <td (click)="checkCorrect('5')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('6')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('7')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('8')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('9')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                </tr>
-                <tr>
-                    <td (click)="checkCorrect('10')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('11')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td id="free" class="picked">FREE</td>
-                    <td (click)="checkCorrect('13')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('14')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                </tr>
-                <tr>
-                    <td (click)="checkCorrect('15')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('16')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('17')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('18')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('19')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                </tr>
-                <tr>
-                    <td (click)="checkCorrect('20')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('21')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('22')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('23')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                    <td (click)="checkCorrect('24')" sqHighlightMathBingo [gameFinished]="gameFinished"></td>
-                </tr>
-                </table>
-            </div>
-            </div>
-            <div class="col-sm-4">
-                <br />
-                <br />
-                <h3 id="equation">{{equation}}</h3>
-            </div>
-        </div>
+            </table>
+        </span>
         <p><a (click)="reload()" id="reload">Click Here</a> to create a new card</p>
     </div>
+    <div fxLayoutGap="25px" fxFlex="25">
+        <h3>{{currEquation.problem}}</h3>
+    </div>
+</div>
+    

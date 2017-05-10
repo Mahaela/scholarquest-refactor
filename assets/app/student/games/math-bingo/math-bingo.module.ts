@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
+import { MaterialModule } from '@angular/material';
 
 import { MathBingoComponent } from './math-bingo.component';
-import { HighlightMathBingoDirective } from './highlight-math-bingo.directive';
 import { MathBingoEquationsSecondService } from './equations/math-bingo-equations-second.service';
+import { GradeSidenavModule } from '../grade-sidenav/grade-sidenav.module';
+
 
 const routes: Routes = [
 	{ path: '', component: MathBingoComponent },
@@ -14,14 +16,14 @@ const routes: Routes = [
 
 @NgModule({
 	imports: [
-		//BrowserAnimationsModule,
+		MaterialModule,
 		CommonModule,
 		FlexLayoutModule,
+		GradeSidenavModule,
 		RouterModule.forChild(routes),
 	],
 	declarations: [
-		MathBingoComponent,
-		HighlightMathBingoDirective
+		MathBingoComponent
 	],
     providers: [ MathBingoEquationsSecondService ],
 })

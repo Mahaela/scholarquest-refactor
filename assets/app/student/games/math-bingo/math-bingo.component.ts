@@ -18,6 +18,7 @@ export class MathBingoComponent implements AfterViewInit {
     private timeLeft;
     private currEquation: {solution: number, problem: string} = {solution: null, problem: ''};
     private secondsPerProblem = 20;
+    private totEquations = [];
 
     // ngFor uses iternable objects and not numbers, so we put the numbers into an array
     private numRows = Array(5);
@@ -27,12 +28,23 @@ export class MathBingoComponent implements AfterViewInit {
 
     ngAfterViewInit() {
 
-       //get the table data cells 
+        // get all the equations for a given grade
+        this.totEquations = this.equationsSecond.getEquations();
+
+       // get the table data cells 
         for(var i = 0; i < Object.keys(document.body.querySelectorAll('td')).length; ++i){
             this.squares.push(document.body.querySelectorAll('td')[i]);
         }
 
         // setup the game board
+        this.initGameboard();
+    }
+
+    /*
+     * change the equations when a new grade level is selected
+     */ 
+    changeGradeLevel(event){
+        this.totEquations = this.equationsSecond.getFirstGradeMathEquations();
         this.initGameboard();
     }
 
@@ -42,7 +54,7 @@ export class MathBingoComponent implements AfterViewInit {
         this.score = 0;
 
         // the equations that will be used in the game
-        var equations = this.equationsSecond.getEquations();
+        var equations = this.totEquations.slice();
         
         // set the text content of the squares
         for (var i = 0; i < this.squares.length; i++){
@@ -57,7 +69,6 @@ export class MathBingoComponent implements AfterViewInit {
                 this.renderer.setElementStyle(this.squares[i], 'background-color', 'greenyellow');
             }
             else {            
-
                 // pick a random solution, we don't want the game board to look the same across games
                 var randIndex = Math.floor(Math.random() * equations.length);
 
@@ -249,6 +260,10 @@ export class MathBingoComponent implements AfterViewInit {
 
         this.score = 0;
         this.setScore(0);
+
+        // stop the clock
+        clearInterval(this.clock);
+
         this.initGameboard();
     }
 }

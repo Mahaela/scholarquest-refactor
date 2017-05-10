@@ -15,7 +15,6 @@ const routes: Routes = [
 
 @NgModule({
 	imports: [
-		//BrowserAnimationsModule,
 		CommonModule,
 		MaterialModule,
 		FlexLayoutModule,
@@ -24,6 +23,6 @@ const routes: Routes = [
 	declarations: [
 		GamesListComponent
 	],
-    providers: [ ],
+    providers: [],
 })
 export default class GamesModule {}

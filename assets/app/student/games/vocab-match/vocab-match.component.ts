@@ -1,70 +1,72 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-// import { DragulaService, DragulaModule, dragula } from 'ng2-dragula/ng2-dragula';
-// import 'dragula/dist/dragula.css';
 
 import { StudentService } from '../../student.service';
-import { VocabMatchSecondService } from './vocabulary/vocab-match-second.service';
+import { VocabularyService } from './vocabulary/vocabulary.service';
 
 @Component({
   selector: 'sq-vocab-match',
   templateUrl: './vocab-match.component.html',
-  styleUrls: ['./vocab-match.component.css'],
-  providers: [VocabMatchSecondService]
+  styleUrls: ['./vocab-match.component.css']
 
 })
 export class VocabMatchComponent {
-    private vocabulary = new Array();
-    private numVocabProblems = 50;
-    private submitButtonDisplay = false;
-    private score = 0;
-    private scoreDisplay = false;
-    private correctIndexes = [];
-    @ViewChild('wordContainer') wordContainer: ElementRef;
 
+  private vocab = [];
+  private vocabWords = [];
+  private vocabDefs = [];
+  private vocabNum = 10;
 
-    // constructor(private vocabMatchSecondService: VocabMatchSecondService, private dragulaService: DragulaService, private studentService: StudentService, private router: Router) {
-    //     var tempArray = this.vocabMatchSecondService.getVocabulary();
-    //     this.numVocabProblems > tempArray.length ? this.numVocabProblems = tempArray.length : "";
+  constructor(private vocabularyService: VocabularyService) {
 
-    //      //put the vocab problems into a randomized arary
-    //     for (let i = 0; i < this.numVocabProblems; ++i) {
-    //         var index = Math.floor(tempArray.length * Math.random());
-    //         tempArray[index].push(i);
-    //         this.vocabulary.push(tempArray[index]);
-    //         tempArray.splice(index, 1);
-    //     }
+    if (this.vocabularyService.getVocabulary().length < 10){
 
+      // get the vocabulary that will be used
+      this.vocab = this.vocabularyService.getVocabulary();
 
-    //     dragulaService.drop.subscribe((value) => {
-    //         //if a div was dropped in one of the left side containers
-    //         if (value[2]["classList"]["value"].indexOf("dropContainer") > -1) {
-    //            //if the left side container has more than one definition in it
-    //             if (value[2]["childElementCount"] > 1) {
-    //                 //add the old definition in the dropcContainer to the right side list
-    //                 document.getElementById("definitionsDragContainer").appendChild(document.getElementById(value[2]["lastChild"]["id"]));  
-    //             }
-    //         }
-    //         document.getElementById('definitionsDragContainer').childElementCount > 0 ? this.submitButtonDisplay = false : this.submitButtonDisplay = true;
-    //     });        
-    // }
+      // randomize the vocabulary array
+      for(var  i = 0; i < this.vocab.length; i) {
+        var randIndex = Math.floor(Math.random() * this.vocab.length)
 
-    // submit() {
-    //     var correctIndexes = new Array();
-    //     this.submitButtonDisplay = false;
-    //     this.scoreDisplay = true;
-    //     //check for correct word-definition matches, update score
-    //     for (var i = 0; i < this.wordContainer.nativeElement.children.length; ++i){
-    //         if (this.vocabulary[i][1] == this.wordContainer.nativeElement.children[i].children[1].children[0].textContent.trim()) {
-    //             this.score += 15;
-    //             correctIndexes.push(i);
-    //         }  
-    //     }
-    //     this.studentService.setCoins(this.score);
-    //     this.correctIndexes = correctIndexes;
-    // }
+        this.vocabWords.push(this.vocab[randIndex].word)
+      }
+    }
+    else {
+      
+      // get the vocabulary for the game
+      var tempVocab = this.vocabularyService.getVocabulary();
 
-    // playAgain() {
-    //     this.router.navigate(['/games/vocabMatchReload']);
-    // }
+      for (var i = 0; i < this.vocabNum; i++){
+
+        // pick a random solution, we don't want the game board to look the same across games
+        var randIndex = Math.floor(Math.random() * tempVocab.length);
+
+        // remove the solution from the array, so the same solution doesn't show up more than once on the game board
+        // add the equation to the global equations array so we can use it later for the the problem
+        this.vocab.push(tempVocab.splice(randIndex, 1)[0]);
+        this.vocabWords.push(this.vocab[this.vocab.length -1].word);
+      }
+    }
+
+    for(var i = 0; i < this.vocab.length; i++){
+
+        // pick a random solution, we don't want the game board to look the same across games
+        var randIndex = Math.floor(Math.random() * this.vocab.length);
+
+        // remove the solution from the array, so the same solution doesn't show up more than once on the game board
+        // add the equation to the global equations array so we can use it later for the the problem
+        this.vocabDefs.push(this.vocab[randIndex].definition);
+    }
+  }
+
+dragover(event){
+  console.log("hi");
+  event.preventDefault();
+}
+
+ onDrop(ev){
+   console.log("hello");
+   ev.preventDefault();
+
+ }
 }

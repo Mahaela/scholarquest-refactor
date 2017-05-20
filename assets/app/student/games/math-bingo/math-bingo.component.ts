@@ -29,7 +29,7 @@ export class MathBingoComponent implements AfterViewInit {
     ngAfterViewInit() {
 
         // get all the equations for a given grade
-        this.totEquations = this.equationsSecond.getEquations();
+        this.totEquations = this.equationsSecond.getFirstGradeMathEquations();
 
        // get the table data cells 
         for(var i = 0; i < Object.keys(document.body.querySelectorAll('td')).length; ++i){
@@ -44,10 +44,44 @@ export class MathBingoComponent implements AfterViewInit {
      * change the equations when a new grade level is selected
      */ 
     changeGradeLevel(event){
-        this.totEquations = this.equationsSecond.getFirstGradeMathEquations();
+
+        switch(event) { 
+            case 2: { 
+                //statements;
+                this.totEquations = this.equationsSecond.getSecondGradeMathEquations(); 
+                break; 
+            }
+            case 3: { 
+                //statements; 
+                this.totEquations = this.equationsSecond.getThirdGradeMathEquations();
+                break; 
+            }
+            case 4: { 
+                //statements;
+                this.totEquations = this.equationsSecond.getFourthGradeMathEquations(); 
+                break; 
+            }
+            case 5: { 
+                //statements;
+                this.totEquations = this.equationsSecond.getFifthGradeMathEquations(); 
+                break; 
+            }
+            case 6: { 
+                //statements; 
+                this.totEquations = this.equationsSecond.getSixthGradeMathEquations();
+                break; 
+            } 
+            default: { 
+                //statements;
+                this.totEquations = this.equationsSecond.getFirstGradeMathEquations(); 
+                break; 
+            } 
+        }
+        // stop the clock
+        clearInterval(this.clock);
+        
         this.initGameboard();
     }
-
 
     initGameboard() {
         this.initClock();

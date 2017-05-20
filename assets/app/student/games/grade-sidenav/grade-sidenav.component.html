@@ -1,5 +1,5 @@
 <md-sidenav-container>
-  <md-sidenav #sidenav >
+  <md-sidenav #sidenav mode="push" >
      <md-card-title>
        <h3>Grades</h3>
        </md-card-title>
@@ -9,7 +9,7 @@
           </md-grid-tile>
       </md-grid-list>
   </md-sidenav>
-  <button md-fab style="margin-top: 25px;" (click)="sidenav.open()">
+  <button md-fab style="margin-top: 42px;" (click)="sidenav.open()">
       <md-icon>grade</md-icon>
    </button>
   <ng-content></ng-content>

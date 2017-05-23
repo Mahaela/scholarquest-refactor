@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, Renderer } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { StudentService } from '../../student.service';
@@ -10,21 +10,22 @@ import { VocabularyService } from './vocabulary/vocabulary.service';
   styleUrls: ['./vocab-match.component.css']
 
 })
-export class VocabMatchComponent {
+export class VocabMatchComponent{
 
   private vocab = [];
   private vocabWords = [];
   private vocabDefs = [];
   private vocabNum = 10;
+  private selectedWord: string;
 
-  constructor(private vocabularyService: VocabularyService) {
+  constructor(private vocabularyService: VocabularyService, private renderer: Renderer) {
 
     if (this.vocabularyService.getVocabulary().length < 10){
 
       // get the vocabulary that will be used
-      this.vocab = this.vocabularyService.getVocabulary();
+      var vocab = this.vocabularyService.getVocabulary();
 
-      // randomize the vocabulary array
+      // randomize the vocabulary words that will be displyed
       for(var  i = 0; i < this.vocab.length; i) {
         var randIndex = Math.floor(Math.random() * this.vocab.length)
 
@@ -59,14 +60,35 @@ export class VocabMatchComponent {
     }
   }
 
+/*
+ * 
+ */
 dragover(event){
-  console.log("hi");
   event.preventDefault();
 }
 
- onDrop(ev){
-   console.log("hello");
-   ev.preventDefault();
+/*
+ * called when the vocab word is dropped in the drop container 
+ */ 
+ onDrop(ev, row){
+   this.vocab.forEach(v => {
 
+     // if the vocab word matches the definition ...
+     if(v.word == this.selectedWord && v.definition == row){
+       // set the word in the drop container to be the vocab word
+      ev.target.textContent = this.selectedWord;
+
+      this.renderer.setElementStyle(ev.target, "border", "solid green");
+      for(var i = 0; i < this.vocabWords.length; i++) {
+        if(this.vocabWords[i] == v.word){
+          this.vocabWords.splice(i, 1);
+        }
+      }
+     }
+   })
+ }
+
+ dragStart(row){
+   this.selectedWord = row;
  }
 }

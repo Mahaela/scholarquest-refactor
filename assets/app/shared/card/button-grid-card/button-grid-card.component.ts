@@ -1,5 +1,7 @@
-import { Component, Input, Output, EventEmitter, ViewChild, AfterContentInit, AfterViewInit, Renderer, ElementRef, AfterContentChecked } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, AfterContentInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
 import { MdGridList } from '@angular/material';
+
+import { ButtonComponent } from '../button/button.component';
 
 import { ApiService } from '../../utils/api.service';
 
@@ -8,7 +10,7 @@ import { ApiService } from '../../utils/api.service';
   templateUrl: './button-grid-card.component.html',
   styleUrls: ['./button-grid-card.component.css']
 })
-export class ButtonGridCardComponent implements AfterContentInit, AfterContentChecked, AfterViewInit{
+export class ButtonGridCardComponent implements AfterContentInit, AfterViewInit{
   
     @Input('hoverColor') hoverColor: string = 'blue';
     @Input('selectedColor') selectedColor: string = 'green';
@@ -27,22 +29,18 @@ export class ButtonGridCardComponent implements AfterContentInit, AfterContentCh
     @ViewChild('miniList') miniList: MdGridList;
     @ViewChild('normList') normList: MdGridList;
 
-    normTiles: any[];
-    miniTiles: any[];
+    private normTiles: any[];
+    private miniTiles: any[]
 
     constructor(private apiService: ApiService, private renderer: Renderer){}
 
-    ngAfterViewInit(){
-      if(this.miniList) this.miniTiles = this.miniList._tiles.toArray();
-    }
-
-    ngAfterContentChecked(){
-      if(this.normList._tiles) this.normTiles = this.normList._tiles.toArray();
-    }
-
     /* 
      * get the initial data to set the selected button
-     */ 
+    ngAfterViewInit(){
+      this.normTiles = this.normList._tiles.toArray();
+      if(this.miniTiles) this.miniTiles = this.miniList._tiles.toArray();
+    }
+
     ngAfterContentInit(){
       if(this.initApi) this.apiService.post(this.initApi).subscribe(
         (data) => {
@@ -50,81 +48,53 @@ export class ButtonGridCardComponent implements AfterContentInit, AfterContentCh
       )
     }
 
+    setOptions(options: any){
+      this.options = options;
+    }
+
     /*
      * called when a button is clicked
      */  
     clicked(index: string){
        for(var i = 0; i < this.options.length; i++){
-        if (this.options[i].index == index) { 
-          this.normTiles[i]._setStyle('background-color', this.selectedColor);
-          this.normTiles[i].selected = true;
-        }
-        else{ 
-          this.normTiles[i]._setStyle('background-color', null);
-          this.normTiles[i].selected = null;
-        }
+        if (this.options[i].index == index) this.normTiles[i]._setStyle('background-color', this.selectedColor);
+        else this.normTiles[i]._setStyle('background-color', null);
       }
     
       this.buttonClicked.emit(index);
     }
 
-    /*
-     * mini button clicked
-     */
     miniClicked(index: string){
-      for(var i = 0; i < this.miniOptions.length; i++){
-        if (this.miniOptions[i].index == index) { 
-          this.miniTiles[i]._setStyle('background-color', this.selectedColor);
-          this.miniTiles[i].selected = true;
-        }
-        else{ 
-          this.miniTiles[i]._setStyle('background-color', null);
-          this.miniTiles[i].selected = null;
-        }
-      }
-
       this.miniButtonClicked.emit(index);
     }
 
-    /*
-     * mouse over button 
-     */
     onMouseOverTile(index: string){
       for(var i = 0; i < this.options.length; i++){
-        if (this.options[i].index == index && !this.normTiles[i].selected){
+        if (this.options[i].index == index){
           this.normTiles[i]._setStyle('background-color', this.hoverColor);
         }
       }
     }
 
-    /*
-     * mouse leve the button 
-     */
     onMouseLeaveTile(index: string){
       for(var i = 0; i < this.options.length; i++){
-        if (this.options[i].index == index && !this.normTiles[i].selected){
+        if (this.options[i].index == index){
           this.normTiles[i]._setStyle('background-color', null);
         }
       }
     }
 
-    /*
-     * mouse leve the button 
-     */
     onMouseOverMiniTile(index: string){
       for(var i = 0; i < this.miniOptions.length; i++){
-        if (this.miniOptions[i].index == index && !this.miniTiles[i].selected){
+        if (this.miniOptions[i].index == index){
           this.miniTiles[i]._setStyle('background-color', this.hoverColor);
         }
       }
     }
 
-    /*
-     * mouse leve the button 
-     */    
     onMouseLeaveMiniTile(index: string){
       for(var i = 0; i < this.miniOptions.length; i++){
-        if (this.miniOptions[i].index == index && !this.miniTiles[i].selected){
+        if (this.miniOptions[i].index == index){
           this.miniTiles[i]._setStyle('background-color', null);
         }
       }

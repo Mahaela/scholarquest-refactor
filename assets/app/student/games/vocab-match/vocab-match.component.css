@@ -36,3 +36,8 @@ h1 {
     font-size: 28px;
     margin-bottom: 20px;
 }
+
+.score {
+    float: right;
+    margin-bottom: 10px;
+}

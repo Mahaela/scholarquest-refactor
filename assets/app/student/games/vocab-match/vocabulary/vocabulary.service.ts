@@ -2,47 +2,108 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class VocabularyService {
-    private vocab1 = { word: 'add', definition: 'Join together to find the total or sum'};
-    private vocab2 = { word: 'addend', definition: 'Any numbers being added together, like 2+3+6'};
-    private vocab3 = { word: 'air', definition: 'Invisible, odorless and tasteless gases that surround the earth'};
-    private vocab4 = { word: 'cause', definition: 'Why something happens'};
-    private vocab5 = { word: 'American', definition: 'A citizen of the United States of America'};
-    private vocab6 = { word: 'audience', definition: 'A group that listens or watches'};
-    private vocab7 = { word: 'authority', definition: 'A person in charge'};
-    private vocab8 = { word: 'building', definition: 'A permanent structure, like a house, a church, or a store'};
-    private vocab9 = { word: 'celebration', definition: 'Activities for a special occasion'};
-    private vocab10 = { word: 'effect', definition: 'what happened'};
-    private vocab11 = { word: 'citizen', definition: 'A person who has rights and privileges'};
-    private vocab12 = { word: 'city', definition: 'A place where people live, larger than a town'};
-    private vocab13 = { word: 'cloud', definition: 'tiny bits of water that are visible above the earth'};
-    private vocab14 = { word: 'coach', definition: 'A person who helps you or your team'};
-    private vocab15 = { word: 'composer', definition: 'A person who writes music'};
-    private vocab16 = { word: 'Conductor', definition: 'A person who leads the band or chorus'};
-    private vocab17 = { word: 'consonant', definition: 'A letter other than a vowel'};
-    private vocab18 = { word: 'country', definition: 'A place where people live with the same government'};
-    private vocab19 = { word: 'desert', definition: 'A dry sandy place'};
-    private vocab20 = { word: 'dictionary', definition: 'A book giving the meanings of words in alphabetical order'};
-    private vocab21 = { word: 'difference', definition: 'The answer to a subtraction problem'};
-    private vocab22 = { word: 'doubles', definition: 'Two addends that are the same number, like 3+3, 6+6'};
-    private vocab23 = { word: 'earth', definition: 'The planet we live on'};
-    private vocab24 = { word: 'emergency', definition: 'Something unexpected calling for quick action'};
-    private vocab25 = { word: 'fact families', definition: 'Addition and subtraction sentences that use the same numbers'};
-    private vocab26 = { word: 'forest', definition: 'A growth of trees'};
-    private vocab27 = { word: 'globe', definition: 'A round model of the earth'};
-    private vocab28 = { word: 'GO', definition: 'A chart used to organize information'};
-    private vocab29 = { word: 'habitat', definition: 'A place where animals or plants live and grow'};
-    private vocab30 = { word: 'healthy', definition: 'Being free of illness or disease'};
 
-    private vocabulary = [this.vocab1, this.vocab2, this.vocab3, this.vocab4, this.vocab5,
-    this.vocab6, this.vocab7, this.vocab8, this.vocab9, this.vocab10,
-    this.vocab11, this.vocab12, this.vocab13, this.vocab14, this.vocab15,
-    this.vocab16, this.vocab17, this.vocab18, this.vocab19, this.vocab20,
-    this.vocab21, this.vocab22, this.vocab23, this.vocab24, this.vocab25,
-    this.vocab26, this.vocab27, this.vocab28, this.vocab29, this.vocab30];
+    getVocabularyFirst(): any[] {
+        return [ { word: 'add', definition: 'Join together to find the total or sum'},
+            { word: 'addend', definition: 'Any numbers being added together, like 2+3+6'},
+            { word: 'air', definition: 'Invisible, odorless and tasteless gases that surround the earth'},
+            { word: 'cause', definition: 'Why something happens'},
+            { word: 'American', definition: 'A citizen of the United States of America'},
+            { word: 'audience', definition: 'A group that listens or watches'},
+            { word: 'authority', definition: 'A person in charge'},
+            { word: 'building', definition: 'A permanent structure, like a house, a church, or a store'},
+            { word: 'celebration', definition: 'Activities for a special occasion'},
+            { word: 'effect', definition: 'what happened'},
+            { word: 'citizen', definition: 'A person who has rights and privileges'},
+            { word: 'city', definition: 'A place where people live, larger than a town'},
+            { word: 'cloud', definition: 'tiny bits of water that are visible above the earth'},
+            { word: 'coach', definition: 'A person who helps you or your team'},
+            { word: 'composer', definition: 'A person who writes music'},
+            { word: 'Conductor', definition: 'A person who leads the band or chorus'},
+            { word: 'consonant', definition: 'A letter other than a vowel'},
+            { word: 'country', definition: 'A place where people live with the same government'},
+            { word: 'desert', definition: 'A dry sandy place'},
+            { word: 'dictionary', definition: 'A book giving the meanings of words in alphabetical order'},
+            { word: 'difference', definition: 'The answer to a subtraction problem'},
+            { word: 'doubles', definition: 'Two addends that are the same number, like 3+3, 6+6'},
+            { word: 'earth', definition: 'The planet we live on'},
+            { word: 'emergency', definition: 'Something unexpected calling for quick action'},
+            { word: 'fact families', definition: 'Addition and subtraction sentences that use the same numbers'},
+            { word: 'forest', definition: 'A growth of trees'},
+            { word: 'globe', definition: 'A round model of the earth'},
+            { word: 'GO', definition: 'A chart used to organize information'},
+            { word: 'habitat', definition: 'A place where animals or plants live and grow'},
+            { word: 'healthy', definition: 'Being free of illness or disease'}
+        ]
+    }
 
-    constructor() { }
+    getVocabularySecond(): any[] {
+        return [ { word: 'annoy', definition: 'To make someone a little angry'},
+            { word: 'compfortable', definition: 'providing physical ease and relaxation'},
+            { word: 'directions', definition: 'the path along which something moves, lies, or points'},
+            { word: 'ignore', definition: 'refuse to take notice of or acknowledge'},
+            { word: 'mumble', definition: 'say something indistinctly and quietly'},
+            { word: 'precious', definition: 'of great value; not to be wasted or treated carelessly'},
+            { word: 'protect', definition: 'keep safe from harm or injury'},
+            { word: 'searching', definition: 'thoroughly scrutinizing, especially in a disconcerting way'},
+            { word: 'squirm', definition: 'wriggle or twist the body from side to side, especially as a result of nervousness or discomfort'},
+            { word: 'wonder', definition: 'a feeling of surprise mingled with admiration'}
+         ]
+    }
 
-    getVocabulary(): any[] {
-        return this.vocabulary;
+    getVocabularyThird(): any[] {
+        return [ { word: 'annoy', definition: 'To make someone a little angry'},
+            { word: 'compfortable', definition: 'providing physical ease and relaxation'},
+            { word: 'directions', definition: 'the path along which something moves, lies, or points'},
+            { word: 'ignore', definition: 'refuse to take notice of or acknowledge'},
+            { word: 'mumble', definition: 'say something indistinctly and quietly'},
+            { word: 'precious', definition: 'of great value; not to be wasted or treated carelessly'},
+            { word: 'protect', definition: 'keep safe from harm or injury'},
+            { word: 'searching', definition: 'thoroughly scrutinizing, especially in a disconcerting way'},
+            { word: 'squirm', definition: 'wriggle or twist the body from side to side, especially as a result of nervousness or discomfort'},
+            { word: 'wonder', definition: 'a feeling of surprise mingled with admiration'}
+         ]
+    }
+
+    getVocabularyFourth(): any[] {
+        return [ { word: 'blossom', definition: 'a flower or a mass of flowers on a tree or bush'},
+            { word: 'demonstrate', definition: 'clearly show the existence or truth of (something) by giving proof or evidence'},
+            { word: 'fragile', definition: 'flimsy or insubstantial; easily destroyed'},
+            { word: 'generosity', definition: 'the quality of being kind and generous'},
+            { word: 'jagged', definition: 'having rough, sharp points protruding'},
+            { word: 'modest', definition: "unassuming or moderate in the estimation of one's abilities or achievements"},
+            { word: 'queasy', definition: 'nauseated; feeling sick'},
+            { word: 'routine', definition: 'a sequence of actions regularly followed'},
+            { word: 'vacant', definition: 'not filled'},
+            { word: 'weary', definition: 'feeling or showing tiredness, especially as a result of excessive exertion or lack of sleep'}
+         ]
+    }
+
+    getVocabularyFifth(): any[] {
+        return [ { word: 'blizzard', definition: 'a severe snowstorm with high winds and low visibility'},
+            { word: 'challenge', definition: 'a call to take part in a contest or competition, especially a duel'},
+            { word: 'gorge', definition: 'eat a large amount greedily; fill oneself with food'},
+            { word: 'hearty', definition: 'wholesome and substantials'},
+            { word: 'intercept', definition: 'obstruct (someone or something) so as to prevent them from continuing to a destination'},
+            { word: 'minor', definition: "lesser in importance, seriousness, or significance"},
+            { word: 'occasion', definition: 'a particular time or instance of an event'},
+            { word: 'prefix', definition: 'a word, letter, or number placed before another'},
+            { word: 'spurt', definition: 'a sudden gushing stream'},
+            { word: 'vivid', definition: 'producing powerful feelings or strong, clear images in the mind'}
+         ]
+    }
+
+    getVocabularySixth(): any[] {
+        return [ { word: 'awe', definition: 'a feeling of reverential respect mixed with fear or wonder'},
+            { word: 'blunder', definition: 'a stupid or careless mistake'},
+            { word: 'economy', definition: 'the wealth and resources of a country or region'},
+            { word: 'fuse', definition: 'join or blend to form a single entity'},
+            { word: 'genre', definition: 'a category of artistic composition'},
+            { word: 'ingenious', definition: "clever, original, and inventive"},
+            { word: 'liberate', definition: 'set (someone) free from a situation'},
+            { word: 'onset', definition: 'the beginning of something, especially something unpleasant'},
+            { word: 'remorse', definition: 'deep regret or guilt for a wrong committed'},
+            { word: 'terrain', definition: 'a stretch of land, especially with regard to its physical features'}
+         ]
     }
 }

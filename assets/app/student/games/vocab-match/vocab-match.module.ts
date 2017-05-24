@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { VocabMatchComponent } from './vocab-match.component';
 import { VocabularyService } from './vocabulary/vocabulary.service';
+import { GradeSidenavModule } from '../grade-sidenav/grade-sidenav.module';
 
 const routes: Routes = [
 	{ path: '', component: VocabMatchComponent },
@@ -14,11 +15,11 @@ const routes: Routes = [
 
 @NgModule({
 	imports: [
-		//BrowserAnimationsModule,
 		CommonModule,
 		MaterialModule,
 		FlexLayoutModule,
 		RouterModule.forChild(routes),
+		GradeSidenavModule
 	],
 	declarations: [
 		VocabMatchComponent,

@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { GamesListComponent } from './games-list/games-list.component';
 
+
 const routes: Routes = [
 	{ path: '', component: GamesListComponent },
 	{ path: 'games', component: GamesListComponent },
@@ -22,7 +23,6 @@ const routes: Routes = [
 	],
 	declarations: [
 		GamesListComponent
-	],
-    providers: [],
+	]
 })
 export default class GamesModule {}

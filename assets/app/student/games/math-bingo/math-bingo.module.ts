@@ -7,6 +7,7 @@ import { MaterialModule } from '@angular/material';
 import { MathBingoComponent } from './math-bingo.component';
 import { MathBingoEquationsSecondService } from './equations/math-bingo-equations-second.service';
 import { GradeSidenavModule } from '../grade-sidenav/grade-sidenav.module';
+import { WinDialogModule } from '../win-dialog/win-dialog.module';
 
 const routes: Routes = [
 	{ path: '', component: MathBingoComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
 		FlexLayoutModule,
 		GradeSidenavModule,
 		RouterModule.forChild(routes),
+		WinDialogModule
 	],
 	declarations: [
 		MathBingoComponent

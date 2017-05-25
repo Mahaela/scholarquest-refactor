@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { StudentService } from '../../student.service';
 import { VocabularyService } from './vocabulary/vocabulary.service';
+import { WinDialogComponent } from '../win-dialog/win-dialog.component';
 
 @Component({
   selector: 'sq-vocab-match',
@@ -13,6 +14,7 @@ import { VocabularyService } from './vocabulary/vocabulary.service';
 export class VocabMatchComponent{
 
   private vocab = [];
+  private vocabFullList = [];
   private vocabWords = [];
   private vocabDefs = [];
   private vocabNum = 10;
@@ -20,16 +22,19 @@ export class VocabMatchComponent{
   private score = 0;
 
   @ViewChild('score') scoreTxt: ElementRef;
+  @ViewChild('winDialog') winDialog: WinDialogComponent;
+
 
   constructor(private vocabularyService: VocabularyService, private renderer: Renderer) {
 
     // get the vocabulary that will be used
-    this.vocab = this.vocabularyService.getVocabularyFirst();
+    this.vocabFullList = this.vocabularyService.getVocabularyFirst();
     this.initGameBoard();
   }
   
   initGameBoard(){
-    if (this.vocab.length< 10){
+    if (this.vocabFullList.length< 10){
+      this.vocab = this.vocabFullList;
 
       // randomize the vocabulary words that will be displyed
       for(var  i = 0; i < this.vocab.length; i) {
@@ -40,7 +45,7 @@ export class VocabMatchComponent{
     }
     else {
       // get the vocabulary for the game
-      var tempVocab = this.vocab.slice();
+      var tempVocab = this.vocabFullList.slice();
       this.vocab = [];
 
       for (var i = 0; i < this.vocabNum; i++){
@@ -93,7 +98,8 @@ dragover(event){
           this.scoreTxt.nativeElement.textContent ="Score: " + this.score;
 
           if(this.vocabWords.length == 0){
-            console.log("win");
+            // open the dialog that will prompt the user to play again
+                 this.winDialog.openDialog();
           }    
         }
       }
@@ -139,10 +145,16 @@ dragover(event){
             break; 
         } 
     }
+    this.reload();
+ }
+
+ reload(){
     this.vocabWords = [];
     this.vocabDefs = [];
     this.score = 0;
     this.scoreTxt.nativeElement.textContent ="Score: " + this.score;
     this.initGameBoard();
  }
+
+ 
 }

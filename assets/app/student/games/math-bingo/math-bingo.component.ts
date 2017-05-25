@@ -1,6 +1,6 @@
-import { Component, AfterViewInit, Renderer } from '@angular/core';
+import { Component, AfterViewInit, Renderer, ViewChild } from '@angular/core';
 import { MathBingoEquationsSecondService } from './equations/math-bingo-equations-second.service';
-import { StudentService } from '../../student.service';
+import { WinDialogComponent } from '../win-dialog/win-dialog.component';
 
 @Component({
     selector: 'sq-math-bingo',
@@ -9,6 +9,8 @@ import { StudentService } from '../../student.service';
     providers: [MathBingoEquationsSecondService]
 })
 export class MathBingoComponent implements AfterViewInit {
+
+    @ViewChild('winDialog') winDialog: WinDialogComponent;
 
     private squares = [];
     private equations = [];
@@ -138,7 +140,7 @@ export class MathBingoComponent implements AfterViewInit {
                 this.setProblem();
 
                 // reset the clock
-                this.timeLeft = this.secondsPerProblem
+                this.timeLeft = this.secondsPerProblem;
             }
         }, 1000);
     }
@@ -186,6 +188,9 @@ export class MathBingoComponent implements AfterViewInit {
             if(this.checkVerticalWin() || this.checkHorizontalWin() || this.checkBackwardDiagonalWin() || this.checkForwardDiagonalWin()){
                 this.timeLeft = 0;
                 this.currEquation.problem = "";
+
+                // open the dialog that will prompt the user to play again
+                 this.winDialog.openDialog();
             }
 
             else {

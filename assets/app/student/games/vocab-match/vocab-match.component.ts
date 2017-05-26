@@ -27,52 +27,47 @@ export class VocabMatchComponent{
 
   constructor(private vocabularyService: VocabularyService, private renderer: Renderer) {
 
-    // get the vocabulary that will be used
+    // get the vocabulary that will be use (the first grade vocabulary)
     this.vocabFullList = this.vocabularyService.getVocabularyFirst();
     this.initGameBoard();
   }
   
   initGameBoard(){
-    if (this.vocabFullList.length< 10){
+
+    // we want the displayed vocabulary to be under a cetain size so its easier to move in
+    if (this.vocabFullList.length< this.vocabNum){
       this.vocab = this.vocabFullList;
 
       // randomize the vocabulary words that will be displyed
       for(var  i = 0; i < this.vocab.length; i) {
         var randIndex = Math.floor(Math.random() * this.vocab.length)
-
         this.vocabWords.push(this.vocab[randIndex].word)
       }
     }
     else {
+
       // get the vocabulary for the game
       var tempVocab = this.vocabFullList.slice();
       this.vocab = [];
 
+      // randomize the vocabulary words that will be displyed
       for (var i = 0; i < this.vocabNum; i++){
-
-        // pick a random solution, we don't want the game board to look the same across games
         var randIndex = Math.floor(Math.random() * tempVocab.length);
-
-        // remove the solution from the array, so the same solution doesn't show up more than once on the game board
-        // add the equation to the global equations array so we can use it later for the the problem
         this.vocab.push(tempVocab.splice(randIndex, 1)[0]);
         this.vocabWords.push(this.vocab[this.vocab.length -1].word);
       }
     }
+
+    // randomize the vocab definitions that will be displayed
     var tempVocab = this.vocab.slice();
     for(var i = 0; i < this.vocab.length; i++){
-
-        // pick a random solution, we don't want the game board to look the same across games
         var randIndex = Math.floor(Math.random() * tempVocab.length);
-
-        // remove the solution from the array, so the same solution doesn't show up more than once on the game board
-        // add the equation to the global equations array so we can use it later for the the problem
         this.vocabDefs.push(tempVocab.splice(randIndex, 1)[0].definition);
       }
     }
 
 /*
- * 
+ * allow drag and drop
  */
 dragover(event){
   event.preventDefault();
@@ -86,19 +81,24 @@ dragover(event){
 
      // if the vocab word matches the definition ...
      if(v.word == this.selectedWord && v.definition == row){
+
        // set the word in the drop container to be the vocab word
       ev.target.textContent = this.selectedWord;
 
+      // change the border to solid green 
       this.renderer.setElementStyle(ev.target, "border", "solid green");
+     
+     // remove the vocab word fromm the list so can't be used again
       for(var i = 0; i < this.vocabWords.length; i++) {
         if(this.vocabWords[i] == v.word){
           this.vocabWords.splice(i, 1);
 
+          // add to the score
           this.score += 10;
           this.scoreTxt.nativeElement.textContent ="Score: " + this.score;
 
+          // if the game is over, open the dialog that will prompt the user to play again
           if(this.vocabWords.length == 0){
-            // open the dialog that will prompt the user to play again
                  this.winDialog.openDialog();
           }    
         }
@@ -107,54 +107,57 @@ dragover(event){
    })
  }
 
+/*
+ * get the word that is being dragged 
+ */
  dragStart(row){
    this.selectedWord = row;
  }
 
+/*
+ * change the vocabulary when a new word is selected
+ */
  changeGradeLevel(event){
   
     switch(event) { 
         case 2: { 
-            //statements;
-            this.vocab = this.vocabularyService.getVocabularySecond(); 
+            this.vocabFullList = this.vocabularyService.getVocabularySecond(); 
             break; 
         }
         case 3: { 
-            //statements;
-            this.vocab = this.vocabularyService.getVocabularyThird();
+            this.vocabFullList  = this.vocabularyService.getVocabularyThird();
+            console.log(this.vocab);
             break; 
         }
         case 4: { 
-            //statements;
-            this.vocab = this.vocabularyService.getVocabularyFourth(); 
+            this.vocabFullList  = this.vocabularyService.getVocabularyFourth(); 
             break; 
         }
         case 5: { 
-            //statements;
-            this.vocab = this.vocabularyService.getVocabularyFifth(); 
+            this.vocabFullList  = this.vocabularyService.getVocabularyFifth(); 
             break; 
         }
         case 6: { 
-            //statements; 
-            this.vocab = this.vocabularyService.getVocabularySixth();
+            this.vocabFullList  = this.vocabularyService.getVocabularySixth();
             break; 
         } 
         default: { 
-            //statements;
-            this.vocab = this.vocabularyService.getVocabularyFirst();
+            this.vocabFullList  = this.vocabularyService.getVocabularyFirst();
             break; 
         } 
     }
     this.reload();
  }
 
+/*
+ * start a new game
+ */
  reload(){
+   this.vocab = [];
     this.vocabWords = [];
     this.vocabDefs = [];
     this.score = 0;
     this.scoreTxt.nativeElement.textContent ="Score: " + this.score;
     this.initGameBoard();
  }
-
- 
 }

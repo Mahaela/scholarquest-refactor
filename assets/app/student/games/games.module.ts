@@ -13,7 +13,8 @@ const routes: Routes = [
 	{ path: 'games', component: GamesListComponent },
 	{ path: 'math-bingo', loadChildren: './math-bingo/math-bingo.module.ts' },
 	{ path: 'vocab-match', loadChildren: './vocab-match/vocab-match.module.ts' },
-	{ path: 'typing', loadChildren: './typing/typing.module' }
+	{ path: 'typing', loadChildren: './typing/typing.module' },
+	{ path: 'math-clouds', loadChildren: './math-clouds/math-clouds.module' }
 ];
 
 @NgModule({

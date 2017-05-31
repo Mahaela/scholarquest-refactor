@@ -1,0 +1,13 @@
+.frame {
+    width: 600px;
+    height: 800px;
+    border: solid black;
+    margin: auto;
+}
+
+.cloud {
+    height: 75px;
+    width: 200px;
+    background-color: red;
+    border: solid black;
+}

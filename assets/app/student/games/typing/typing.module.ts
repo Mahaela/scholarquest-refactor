@@ -10,7 +10,7 @@ import { EndGameDialogModule } from '../end-game-dialog/end-game-dialog.module';
 
 const routes: Routes = [
 	{ path: '', component: TypingComponent },
-	{ path: 'vocab-match', component: TypingComponent }
+	{ path: 'typing', component: TypingComponent }
 ];
 
 @NgModule({

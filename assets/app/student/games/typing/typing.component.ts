@@ -65,7 +65,8 @@ export class TypingComponent implements AfterViewInit{
       // remove the letter that was just pressed
       this.displayedWord = this.displayedWord.substring(1, this.displayedWord.length);
     }
-    else {
+    // add a strike
+    else if(this.strikes < 10) {
       this.addStrike()
     }
     // if every letter of every word has been typed, display win dialog prompting user to play again
@@ -81,7 +82,6 @@ export class TypingComponent implements AfterViewInit{
       // change the strike color to red
       this.renderer.setElementStyle(this.strikeIcons[this.strikes], 'color', 'red');
       this.strikes++;
-
       // if the player has lost, open a dialog prompting the user to play again
       if(this.strikes == this.strikeIcons.length){
         this.endGameDialog.openLoseDialog();

@@ -4,14 +4,13 @@ import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
 
-import { VocabMatchComponent } from './vocab-match.component';
-import { VocabularyService } from './vocabulary/vocabulary.service';
+import { TypingComponent } from './typing.component';
 import { GradeSidenavModule } from '../grade-sidenav/grade-sidenav.module';
-import { WinDialogModule } from '../win-dialog/win-dialog.module';
+import { EndGameDialogModule } from '../end-game-dialog/end-game-dialog.module';
 
 const routes: Routes = [
-	{ path: '', component: VocabMatchComponent },
-	{ path: 'vocab-match', component: VocabMatchComponent }
+	{ path: '', component: TypingComponent },
+	{ path: 'vocab-match', component: TypingComponent }
 ];
 
 @NgModule({
@@ -21,11 +20,10 @@ const routes: Routes = [
 		FlexLayoutModule,
 		RouterModule.forChild(routes),
 		GradeSidenavModule,
-		WinDialogModule
+		EndGameDialogModule
 	],
 	declarations: [
-		VocabMatchComponent,
-	],
-    providers: [ VocabularyService ]
+		TypingComponent
+	]
 })
-export default class MathBingoModule {}
+export default class TypingModule {}

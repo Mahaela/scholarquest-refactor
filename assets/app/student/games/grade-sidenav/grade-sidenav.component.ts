@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MdGridList } from '@angular/material';
 
 @Component({
@@ -7,7 +7,9 @@ import { MdGridList } from '@angular/material';
   styleUrls: ['./grade-sidenav.component.css']
 })
 
-export class GradeSidenavComponent {
+export class GradeSidenavComponent implements AfterViewInit {
+
+  @ViewChild('sidenav') sidenav;
 
   @Output() buttonClicked = new EventEmitter<string>();
 
@@ -20,7 +22,13 @@ export class GradeSidenavComponent {
     {img: require('../../../assets/clip-art/grades/sixth-grade.jpg'), index: 6}
   ]
 
+  ngAfterViewInit(){
+  }
+
   clicked(index){
+    // tell the parent element what grade was selected
     this.buttonClicked.emit(index);
+    // close the sidenav
+    this.sidenav.close();
   }
 }

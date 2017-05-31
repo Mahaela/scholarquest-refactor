@@ -2,8 +2,8 @@ import { Component, ElementRef, ViewChild, Renderer } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { StudentService } from '../../student.service';
-import { VocabularyService } from './vocabulary/vocabulary.service';
-import { WinDialogComponent } from '../win-dialog/win-dialog.component';
+import { VocabularyService } from '../vocabulary/vocabulary.service';
+import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
 
 @Component({
   selector: 'sq-vocab-match',
@@ -22,8 +22,7 @@ export class VocabMatchComponent{
   private score = 0;
 
   @ViewChild('score') scoreTxt: ElementRef;
-  @ViewChild('winDialog') winDialog: WinDialogComponent;
-
+  @ViewChild('winDialog') winDialog: EndGameDialogComponent;
 
   constructor(private vocabularyService: VocabularyService, private renderer: Renderer) {
 
@@ -99,7 +98,7 @@ dragover(event){
 
           // if the game is over, open the dialog that will prompt the user to play again
           if(this.vocabWords.length == 0){
-                 this.winDialog.openDialog();
+                 this.winDialog.openWinDialog();
           }    
         }
       }

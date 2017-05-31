@@ -5,13 +5,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
 
 import { GamesListComponent } from './games-list/games-list.component';
+import { VocabularyService } from './vocabulary/vocabulary.service';
 
 
 const routes: Routes = [
 	{ path: '', component: GamesListComponent },
 	{ path: 'games', component: GamesListComponent },
 	{ path: 'math-bingo', loadChildren: './math-bingo/math-bingo.module.ts' },
-	{ path: 'vocab-match', loadChildren: './vocab-match/vocab-match.module.ts' }
+	{ path: 'vocab-match', loadChildren: './vocab-match/vocab-match.module.ts' },
+	{ path: 'typing', loadChildren: './typing/typing.module' }
 ];
 
 @NgModule({
@@ -23,6 +25,8 @@ const routes: Routes = [
 	],
 	declarations: [
 		GamesListComponent
-	]
+	],
+	providers: [ VocabularyService ]
+
 })
 export default class GamesModule {}

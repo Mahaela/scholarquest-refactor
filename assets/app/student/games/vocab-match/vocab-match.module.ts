@@ -5,9 +5,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
 
 import { VocabMatchComponent } from './vocab-match.component';
-import { VocabularyService } from './vocabulary/vocabulary.service';
 import { GradeSidenavModule } from '../grade-sidenav/grade-sidenav.module';
-import { WinDialogModule } from '../win-dialog/win-dialog.module';
+import { EndGameDialogModule } from '../end-game-dialog/end-game-dialog.module';
 
 const routes: Routes = [
 	{ path: '', component: VocabMatchComponent },
@@ -21,11 +20,10 @@ const routes: Routes = [
 		FlexLayoutModule,
 		RouterModule.forChild(routes),
 		GradeSidenavModule,
-		WinDialogModule
+		EndGameDialogModule
 	],
 	declarations: [
 		VocabMatchComponent,
-	],
-    providers: [ VocabularyService ]
+	]
 })
 export default class MathBingoModule {}

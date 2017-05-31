@@ -1,8 +1,5 @@
-import { Component, Input, Output, EventEmitter, ViewChild, AfterContentInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, Renderer, ElementRef } from '@angular/core';
 import { MdGridList } from '@angular/material';
-
-import { ButtonComponent } from '../button/button.component';
-
 import { ApiService } from '../../utils/api.service';
 
 @Component({
@@ -10,7 +7,7 @@ import { ApiService } from '../../utils/api.service';
   templateUrl: './button-grid-card.component.html',
   styleUrls: ['./button-grid-card.component.css']
 })
-export class ButtonGridCardComponent implements AfterContentInit, AfterViewInit{
+export class ButtonGridCardComponent{
   
     @Input('hoverColor') hoverColor: string = 'blue';
     @Input('selectedColor') selectedColor: string = 'green';
@@ -33,24 +30,6 @@ export class ButtonGridCardComponent implements AfterContentInit, AfterViewInit{
     private miniTiles: any[]
 
     constructor(private apiService: ApiService, private renderer: Renderer){}
-
-    /* 
-     * get the initial data to set the selected button
-    ngAfterViewInit(){
-      this.normTiles = this.normList._tiles.toArray();
-      if(this.miniTiles) this.miniTiles = this.miniList._tiles.toArray();
-    }
-
-    ngAfterContentInit(){
-      if(this.initApi) this.apiService.post(this.initApi).subscribe(
-        (data) => {
-        }
-      )
-    }
-
-    setOptions(options: any){
-      this.options = options;
-    }
 
     /*
      * called when a button is clicked

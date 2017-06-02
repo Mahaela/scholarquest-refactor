@@ -1,31 +1,47 @@
 import { Component, ElementRef, ViewChild, Renderer, trigger } from '@angular/core';
 
 import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
+import { MathProblemsService } from '../math-problems/math-problems.service';
 
 @Component({
   selector: 'sq-math-clouds',
   templateUrl: './math-clouds.component.html',
   styleUrls: ['./math-clouds.component.css'],
-  animations: [
-    trigger()
-  ]
+
 })
 export class MathCloudsComponent {
   
-  private vocabularyFull = [];
-  private vocabulary = [];
-  private displayedWord: string;
-  private vocabularyQueue = [];
+  private mathProblemsFull = [];
+  private mathProblems = [];
+  private displayedMathProblem: any;
   private score = 0;
   private strikes = 0;
   private scoreText ="Score : 0"
-  private strikeIcons = []
+  private displayedProblems = [];
 
-  @ViewChild('cloud1') cloud1: ElementRef;
-  @ViewChild('cloud2') cloud2: ElementRef;
-  @ViewChild('cloud3') cloud3: ElementRef;
 
-  constructor( private renderer: Renderer ){}
+  constructor( private renderer: Renderer, private mathProblemsService: MathProblemsService ){
+    
+    this.mathProblemsFull = this.mathProblemsService.getFirstGradeMathEquations();
+    this.mathProblems = this.mathProblemsService.getFirstGradeMathEquations();
+
+    this.displayedMathProblem = this.mathProblems.splice(Math.floor(Math.random() * this.mathProblems.length), 1)[0];
+    this.getProblems();
+    
+  }
+
+  getProblems(){
+    console.log(this.mathProblemsFull.indexOf(this.displayedMathProblem));
+    var tempMathProblems = this.mathProblemsFull.slice();
+    for (let i = 0; i < tempMathProblems.length; i++){
+      if(tempMathProblems[i].solution == this.displayedMathProblem.solution){
+        this.displayedProblems.push(tempMathProblems.splice(i,1)[0].problems[Math.floor(Math.random() * tempMathProblems[i].problems.length)]);
+      }
+    }
+    console.log(this.displayedProblems);
+    // this.displayedProblems.push(tempMathProblems.splice(Math.floor(Math.random() * this.mathProblems.length),1))[0];
+    // this.displayedProblems.push(tempMathProblems.splice(Math.floor(Math.random() * this.mathProblems.length),1))[0];
+}
 
   
 /*
@@ -84,4 +100,5 @@ export class MathCloudsComponent {
   //     console.log(this.strikeIcons);
   //     this.strikeIcons.forEach(icon => this.renderer.setElementStyle(icon, 'color', null))
   // }
+}
 }

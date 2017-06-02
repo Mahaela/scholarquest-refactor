@@ -1,12 +1,11 @@
 import { Component, AfterViewInit, Renderer, ViewChild } from '@angular/core';
-import { MathBingoEquationsSecondService } from './equations/math-bingo-equations-second.service';
+import { MathProblemsService } from '../math-problems/math-problems.service';
 import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
 
 @Component({
     selector: 'sq-math-bingo',
     templateUrl: './math-bingo.component.html',
     styleUrls: ['./math-bingo.component.css'],
-    providers: [MathBingoEquationsSecondService]
 })
 export class MathBingoComponent implements AfterViewInit {
 
@@ -26,12 +25,12 @@ export class MathBingoComponent implements AfterViewInit {
     private numRows = Array(5);
     private numCols = Array(5);
 
-    constructor(private equationsSecond: MathBingoEquationsSecondService, private renderer: Renderer) {}
+    constructor(private mathProblemsService: MathProblemsService, private renderer: Renderer) {}
 
     ngAfterViewInit() {
 
         // get all the equations for a given grade
-        this.totEquations = this.equationsSecond.getFirstGradeMathEquations();
+        this.totEquations = this.mathProblemsService.getFirstGradeMathEquations();
 
        // get the table data cells 
         for(var i = 0; i < Object.keys(document.body.querySelectorAll('td')).length; ++i){
@@ -50,32 +49,32 @@ export class MathBingoComponent implements AfterViewInit {
         switch(event) { 
             case 2: { 
                 //statements;
-                this.totEquations = this.equationsSecond.getSecondGradeMathEquations(); 
+                this.totEquations = this.mathProblemsService.getSecondGradeMathEquations(); 
                 break; 
             }
             case 3: { 
                 //statements; 
-                this.totEquations = this.equationsSecond.getThirdGradeMathEquations();
+                this.totEquations = this.mathProblemsService.getThirdGradeMathEquations();
                 break; 
             }
             case 4: { 
                 //statements;
-                this.totEquations = this.equationsSecond.getFourthGradeMathEquations(); 
+                this.totEquations = this.mathProblemsService.getFourthGradeMathEquations(); 
                 break; 
             }
             case 5: { 
                 //statements;
-                this.totEquations = this.equationsSecond.getFifthGradeMathEquations(); 
+                this.totEquations = this.mathProblemsService.getFifthGradeMathEquations(); 
                 break; 
             }
             case 6: { 
                 //statements; 
-                this.totEquations = this.equationsSecond.getSixthGradeMathEquations();
+                this.totEquations = this.mathProblemsService.getSixthGradeMathEquations();
                 break; 
             } 
             default: { 
                 //statements;
-                this.totEquations = this.equationsSecond.getFirstGradeMathEquations(); 
+                this.totEquations = this.mathProblemsService.getFirstGradeMathEquations(); 
                 break; 
             } 
         }

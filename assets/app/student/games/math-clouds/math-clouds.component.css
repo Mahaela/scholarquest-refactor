@@ -1,13 +1,35 @@
 .frame {
-    width: 600px;
-    height: 800px;
+    width: 800px;
+    height: 600px;
     border: solid black;
     margin: auto;
 }
 
-.cloud {
+.pipe {
+    height: 125px;
+    width: 200px;
+    border: solid black;
+}
+
+.box {
     height: 75px;
     width: 200px;
-    background-color: red;
     border: solid black;
+}
+
+.box-container {
+
+}
+
+.solution {
+    border: solid black;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    text-align: center;
+    align-items: center;
+}
+
+.solution-text {
+    margin-top: 40px;
 }

@@ -1,0 +1,28 @@
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class ArrayService {
+    
+    constructor() {
+    }
+
+    /*
+     * shuffle an array
+     */ 
+    shuffle(array: any[]) {
+        for (let i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+        return array;
+    }
+
+    /*
+     * select a random element from an array
+     */ 
+    selectRandom(array: any[]) {
+        return array[Math.floor(Math.random() * array.length)];
+    }
+}

@@ -1,5 +1,7 @@
-import { Component, ElementRef, ViewChild, Renderer, trigger } from '@angular/core';
+import { Component, ElementRef, ViewChild, Renderer } from '@angular/core';
+import { trigger, style, state, transition, animate, keyframes, group} from '@angular/animations';
 
+import { ArrayService } from '../../../shared/utils/array.service';
 import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
 import { MathProblemsService } from '../math-problems/math-problems.service';
 
@@ -7,42 +9,75 @@ import { MathProblemsService } from '../math-problems/math-problems.service';
   selector: 'sq-math-clouds',
   templateUrl: './math-clouds.component.html',
   styleUrls: ['./math-clouds.component.css'],
-
+ animations: [
+    trigger('move', [
+     state('void', style({ })),
+      state('normal', style({
+        transform: 'translateX(0px)'
+      })),
+      state('moving', style({
+        transform: 'translateX(700px)'
+      })),
+      transition('void => moving', animate(40000)),      
+      transition('moving <=> normal', animate(1)),
+    ]),
+  ]
 })
 export class MathCloudsComponent {
   
+  state ='moving';
   private mathProblemsFull = [];
-  private mathProblems = [];
-  private displayedMathProblem: any;
+  private mathProblemsRemaining = [];
+  private displayedMathSolution: any;
   private score = 0;
   private strikes = 0;
   private scoreText ="Score : 0"
   private displayedProblems = [];
 
-
-  constructor( private renderer: Renderer, private mathProblemsService: MathProblemsService ){
+  constructor( private renderer: Renderer, private mathProblemsService: MathProblemsService, private arrayService: ArrayService ){
     
     this.mathProblemsFull = this.mathProblemsService.getFirstGradeMathEquations();
-    this.mathProblems = this.mathProblemsService.getFirstGradeMathEquations();
-
-    this.displayedMathProblem = this.mathProblems.splice(Math.floor(Math.random() * this.mathProblems.length), 1)[0];
-    this.getProblems();
-    
+    this.mathProblemsRemaining = this.mathProblemsService.getFirstGradeMathEquations(); 
+    this.getProblems();  
   }
 
   getProblems(){
-    console.log(this.mathProblemsFull.indexOf(this.displayedMathProblem));
+
+    // get the solution that will be displayed
+    this.displayedMathSolution = this.mathProblemsRemaining.splice(Math.floor(Math.random() * this.mathProblemsRemaining.length), 1)[0];    
+    this.displayedProblems.push(this.arrayService.selectRandom(this.displayedMathSolution.problems));
+  
+    // find and remove the solution from the tempMathProblems array so that it doesnt repeat in the displayedProblems
     var tempMathProblems = this.mathProblemsFull.slice();
-    for (let i = 0; i < tempMathProblems.length; i++){
-      if(tempMathProblems[i].solution == this.displayedMathProblem.solution){
-        this.displayedProblems.push(tempMathProblems.splice(i,1)[0].problems[Math.floor(Math.random() * tempMathProblems[i].problems.length)]);
+    for(let i = 0; i < tempMathProblems.length; i++){
+      if(tempMathProblems[i].solution == this.displayedMathSolution.solution){
+        tempMathProblems.splice(i,1);
       }
     }
-    console.log(this.displayedProblems);
-    // this.displayedProblems.push(tempMathProblems.splice(Math.floor(Math.random() * this.mathProblems.length),1))[0];
-    // this.displayedProblems.push(tempMathProblems.splice(Math.floor(Math.random() * this.mathProblems.length),1))[0];
+
+    // add the remaining problems to be displayed    
+    for(let j = 0; j < 2; j++){
+      var equation = tempMathProblems.splice(Math.floor(Math.random() * tempMathProblems.length),1)[0]
+      this.displayedProblems.push(equation.problems[Math.floor(Math.random() * equation.problems.length)]);
+    }
+
+    // shuffle the displayed problems
+    this.displayedProblems = this.arrayService.shuffle(this.displayedProblems);
 }
 
+checkCorrect(position){
+  console.log(position);
+  var isCorrect = false;
+  this.displayedMathSolution.problems.forEach(p =>{
+    if(p == this.displayedProblems[position]){
+      isCorrect = true;
+    }
+  })
+}
+
+slide(){
+    this.state = 'normal';
+}
   
 /*
  * change the vocabulary when a new word is selected

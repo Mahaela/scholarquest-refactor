@@ -9,6 +9,14 @@
     height: 125px;
     width: 200px;
     border: solid black;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.pipe-text {
+    margin-top: 40px;
+
 }
 
 .box {
@@ -17,15 +25,18 @@
     border: solid black;
 }
 
-.box-container {
-
+.wall {
+    border: solid black;
+    z-index: 2;
+    background-color: white;
 }
 
 .solution {
+    position: relative;
     border: solid black;
-    width: 100px;
-    height: 100px;
-    margin: auto;
+    width: 95px;
+    height: 95px;
+    left: -120px;
     text-align: center;
     align-items: center;
 }

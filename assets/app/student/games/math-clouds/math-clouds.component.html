@@ -1,28 +1,32 @@
 <sq-grade-sidenav (buttonClicked)="changeGradeLevel($event)">
 
     <div class="frame">
-         <div fxLayout="column" fxFlex="100">
-            <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutAlign="center">
-                <div class="pipe" #pipe1>
-                    <div class="pipe-text">{{displayedProblems[0]}}</div>
+        <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutAlign="center">
+            <div class="wall" fxFlex="15"></div>
+            <div fxLayout="column" fxFlex="70">
+                <div fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutAlign="center">
+                    <div class="pipe" #pipe1 (click)="checkCorrect(0)">
+                        <div class="pipe-text">{{displayedProblems[0]}}</div>
+                    </div>
+                    <div class="pipe" #pipe2 (click)="checkCorrect(1)">
+                        <div class="pipe-text">{{displayedProblems[1]}}</div>
+                    </div>
+                    <div class="pipe" #pipe3 (click)="checkCorrect(2)">
+                        <div class="pipe-text">{{displayedProblems[2]}}</div>
+                    </div>
                 </div>
-                <div class="pipe" #pipe2>
-                    <div class="pipe-text">{{problem2}}</div>
+                <div class="solution" [@move]="state">
+                    <div class="solution-text">{{displayedMathSolution.solution}}</div>
                 </div>
-                <div class="pipe" #pipe3>
-                    <div class="pipe-text">{{problem3}}</div>
-                </div>
-            </div>
-            <div class="solution">
-                <div class="solution-text">{{displayedMathProblem.solution}}</div>
-            </div>
 
-            <div class="box-container" fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutAlign="center" >
-                <div class="box" #box1></div>
-                <div class="box" #box2></div>
-                <div class="box" #box3></div>
+                <div class="box-container" fxLayout="row" fxFlex="100" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutAlign="center" >
+                    <div class="box" #box1></div>
+                    <div class="box" #box2></div>
+                    <div class="box" #box3></div>
+                </div>
             </div>
-         </div>
+            <div class="wall" fxFlex="15"></div>
+        </div>
     </div>
 </sq-grade-sidenav>
 <sq-end-game-dialog (playAgainSelect)="reload()" #endGameDialog></sq-end-game-dialog>

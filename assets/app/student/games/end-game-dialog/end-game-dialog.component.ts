@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { MdDialog, MdDialogRef} from '@angular/material';
+import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
 
 @Component({
   selector: 'sq-end-game-dialog',
@@ -12,12 +12,16 @@ export class EndGameDialogComponent {
   @Output() playAgainSelect: EventEmitter<any> = new EventEmitter();
 
   public isOpen = false;
+  config = new MdDialogConfig;
 
-  constructor(private dialog: MdDialog){}
+  constructor(private dialog: MdDialog){
+    this.config.disableClose = true;
+  }
 
   openWinDialog() {
     if(!this.isOpen){
-      let dialogRef = this.dialog.open(WinDialogInnerTextComponent);
+      let dialogRef = this.dialog.open(WinDialogInnerTextComponent, this.config);
+      this.dialog
       this.isOpen = true;
         dialogRef.afterClosed().subscribe(result => {
           if(result == 'true') {
@@ -29,7 +33,7 @@ export class EndGameDialogComponent {
     }
     openLoseDialog() {
     if(!this.isOpen){
-      let dialogRef = this.dialog.open(LoseDialogInnerTextComponent);
+      let dialogRef = this.dialog.open(LoseDialogInnerTextComponent, this.config);
       this.isOpen = true;
         dialogRef.afterClosed().subscribe(result => {
           if(result == 'true') {
@@ -47,7 +51,9 @@ export class EndGameDialogComponent {
 })
 export class WinDialogInnerTextComponent {
 
-  constructor(public dialogRef: MdDialogRef<WinDialogInnerTextComponent>) {}
+  constructor(public dialogRef: MdDialogRef<WinDialogInnerTextComponent>) {
+    dialogRef._containerInstance.dialogConfig.disableClose = true;    
+  }
 }
 
 @Component({
@@ -56,5 +62,7 @@ export class WinDialogInnerTextComponent {
 })
 export class LoseDialogInnerTextComponent {
 
-  constructor(public dialogRef: MdDialogRef<LoseDialogInnerTextComponent>) {}
+  constructor(public dialogRef: MdDialogRef<LoseDialogInnerTextComponent>) {
+    dialogRef._containerInstance.dialogConfig.disableClose = true;
+  }
 }

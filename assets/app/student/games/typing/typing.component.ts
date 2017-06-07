@@ -142,7 +142,6 @@ export class TypingComponent implements AfterViewInit{
 
       // reset the strikes
       this.strikes = 0;
-      console.log(this.strikeIcons);
       this.strikeIcons.forEach(icon => this.renderer.setElementStyle(icon, 'color', null))
   }
 }

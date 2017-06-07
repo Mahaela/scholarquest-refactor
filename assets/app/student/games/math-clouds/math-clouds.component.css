@@ -1,6 +1,8 @@
 .frame {
     width: 800px;
+    min-width: 800px;
     height: 600px;
+    min-height: 600px;
     border: solid black;
     margin: auto;
 }
@@ -43,4 +45,18 @@
 
 .solution-text {
     margin-top: 40px;
+}
+
+.title{
+    text-align: center;
+}
+
+.score{
+    float: right;
+    margin-right: 10%;
+
+}
+
+.errors{
+    margin-left: 10%;
 }

@@ -1,5 +1,4 @@
-import { Component, ElementRef, ViewChild, Renderer } from '@angular/core';
-import { trigger, style, state, transition, animate, keyframes, group} from '@angular/animations';
+import { Component, ElementRef, ViewChild, Renderer, AfterViewInit } from '@angular/core';
 
 import { ArrayService } from '../../../shared/utils/array.service';
 import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
@@ -8,22 +7,9 @@ import { MathProblemsService } from '../math-problems/math-problems.service';
 @Component({
   selector: 'sq-math-clouds',
   templateUrl: './math-clouds.component.html',
-  styleUrls: ['./math-clouds.component.css'],
- animations: [
-    trigger('move', [
-     state('void', style({ })),
-      state('normal', style({
-        transform: 'translateX(0px)'
-      })),
-      state('moving', style({
-        transform: 'translateX(700px)'
-      })),
-      transition('void => moving', animate(40000)),      
-      transition('moving <=> normal', animate(1)),
-    ]),
-  ]
+  styleUrls: ['./math-clouds.component.css']
 })
-export class MathCloudsComponent {
+export class MathCloudsComponent implements AfterViewInit{
   
   state ='moving';
   private mathProblemsFull = [];
@@ -33,6 +19,15 @@ export class MathCloudsComponent {
   private strikes = 0;
   private scoreText ="Score : 0"
   private displayedProblems = [];
+  private boxMovingInterval: any;
+  private boxMoveRightDistance = -120;
+  private boxSpeed;
+  private strikeIcons = [];
+  private startSpeed = .1;
+
+  @ViewChild('box') box: ElementRef;
+
+  @ViewChild('endGameDialog') endGameDialog: EndGameDialogComponent;
 
   constructor( private renderer: Renderer, private mathProblemsService: MathProblemsService, private arrayService: ArrayService ){
     
@@ -41,8 +36,22 @@ export class MathCloudsComponent {
     this.getProblems();  
   }
 
+  ngAfterViewInit(){
+    // get the displayed strikes
+     for(var i = 0; i < Object.keys(document.body.querySelectorAll('md-icon')).length; ++i){
+       if(document.body.querySelectorAll('md-icon')[i].innerHTML == "clear"){
+         this.strikeIcons.push(document.body.querySelectorAll('md-icon')[i]);
+      }  
+    }
+    this.loadGameBoard();
+  }
+
+
   getProblems(){
 
+    if(this.mathProblemsRemaining.length == 0) this.mathProblemsRemaining = this.mathProblemsFull.slice();
+
+    this.displayedProblems = [];
     // get the solution that will be displayed
     this.displayedMathSolution = this.mathProblemsRemaining.splice(Math.floor(Math.random() * this.mathProblemsRemaining.length), 1)[0];    
     this.displayedProblems.push(this.arrayService.selectRandom(this.displayedMathSolution.problems));
@@ -63,77 +72,104 @@ export class MathCloudsComponent {
 
     // shuffle the displayed problems
     this.displayedProblems = this.arrayService.shuffle(this.displayedProblems);
-}
+  }
 
-checkCorrect(position){
-  console.log(position);
-  var isCorrect = false;
-  this.displayedMathSolution.problems.forEach(p =>{
-    if(p == this.displayedProblems[position]){
-      isCorrect = true;
+  checkCorrect(position){
+    var isCorrect = false;
+    this.displayedMathSolution.problems.forEach(p =>{
+      if(p == this.displayedProblems[position]){
+        isCorrect = true;
+        this.score += 10;
+        this. scoreText = "Score : " + this.score;
+        this.getProblems();
+        this.boxMoveRightDistance = -120;
+        this.boxSpeed +=.03;
+      }
+    })
+    if(!isCorrect){
+      this.addStrike();
     }
-  })
-}
+  }
 
-slide(){
-    this.state = 'normal';
-}
-  
-/*
- * change the vocabulary when a new word is selected
- */
- changeGradeLevel(event){
-  
-    // switch(event) { 
-    //     case 2: { 
-    //         this.vocabularyFull = this.vocabularyService.getVocabularySecond();
-    //         break; 
-    //     }
-    //     case 3: { 
-    //         this.vocabularyFull = this.vocabularyService.getVocabularyThird();
-    //         break; 
-    //     }
-    //     case 4: { 
-    //         this.vocabularyFull = this.vocabularyService.getVocabularyFourth();            
-    //         break; 
-    //     }
-    //     case 5: { 
-    //         this.vocabularyFull = this.vocabularyService.getVocabularyFifth();                         
-    //         break; 
-    //     }
-    //     case 6: { 
-    //         this.vocabularyFull  = this.vocabularyService.getVocabularySixth();
-    //         break; 
-    //     } 
-    //     default: { 
-    //         this.vocabularyFull = this.vocabularyService.getVocabularyFirst();
-    //         break; 
-    //     } 
-    // }
-    // this.reload();
- }
+  addStrike(){
+      // change the strike color to red
+      if(this.strikes < this.strikeIcons.length){
+        this.renderer.setElementStyle(this.strikeIcons[this.strikes], 'color', 'red');
+        this.strikes++;
+        // if the player has lost, open a dialog prompting the user to play again
+        if(this.strikes == this.strikeIcons.length){ 
+          this.endGameDialog.openLoseDialog();
+          // stop the clock
+          clearInterval(this.boxMovingInterval);
+        }
+        else {
+          this.getProblems();
+          this.boxMoveRightDistance = -120;
+        }
+      }
+  }
+    
+  /*
+  * change the vocabulary when a new word is selected
+  */
+  changeGradeLevel(event){
 
-/*
- * reload the gameboard;
- */ 
- reload(){
-  //  this.vocabulary = this.vocabularyFull.slice();
-  //  this.vocabularyQueue = [];
-  //   // get the first word
-  //   this.displayedWord = this.vocabulary.splice(Math.floor(Math.random() * this.vocabulary.length), 1)[0].word;
-  //   // get the words for the queue
-  //   var queueSize = this.vocabulary.length < 4 ? this.vocabulary.length : 4;
-  //   for(var i = 0; i < queueSize; i++){
-  //     this.vocabularyQueue.push(this.vocabulary.splice(Math.floor(Math.random() * this.vocabulary.length), 1)[0].word);
-  //   }
-  //     // update the score
-  //     this.score = 0;
-  //     this.scoreText = "Score: " + this.score.toString();
+    switch(event) { 
+        case 2: { 
+            this.mathProblemsFull = this.mathProblemsService.getSecondGradeMathEquations();
+            break; 
+        }
+        case 3: { 
+            this.mathProblemsFull = this.mathProblemsService.getThirdGradeMathEquations();
+            break; 
+        }
+        case 4: { 
+            this.mathProblemsFull = this.mathProblemsService.getFourthGradeMathEquations();            
+            break; 
+        }
+        case 5: { 
+            this.mathProblemsFull = this.mathProblemsService.getFifthGradeMathEquations();                         
+            break; 
+        }
+        case 6: { 
+            this.mathProblemsFull  = this.mathProblemsService.getSixthGradeMathEquations();
+            break; 
+        } 
+        default: { 
+            this.mathProblemsFull = this.mathProblemsService.getFirstGradeMathEquations();
+            break; 
+        }
+    }
+    this.mathProblemsRemaining = this.mathProblemsFull.slice();
+    this.replay(); 
+  }
 
-  //     // reset the strikes
-  //     this.strikes = 0;
-  //     console.log(this.strikeIcons);
-  //     this.strikeIcons.forEach(icon => this.renderer.setElementStyle(icon, 'color', null))
-  // }
-}
+  /*
+  * reload the gameboard;
+  */ 
+  loadGameBoard(){
+    this.boxSpeed = this.startSpeed;
+    // decrement the clock every second
+    
+    this.boxMovingInterval = setInterval(x => {
+
+      if(this.boxMoveRightDistance < 580){
+        this.boxMoveRightDistance += this.boxSpeed;
+        this.renderer.setElementStyle(this.box.nativeElement, 'left', this.boxMoveRightDistance + 'px');
+      }
+      else{
+        this.addStrike();
+      }
+    }, 1);
+  }
+
+  replay(){
+    this.getProblems();
+    clearInterval(this.boxMovingInterval);
+    this.boxMoveRightDistance = -120;
+    this.strikeIcons.forEach(icon => { this.renderer.setElementStyle(icon, 'color', null);
+  });
+    this.strikes = 0;
+    this.loadGameBoard();
+  }
 }

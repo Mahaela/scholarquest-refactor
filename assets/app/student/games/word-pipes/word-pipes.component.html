@@ -1,0 +1,87 @@
+<sq-grade-sidenav (buttonClicked)="changeGradeLevel($event)">
+
+    <div class="title">Title</div>
+    <div class="score">{{scoreText}}</div>
+    <div class="errors">
+        <div>
+            <md-icon>clear</md-icon>
+            <md-icon>clear</md-icon>
+            <md-icon>clear</md-icon>
+            <md-icon>clear</md-icon>
+            <md-icon>clear</md-icon>
+        </div>
+    </div>
+    <div class="frame">
+        <table>
+            <tr>
+                <td class="partsContainer">
+                </td>
+                 <td>
+                     <table>
+                         <tr>
+                             <td><div class="startBox">FIRST</div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="endBox"></div></td>
+                         </tr>
+                         <tr>
+                             <td><div class="startBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="endBox"></div></td>
+                         </tr>
+                         <tr>
+                             <td><div class="startBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="endBox"></div></td>
+                         </tr>
+                         <tr>
+                             <td><div class="startBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="endBox"></div></td>
+                         </tr>
+                         <tr>
+                             <td><div class="startBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="endBox"></div></td>
+                         </tr>
+                         <tr>
+                               <td><div class="startBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="dropBox"></div></td>
+                             <td><div class="endBox"></div></td>
+                         </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</sq-grade-sidenav>
+<sq-end-game-dialog (playAgainSelect)="replay()" #endGameDialog></sq-end-game-dialog>

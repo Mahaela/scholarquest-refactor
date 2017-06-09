@@ -1,17 +1,40 @@
-import { Component, ElementRef, ViewChild, Renderer } from '@angular/core';
+import { Component, ElementRef, ViewChild, Renderer, AfterViewInit } from '@angular/core';
 
 import { ArrayService } from '../../../shared/utils/array.service';
 import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
+import { VocabularyService } from '../vocabulary/vocabulary.service';
 
 @Component({
   selector: 'sq-word-pipes',
   templateUrl: './word-pipes.component.html',
   styleUrls: ['./word-pipes.component.css']
 })
-export class WordPipesComponent {
+export class WordPipesComponent implements AfterViewInit{
 
-  constructor( private renderer: Renderer, private arrayService: ArrayService ){
-  }
+  private vocabFull = [];
+  private vocabRemaining = [];
+  private endBoxes = [];
+  private activeVocab: any;
+
+  constructor( private renderer: Renderer, private arrayService: ArrayService, private vocabularyService: VocabularyService ){}
+
+    ngAfterViewInit(){
+      this.vocabFull = this.vocabularyService.getVocabularyFirst();
+
+           for(var i = 0; i < document.body.getElementsByClassName('endBox').length; ++i){
+            this.endBoxes.push(document.body.getElementsByClassName('endBox')[i]);
+        }
+
+        this.loadGameboard();
+    }
+
+    loadGameboard(){
+        this.vocabRemaining = this.vocabFull;
+      this.activeVocab = this.arrayService.selectRandom(this.vocabRemaining);
+      this.arrayService.selectRandom(this.endBoxes).textContent = "hello";
+
+    }
+
     
   /*
   * change the vocabulary when a new word is selected
@@ -46,4 +69,3 @@ export class WordPipesComponent {
   //   }
   //   this.mathProblemsRemaining = this.mathProblemsFull.slice();
   }
-}

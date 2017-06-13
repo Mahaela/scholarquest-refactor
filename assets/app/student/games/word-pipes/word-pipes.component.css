@@ -5,9 +5,11 @@
     border: solid black 1px;
 }
 
-.partsContainer{
+.partsBox{
     background-color: blue;
     width: 100px;
+    height: 100px;
+    border: solid black 1px;
 }
  .endBox{
     background-color: green;
@@ -22,5 +24,13 @@
     width: 100px;
     height: 100px;
     border: solid black 1px;
-     
+ }
+
+ .dragImg {
+     height: 100px;
+ }
+ 
+ .dropImg {
+     visibility: hidden;
+     height: 98px;
  }

@@ -1,6 +1,8 @@
 <sq-grade-sidenav (buttonClicked)="changeGradeLevel($event)">
 
-    <div class="title">Title</div>
+    <div class="title">
+        <h1>Vocabulary Pipes</h1>
+    </div>
     <div class="score">{{scoreText}}</div>
     <div class="errors">
         <div>
@@ -12,74 +14,75 @@
         </div>
     </div>
     <div class="frame">
-        <table>
+        <table class="big-table">
             <tr>
                  <td>
                      <table #gameTable>
                          <tr>
                              <td><div class="partsBox"></div></td>
                              <td><div class="startBox"></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 2, 0)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 3, 0)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 4, 0)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 5, 0)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 6, 0)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 7, 0)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
                              <td><div class="endBox"></div></td>
                          </tr>
                          <tr>
                              <td><div class="partsBox"></div></td>                             
                              <td><div class="startBox"></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+ 
+                             <td><div class="dropBox" (drop)="onDrop($event, 2, 1)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 3, 1)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 4, 1)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 5, 1)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 6, 1)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 7, 1)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
                              <td><div class="endBox" ></div></td>
                          </tr>
                          <tr>
                              <td><div class="partsBox" ></div></td>                             
                              <td><div class="startBox"></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 2, 2)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 3, 2)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 4, 2)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 5, 2)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 6, 2)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 7, 2)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
                              <td><div class="endBox"></div></td>
                          </tr>
                          <tr> 
-                             <td><div class="partsBox"><img draggable="true" class="dragImg" [src]='' (dragstart)="drag($event)"></div></td>                             
+                             <td><div class="partsBox"><img draggable="true" class="dragImg" [src]=dragImages[0].img (dragstart)="drag($event, 0)"></div></td>                             
                              <td><div class="startBox"></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 2, 3)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 3, 3)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 4, 3)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 5, 3)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 6, 3)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 7, 3)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
                              <td><div class="endBox"></div></td>
                          </tr>
                          <tr>
-                             <td><div class="partsBox"><img draggable="true" class="dragImg" [src]='' (dragstart)="drag($event)"></div></td>                             
+                             <td><div class="partsBox"><img draggable="true" class="dragImg" [src]="dragImages[1].img" (dragstart)="drag($event, 1)"></div></td>                             
                              <td><div class="startBox"></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 2, 4)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 3, 4)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 4, 4)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 5, 4)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 6, 4)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 7, 4)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
                              <td><div class="endBox"></div></td>
                          </tr>
                          <tr>
-                             <td><div class="partsBox"><img draggable="true" class="dragImg" [src]='' (dragstart)="drag($event)"></div></td>
+                             <td><div class="partsBox"><img draggable="true" class="dragImg" [src]="dragImages[2].img" (dragstart)="drag($event, 2)"></div></td>
                              <td><div class="startBox"></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 2, 5)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 3, 5)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 4, 5)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 5, 5)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 6, 5)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
+                             <td><div class="dropBox" (drop)="onDrop($event, 7, 5)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
                              <td><div class="endBox"></div></td>
                          </tr>
                     </table>
@@ -88,4 +91,4 @@
         </table>
     </div>
 </sq-grade-sidenav>
-<sq-end-game-dialog (playAgainSelect)="replay()" #endGameDialog></sq-end-game-dialog>
+<sq-end-game-dialog (playAgainSelect)="reload()" #endGameDialog></sq-end-game-dialog>

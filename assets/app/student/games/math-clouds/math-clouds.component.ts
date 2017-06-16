@@ -36,6 +36,9 @@ export class MathCloudsComponent {
     this.getProblems();  
   }
 
+  /**
+   * get the game ready
+   */
     ngAfterViewInit(){
      // get the displayed strikes
       for(var i = 0; i < Object.keys(document.body.querySelectorAll('md-icon')).length; ++i){
@@ -46,6 +49,9 @@ export class MathCloudsComponent {
      this.loadGameBoard();
    }
 
+/**
+ * get the problems that will be displayed
+ */
   getProblems(){
 
     if(this.mathProblemsRemaining.length == 0) this.mathProblemsRemaining = this.mathProblemsFull.slice();
@@ -73,6 +79,10 @@ export class MathCloudsComponent {
     this.displayedProblems = this.arrayService.shuffle(this.displayedProblems);
 }
 
+/**
+ * check to see if the correct answer was selected
+ * @param position 
+ */
 checkCorrect(position){
 
     var isCorrect = false;
@@ -91,7 +101,9 @@ checkCorrect(position){
     }
 }
 
-  
+  /**
+   * add a strike to the player
+   */
   addStrike(){
        // change the strike color to red
        if(this.strikes < this.strikeIcons.length){
@@ -163,7 +175,11 @@ checkCorrect(position){
        }
      }, 1);
    }
- 
+
+
+ /**
+  * play again
+  */
    replay(){
      this.getProblems();
      clearInterval(this.boxMovingInterval);

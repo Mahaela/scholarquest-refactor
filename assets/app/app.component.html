@@ -1,7 +1,7 @@
 <sq-navbar></sq-navbar>
 <router-outlet></router-outlet>
 <div *ngIf="loaded | async">
-    <!--<sq-cursor-follower-list [xPos]="xPos" [yPos]="yPos"></sq-cursor-follower-list>
-    <sq-cursor-display [xPos]="xPos" [yPos]="yPos"></sq-cursor-display>-->
+    <!--<sq-cursor-follower-list [xPos]="xPos" [yPos]="yPos"></sq-cursor-follower-list>-->
+    <sq-cursor-display></sq-cursor-display>
 </div>
- <!--<div (window:mousemove)="mouseMove()"></div>-->
+ <div (window:mousemove)="mouseMove()"></div>

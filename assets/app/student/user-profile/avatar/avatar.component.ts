@@ -9,7 +9,6 @@ import { ApiService } from '../../../shared/utils/api.service';
     templateUrl: './avatar.component.html',
     styleUrls: ['./avatar.component.css']
     })
-
         
 export class AvatarComponent {
 
@@ -32,7 +31,7 @@ export class AvatarComponent {
     this.apiService.post('avatar/getAvatar',{})
       .subscribe(
       avatar => {
-          
+          console.log(avatar);
         this.getHairByIndex(avatar.obj.hair);
         this.getFaceByIndex(avatar.obj.face);
         this.getEyesByIndex(avatar.obj.eyes);
@@ -45,7 +44,18 @@ export class AvatarComponent {
         this.getShoesByIndex(avatar.obj.shoes);
           
       },
-      error => console.log(error)
+      error => {
+            this.getHairByIndex('03');
+            this.getFaceByIndex('0302');
+            this.getEyesByIndex('0304');
+            this.getNoseByIndex('02');
+            this.getLipsByIndex('01');
+            this.getNeckByIndex('0302');
+            this.getShirtByIndex('0201');
+            this.getArmByIndex('0302');
+            this.getPantsByIndex('0301');
+            this.getShoesByIndex('01');
+        }
       )
     }
 

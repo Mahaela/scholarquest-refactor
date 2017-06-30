@@ -42,7 +42,9 @@ export class SignupComponent {
       { 'email': this.signupForm.controls['email'].value,
         'password': this.signupForm.controls.passwords.controls.pwd1.value,
         'firstName': this.signupForm.controls['firstName'].value,
-        'lastName': this.signupForm.controls['lastName'].value }).subscribe(result => console.log(result));       
+        'lastName': this.signupForm.controls['lastName'].value }).subscribe(result => {
+            this.router.navigate(['/profile']);
+        });       
     }
 
     handleError(error: any){

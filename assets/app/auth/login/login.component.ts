@@ -34,20 +34,10 @@ export class LoginComponent {
             data => {
                 document.cookie = 'loggedIn=true; path=/;'
                 document.cookie = 'token=' + data.token + '; path=/;'
-                
+                this.router.navigate(['/profile']);
             },
             error => this.handleError(error)
-             );
-
-    //     this.apiService.post('student/signup',
-    //   { 'email': this.signupForm.controls['email'].value,
-    //     'password': 'password',
-        
-    //     'firstName': this.signupForm.controls['firstName'].value,
-    //     'lastName': this.signupForm.controls['lastName'].value })
-    //     .subscribe(data => console.log(data),
-    //                 error => console.log(error)
-    //     );
+        );
     }
 
 

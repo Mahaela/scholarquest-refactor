@@ -16,12 +16,22 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ApiService } from './shared/utils/api.service';
 import { ArrayService } from './shared/utils/array.service';
 import { CookieService } from './shared/utils/cookie.service';
+import { CursorFollowerListComponent } from './cursor-follower/cursor-follower-list/cursor-follower-list.component';
+import { EyesComponent } from './cursor-follower/eyes/eyes.component';
+import { CursorFollowerService } from './cursor-follower/cursor-follower.service';
+import { CursorDisplayComponent } from './cursor/cursor-display/cursor-display.component';
+import { CursorService } from './cursor/cursor.service';
+import { CursorComponent } from './cursor/cursor.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HomeComponent,
         NavbarComponent,
+        CursorFollowerListComponent,
+        EyesComponent,
+        CursorDisplayComponent,
+        CursorComponent
     ],  
     imports: [
         BrowserModule,

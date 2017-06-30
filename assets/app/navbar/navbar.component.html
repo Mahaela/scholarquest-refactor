@@ -6,7 +6,7 @@
           <img src="../assets/clip-art/BronzeCoin.png" class="coin"/>{{bronzeCoins}}
       </a>
       <a md-button [routerLink]="['/games']" >Games</a>
-      <a md-button *ngIf="!getLoggedIn()" [routerLink]="['/signup']" ><span class="glyphicon glyphicon-user"></span>Sign Up</a>
-      <a md-button *ngIf="!getLoggedIn()" [routerLink]="['/login']" ><span class="glyphicon glyphicon-log-in"></span> Login</a>
+      <a md-button *ngIf="!getLoggedIn()" [routerLink]="['/auth/signup']" ><span class="glyphicon glyphicon-user"></span>Sign Up</a>
+      <a md-button *ngIf="!getLoggedIn()" [routerLink]="['/auth/login']" ><span class="glyphicon glyphicon-log-in"></span> Login</a>
       <a md-button *ngIf="getLoggedIn()" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
 </md-toolbar>

@@ -125,6 +125,47 @@ export class AvatarService {
 
     private lips = [ this.lips1, this.lips2 ];
 
+    private hair1 = { img: require('../../../assets/avatars/hair/hair1-black.png'), index: '01' }
+    private hair2 = { img: require('../../../assets/avatars/hair/hair1-blonde.png'), index: '02' }
+    private hair3 = { img: require('../../../assets/avatars/hair/hair1-brown.png'), index: '03' }
+    private hair4 = { img: require('../../../assets/avatars/hair/hair1-red.png'), index: '04' }
+
+    private hair = [ this.hair1, this.hair2, this.hair3, this.hair4 ];
+
+    private neckCl1 = { img: require('../../../assets/avatars/neck/neck-cl1.png'), index: '01' }
+    private neckCl2 = { img: require('../../../assets/avatars/neck/neck-cl2.png'), index: '02' }
+    private neckCl3 = { img: require('../../../assets/avatars/neck/neck-cl3.png'), index: '03' }
+    private neckCl4 = { img: require('../../../assets/avatars/neck/neck-cl4.png'), index: '04' }
+    private neckCl5 = { img: require('../../../assets/avatars/neck/neck-cl5.png'), index: '05' }
+    private neckCl6 = { img: require('../../../assets/avatars/neck/neck-cl6.png'), index: '06' }
+
+    private necks = [ this.neckCl1, this.neckCl2, this.neckCl3, this.neckCl4, this.neckCl5, this.neckCl6 ]
+
+    private shirt1Yellow = { img: require('../../../assets/avatars/shirts/shirt-yellow.png'), index: '0101' }
+    private shirt2Red = { img: require('../../../assets/avatars/shirts/shirt-red.png'), index: '0201' }
+    private shirt2Blue = { img: require('../../../assets/avatars/shirts/shirt-blue.png'), index: '0301'}
+
+    private shirts = [ this.shirt1Yellow, this.shirt2Red, this.shirt2Blue ];
+
+    private armsCl1 = { img: require('../../../assets/avatars/arms/arms-cl1.png'), index: '01' }
+    private armsCl2 = { img: require('../../../assets/avatars/arms/arms-cl2.png'), index: '02' }
+    private armsCl3 = { img: require('../../../assets/avatars/arms/arms-cl3.png'), index: '03' }
+    private armsCl4 = { img: require('../../../assets/avatars/arms/arms-cl4.png'), index: '04' }
+    private armsCl5 = { img: require('../../../assets/avatars/arms/arms-cl5.png'), index: '05' }
+    private armsCl6 = { img: require('../../../assets/avatars/arms/arms-cl6.png'), index: '06' }
+
+    private arms = [ this.armsCl1, this.armsCl2, this.armsCl3, this.armsCl4, this.armsCl5, this.armsCl6 ]
+    
+    private pants1Blue = { img: require('../../../assets/avatars/pants/pants-blue.png'), index: '0101' }
+    private pants1DarkBlue = { img: require('../../../assets/avatars/pants/pants-dark-blue.png'), index: '0201' }
+    private pants1Brown = { img: require('../../../assets/avatars/pants/pants-brown.png'), index: '0301' }
+
+    private pants = [ this.pants1Blue, this.pants1DarkBlue, this.pants1Brown ];
+
+    private shoes1 = { img: require('../../../assets/avatars/shoes/shoes1.png'), index: '01' }
+
+    private shoes = [ this.shoes1 ]
+
     getFacesColor1(): { img: string, index: string }[]{
         return [ this.faceDiamondCl1, this.faceHeartCl1, this.faceLongCl1, this.faceOvalCl1,
                         this.faceRoundCl1, this.faceSquareCl1 ];
@@ -201,6 +242,18 @@ export class AvatarService {
         return this.lips;
     }
 
+    getHair(){
+        return this.hair;
+    }
+
+    getShirts(){
+        return this.shirts;
+    }
+
+    getPants(){
+        return this.pants;
+    }
+
     getFaceByIndex(index: string): string{
         var faceImg = '';
 
@@ -241,4 +294,43 @@ export class AvatarService {
         });
         return lipsImg;
     }
+
+    getHairByIndex(index: string) {
+        for(var hair in this.hair){
+            if(this.hair[hair].index == index) return this.hair[hair].img;
+        }
+    }
+
+    getNeckByIndex(index: string) {
+        for(var neck in this.necks){
+            var colorIndex = index.substring(0, 2);
+            if(this.necks[neck].index == colorIndex) return this.necks[neck].img;
+        }
+    }
+
+    getShirtByIndex(index: string) {
+        for(var shirt in this.shirts){
+            if(this.shirts[shirt].index == index) return this.shirts[shirt].img;
+        }
+    }
+
+    getArmsByIndex(index: string) {
+        for(var arms in this.arms){
+            var colorIndex = index.substring(0, 2);
+            if(this.arms[arms].index == colorIndex) return this.arms[arms].img;
+        }
+    }
+
+    getPantsByIndex(index: string) {
+         for(var pants in this.pants){
+            if(this.pants[pants].index == index) return this.pants[pants].img;
+        }
+    }
+
+    getShoesByIndex(index: string) {
+         for(var shoes in this.shoes){
+            if(this.shoes[shoes].index == index) return this.shoes[shoes].img;
+        }
+    }
+    
 }

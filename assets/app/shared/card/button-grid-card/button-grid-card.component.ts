@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, Renderer, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, Renderer, ElementRef, AfterViewInit } from '@angular/core';
 import { MdGridList } from '@angular/material';
 import { ApiService } from '../../utils/api.service';
 
@@ -29,17 +29,25 @@ export class ButtonGridCardComponent{
     private normTiles: any[];
     private miniTiles: any[]
 
-    constructor(private apiService: ApiService, private renderer: Renderer){}
+    constructor(private apiService: ApiService, private renderer: Renderer){
+ 
+
+    }
+
+    ngAfterViewInit(){
+      this.normTiles = this.normList._element.nativeElement.children[0].children;
+
+      if(this.miniList) this.miniTiles = this.miniList._element.nativeElement.children[0].children;
+  }
 
     /*
      * called when a button is clicked
      */  
     clicked(index: string){
        for(var i = 0; i < this.options.length; i++){
-        if (this.options[i].index == index) this.normTiles[i]._setStyle('background-color', this.selectedColor);
-        else this.normTiles[i]._setStyle('background-color', null);
+        if (this.options[i].index == index) this.renderer.setElementStyle(this.normTiles[i], 'background-color', this.selectedColor);
+        else this.renderer.setElementStyle(this.normTiles[i], 'background-color', null);
       }
-    
       this.buttonClicked.emit(index);
     }
 
@@ -50,7 +58,7 @@ export class ButtonGridCardComponent{
     onMouseOverTile(index: string){
       for(var i = 0; i < this.options.length; i++){
         if (this.options[i].index == index){
-          this.normTiles[i]._setStyle('background-color', this.hoverColor);
+          this.renderer.setElementStyle(this.normTiles[i], 'background-color', this.hoverColor);
         }
       }
     }
@@ -58,7 +66,7 @@ export class ButtonGridCardComponent{
     onMouseLeaveTile(index: string){
       for(var i = 0; i < this.options.length; i++){
         if (this.options[i].index == index){
-          this.normTiles[i]._setStyle('background-color', null);
+           this.renderer.setElementStyle(this.normTiles[i], 'background-color', null);
         }
       }
     }
@@ -66,15 +74,15 @@ export class ButtonGridCardComponent{
     onMouseOverMiniTile(index: string){
       for(var i = 0; i < this.miniOptions.length; i++){
         if (this.miniOptions[i].index == index){
-          this.miniTiles[i]._setStyle('background-color', this.hoverColor);
-        }
+          this.renderer.setElementStyle(this.miniTiles[i], 'background-color', this.hoverColor);          
+       }
       }
     }
 
     onMouseLeaveMiniTile(index: string){
       for(var i = 0; i < this.miniOptions.length; i++){
         if (this.miniOptions[i].index == index){
-          this.miniTiles[i]._setStyle('background-color', null);
+           this.renderer.setElementStyle(this.miniTiles[i], 'background-color', null);
         }
       }
     }

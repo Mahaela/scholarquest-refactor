@@ -4,6 +4,7 @@ import { MdIcon } from '@angular/material';
 
 import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
 import { VocabularyService } from '../vocabulary/vocabulary.service';
+import { ApiService } from '../../../shared/utils/api.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class TypingComponent implements AfterViewInit{
 
   @ViewChild('endGameDialog') endGameDialog: EndGameDialogComponent;
 
-  constructor( private vocabularyService: VocabularyService, private renderer: Renderer ){
+  constructor( private vocabularyService: VocabularyService, private renderer: Renderer, private apiService: ApiService ){
   
       // get the vocabulary that will be used 
       this.vocabularyFull = vocabularyService.getVocabularyFirst();
@@ -71,6 +72,7 @@ export class TypingComponent implements AfterViewInit{
     }
     // if every letter of every word has been typed, display win dialog prompting user to play again
     if (this.displayedWord.length == 0 && this.vocabularyQueue.length == 0) {
+      this.apiService.addCoins(this.score);
       this.endGameDialog.openWinDialog();
       // update the score
       this.score += 20;
@@ -84,6 +86,7 @@ export class TypingComponent implements AfterViewInit{
       this.strikes++;
       // if the player has lost, open a dialog prompting the user to play again
       if(this.strikes == this.strikeIcons.length){
+        this.apiService.addCoins(this.score);
         this.endGameDialog.openLoseDialog();
     }
     

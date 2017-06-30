@@ -1,16 +1,14 @@
-#avatarWrapper{
+#avatarWrapper {
     position: relative;
-    width:256px;
-    height:506px;
+    width:500px;
+    height:1000px;
     border: solid black; 
     margin: auto;
 }
 
 img {
-    display: block;
+    display: inline-block;
     position: absolute;
-    width: 250px;
-    height: 250px;
 }
 
 .editMenu{
@@ -21,3 +19,47 @@ img {
 button {
     margin-bottom: 15px;
 }
+
+#face, #eyes, #nose, #lips, #neck, #hair {
+    width: 200px;
+    right: 150px;
+}
+
+#face, #eyes, #nose, #lips {
+    top: 25px;
+}
+
+#neck {
+    top: 145px;
+}
+
+#shirt {
+    top: 170px;
+    width: 310px;
+    right: 95px;
+}
+
+#arms {
+    top: 300px;
+    right: 50px; 
+    width: 400px;
+}
+
+#pants {
+    top: 475px;
+    right: 105px;
+    width: 290px;
+}
+
+#shoes {
+    top: 780px;
+    width: 370px;
+    right: 70px;
+}
+
+ #hair {
+     top: 15px;
+     /*width: 200px;*/
+     /*right: 150px;*/
+ }
+

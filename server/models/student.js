@@ -7,7 +7,6 @@ var schema = new Schema({
   password:{type: String, required: true},
   firstName: {type: String, required: true},
   lastName: {type: String, required: true},
-  avatar: {type: Number, required: true},
   coins: {type: Number, required: true},
   cursor: {type: Number, required: true},
   cursorFollower: {type: Number, required: true}

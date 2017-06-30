@@ -8,7 +8,6 @@ import { GamesListComponent } from './games-list/games-list.component';
 import { VocabularyService } from './vocabulary/vocabulary.service';
 import { MathProblemsService } from './math-problems/math-problems.service'
 
-
 const routes: Routes = [
 	{ path: '', component: GamesListComponent },
 	{ path: 'games', component: GamesListComponent },

@@ -3,6 +3,7 @@ import { Component, ElementRef, ViewChild, Renderer, AfterViewInit } from '@angu
 import { ArrayService } from '../../../shared/utils/array.service';
 import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
 import { VocabularyService } from '../vocabulary/vocabulary.service';
+import { ApiService } from '../../../shared/utils/api.service';
 
 @Component({
   selector: 'sq-word-pipes',
@@ -45,7 +46,7 @@ export class WordPipesComponent implements AfterViewInit{
   //  require('../../../assets/games/word-pipes/two_h_top_left.jpg'),
   //  require('../../../assets/games/word-pipes/two_h_top_right.jpg')
   // ]
-  constructor( private renderer: Renderer, private arrayService: ArrayService, private vocabularyService: VocabularyService ){
+  constructor( private renderer: Renderer, private arrayService: ArrayService, private vocabularyService: VocabularyService, private apiService: ApiService ){
     // get the pipes to be displayed in the holding container
     this.getDisplayedParts();
   }
@@ -83,10 +84,8 @@ export class WordPipesComponent implements AfterViewInit{
       // get random definitions, including the definition for the active vocabulary, and disply it in random spots
       this.definitionsShown = this.arrayService.selectRandom(this.vocabRemaining, this.numDefinitionsShown);
       var boxes = this.arrayService.selectRandom(this.endBoxes, this.numDefinitionsShown);
-      console.log(boxes);
       for(let i = 0; i < this.numDefinitionsShown; i++) {
         boxes[i].textContent = this.definitionsShown[i].definition;
-        console.log(this.definitionsShown[i].definition);
       }
 
       // pick a word to be the active vocabulary word
@@ -258,7 +257,10 @@ export class WordPipesComponent implements AfterViewInit{
     canContinueCheckingForWin(curSquare){
 
       // the game is won
-      if(curSquare.column == this.gameBoard.length - 1 && this.endBoxes[curSquare.row].textContent == this.activeVocabulary.definition) this.endGameDialog.openWinDialog();
+      if(curSquare.column == this.gameBoard.length - 1 && this.endBoxes[curSquare.row].textContent == this.activeVocabulary.definition){
+        this.apiService.addCoins(100);
+        this.endGameDialog.openWinDialog();
+      }
 
       // check to see if there is a pipe at the square being examined
       if(curSquare.row >= 0 && curSquare.row < this.gameBoard[0].length){
@@ -316,7 +318,7 @@ export class WordPipesComponent implements AfterViewInit{
       for(var i = 0; i < this.startBoxes.length; ++i){
         this.startBoxes[i].textContent = '';
       }
-console.log("clearing the pipes");
+
       // clear the pipes
       for(let i = 1; i< this.gameBoard.length; i++){
         for(let k = 0; k < this.gameBoard[i].length; k++){

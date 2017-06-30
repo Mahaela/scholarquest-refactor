@@ -4,6 +4,8 @@ import { AvatarService } from '../avatar-service/avatar.service';
 import { AvatarComponent } from '../avatar/avatar.component';
 import { ButtonGridCardComponent } from '../../../shared/card/button-grid-card/button-grid-card.component';
 
+import { ApiService } from '../../../shared/utils/api.service';
+
 @Component({
   templateUrl: './edit-avatar-page.component.html',
   styleUrls: ['./edit-avatar-page.component.css']
@@ -19,10 +21,18 @@ export class EditAvatarPageComponent {
   @ViewChild('faceCard') faceCard: ButtonGridCardComponent;
   @ViewChild('eyesCard') eyesCard: ButtonGridCardComponent;
 
-  constructor(private avatarService: AvatarService){
+  constructor(private avatarService: AvatarService, private apiService: ApiService){
     this.faceOptions = avatarService.getFacesColor1();
     this.eyesOptions = avatarService.getEyesColor1();
-  }
+
+    this.apiService.post('avatar/getAvatar',{})
+      .subscribe(
+      data => {
+          console.log(data);
+          
+      },
+      error => console.log(error)
+      )}
 
   /*
    * change the faces that are displayed when a new face color is chosen
@@ -54,6 +64,7 @@ export class EditAvatarPageComponent {
         break;
       }
     }
+
   }
 
   /*
@@ -93,6 +104,10 @@ export class EditAvatarPageComponent {
   */
   changeFace(event){
     this.avatar.getFaceByIndex(event);
+    this.avatar.getNeckByIndex(event);
+    this.avatar.getArmByIndex(event);
+
+    this.updateDatabase({'face': event});
   }
  
  /*
@@ -100,6 +115,7 @@ export class EditAvatarPageComponent {
   */
   changeEyes(event){
     this.avatar.getEyesByIndex(event);
+    this.updateDatabase({'eyes': event});
   }
 
  /*
@@ -107,6 +123,7 @@ export class EditAvatarPageComponent {
   */
   changeNose(event){
     this.avatar.getNoseByIndex(event);
+    this.updateDatabase({'nose': event});
   }
  
  /*
@@ -114,9 +131,36 @@ export class EditAvatarPageComponent {
   */
   changeLips(event){
     this.avatar.getLipsByIndex(event);
+    this.updateDatabase({'mouth': event});
   }
 
   changeMenu(event){
     this.menuDisplayed = event;
   }
+
+  changeHair(event){
+    this.avatar.getHairByIndex(event);
+    this.updateDatabase({'hair': event});
+  }
+  
+
+  changePants(event){
+    this.avatar.getPantsByIndex(event);
+     this.updateDatabase({'pants': event});
+  }
+
+  changeShirt(event){
+    this.avatar.getShirtByIndex(event);
+    this.updateDatabase({'shirt': event});
+  }
+
+
+  updateDatabase(params: any){
+   this.apiService.patch('avatar/patchAvatar', params)
+      .subscribe(
+        data =>  console.log(data),
+        error => console.log(error)
+      )
+  }
+
 }

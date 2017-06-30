@@ -3,6 +3,8 @@ import { Component, ElementRef, ViewChild, Renderer } from '@angular/core';
 import { ArrayService } from '../../../shared/utils/array.service';
 import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
 import { MathProblemsService } from '../math-problems/math-problems.service';
+import { ApiService } from '../../../shared/utils/api.service';
+
 
 @Component({
   selector: 'sq-math-clouds',
@@ -29,7 +31,7 @@ export class MathCloudsComponent {
  
    @ViewChild('endGameDialog') endGameDialog: EndGameDialogComponent;
 
-  constructor( private renderer: Renderer, private mathProblemsService: MathProblemsService, private arrayService: ArrayService ){
+  constructor( private renderer: Renderer, private mathProblemsService: MathProblemsService, private arrayService: ArrayService, private apiService: ApiService ){
     
     this.mathProblemsFull = this.mathProblemsService.getFirstGradeMathEquations();
     this.mathProblemsRemaining = this.mathProblemsService.getFirstGradeMathEquations(); 
@@ -112,6 +114,7 @@ checkCorrect(position){
          // if the player has lost, open a dialog prompting the user to play again
          if(this.strikes == this.strikeIcons.length){ 
            this.endGameDialog.openLoseDialog();
+           this.apiService.addCoins(this.score);
            // stop the clock
            clearInterval(this.boxMovingInterval);
          }

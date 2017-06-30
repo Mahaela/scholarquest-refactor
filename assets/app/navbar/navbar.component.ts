@@ -1,17 +1,15 @@
-import { Component, OnDestroy} from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 
-//import { StudentService } from '../student/student.service';
-import{ AuthService } from '../auth/auth.service';
-
+import { CookieService } from '../shared/utils/cookie.service';
 
 @Component({
   selector: 'sq-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements  OnDestroy{
+export class NavbarComponent {
     private bronzeCoins = "00";
     private silverCoins = "00";
     private goldCoins = "00";
@@ -19,8 +17,8 @@ export class NavbarComponent implements  OnDestroy{
     private loggedInSub: Subscription;
     private coinsSub: Subscription;
     
-    //constructor(private studentService: StudentService, private router: Router, private authService: AuthService) {
-    //   this.loggedInSub = authService.isLoggedIn().subscribe(loggedIn => this.loggedIn = loggedIn);
+    constructor( private router: Router, private cookieService: CookieService ) {
+      
     //   this.coinsSub  =  studentService.coinsObs.subscribe(coins => {
     //     let goldCoinNum = Math.trunc(coins / 10000);
     //     if (goldCoinNum < 10) {
@@ -44,20 +42,17 @@ export class NavbarComponent implements  OnDestroy{
     //         this.bronzeCoins = String(bronzeCoinNum);
     //     }
     //   });
-   // }
-
+   }
+   /**
+    * returns true if the user is logged in
+    */
     getLoggedIn(): boolean {
-        return this.loggedIn;
+        return this.cookieService.getCookie('loggedIn') == 'true';
     }
 
-//     logout() {
-//       this.authService.logout();
-//       this.studentService.logout();
-//       this.router.navigate(['']);
-//   }
-
-  ngOnDestroy(){
-      this.loggedInSub.unsubscribe();
-      this.coinsSub.unsubscribe();
+    logout() {
+        document.cookie = 'loggedIn=false; path=/;'
+        document.cookie = 'token=; path=/;'
+        this.router.navigate(['']);
   }
 }

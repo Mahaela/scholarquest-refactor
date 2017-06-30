@@ -8,13 +8,9 @@ import {
 import { Observable} from 'rxjs/Rx';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../auth.service';
-import { StudentService } from '../../student/student.service';
-
-
+import { ApiService } from '../../shared/utils/api.service';
 
 @Component({
-    selector: 'sq-login',
     templateUrl: 'login.component.html',
     styleUrls: ['login.component.css'],
 })
@@ -23,7 +19,7 @@ export class LoginComponent {
     incUsernameOrPwd: boolean = false;
     serverError: boolean = false;
 
-    constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private studentService: StudentService) {
+    constructor(private formBuilder: FormBuilder,  private router: Router, private apiService: ApiService) {
         this.loginForm = formBuilder.group({
             email: ['', Validators.required],
             pwd: ['', Validators.required]
@@ -31,19 +27,29 @@ export class LoginComponent {
     }
 
     onSubmit() {
-      this.authService.login(this.loginForm.controls['email'].value, this.loginForm.controls['pwd'].value)
-        .subscribe(
-          data => this.logIn(data),
-          error => this.handleError(error)
-        )
-     }
-     logIn(data: any){
-      this.authService.setLoggedIn(true);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('userId', data.userId);
-      this.studentService.setStudentInfo(data);
-      this.router.navigate(['profile']);
-     }
+        this.apiService.post('student/login',
+            { 'email': this.loginForm.controls['email'].value,
+             'password': this.loginForm.controls['pwd'].value })
+            .subscribe(
+            data => {
+                document.cookie = 'loggedIn=true; path=/;'
+                document.cookie = 'token=' + data.token + '; path=/;'
+                
+            },
+            error => this.handleError(error)
+             );
+
+    //     this.apiService.post('student/signup',
+    //   { 'email': this.signupForm.controls['email'].value,
+    //     'password': 'password',
+        
+    //     'firstName': this.signupForm.controls['firstName'].value,
+    //     'lastName': this.signupForm.controls['lastName'].value })
+    //     .subscribe(data => console.log(data),
+    //                 error => console.log(error)
+    //     );
+    }
+
 
      handleError(error: any) {
        if (error.error.message = "Invalid login credentials") {

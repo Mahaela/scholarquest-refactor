@@ -1,5 +1,4 @@
 import { Component, ViewChild, Input, Renderer, OnChanges, OnDestroy, AfterViewInit } from '@angular/core';
-import { StudentService } from '../../../student.service';
 import { CursorService } from '../cursor.service';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -17,9 +16,7 @@ export class CursorDisplayComponent implements OnChanges, OnDestroy, AfterViewIn
     private cursors: string[];
     private cursorSubscription: Subscription;
 
-    constructor(private renderer: Renderer, private studentService: StudentService, private cursorService: CursorService) {
-        this.cursors = cursorService.getCursors();
-        this.cursorIndex = this.studentService.getCursor()
+    constructor(private renderer: Renderer, private cursorService: CursorService) {
         this.displayedCursor = this.cursors[this.cursorIndex];
     }
 
@@ -51,12 +48,6 @@ export class CursorDisplayComponent implements OnChanges, OnDestroy, AfterViewIn
     }
 
     ngAfterViewInit() {
-        this.cursorSubscription = this.studentService.cursorStartPositionObs.subscribe(pos => {
-            this.changeCursor(pos[0]);
-            this.xPos = pos[1];
-            this.yPos = pos[2];
-            this.moveCursor();
-        });
         if (this.cursorIndex == 0) {
             this.renderer.setElementStyle(this.cursor.nativeElement, 'opacity', '0');
         }

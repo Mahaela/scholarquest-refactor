@@ -1,9 +1,9 @@
 import { Component, ElementRef, ViewChild, Renderer } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { StudentService } from '../../student.service';
 import { VocabularyService } from '../vocabulary/vocabulary.service';
 import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
+import { ApiService } from '../../../shared/utils/api.service';
 
 @Component({
   selector: 'sq-vocab-match',
@@ -24,7 +24,7 @@ export class VocabMatchComponent{
   @ViewChild('score') scoreTxt: ElementRef;
   @ViewChild('winDialog') winDialog: EndGameDialogComponent;
 
-  constructor(private vocabularyService: VocabularyService, private renderer: Renderer) {
+  constructor(private vocabularyService: VocabularyService, private renderer: Renderer, private apiService: ApiService) {
 
     // get the vocabulary that will be use (the first grade vocabulary)
     this.vocabFullList = this.vocabularyService.getVocabularyFirst();
@@ -98,6 +98,7 @@ dragover(event){
 
           // if the game is over, open the dialog that will prompt the user to play again
           if(this.vocabWords.length == 0){
+                  this.apiService.addCoins(this.score);
                  this.winDialog.openWinDialog();
           }    
         }

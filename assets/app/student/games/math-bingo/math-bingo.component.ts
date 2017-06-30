@@ -2,12 +2,14 @@ import { Component, AfterViewInit, Renderer, ViewChild } from '@angular/core';
 import { MathProblemsService } from '../math-problems/math-problems.service';
 import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
 
+import { ApiService } from '../../../shared/utils/api.service';
+
 @Component({
     selector: 'sq-math-bingo',
     templateUrl: './math-bingo.component.html',
     styleUrls: ['./math-bingo.component.css'],
 })
-export class MathBingoComponent implements AfterViewInit {
+export class MathBingoComponent implements AfterViewInit{
 
     @ViewChild('winDialog') winDialog: EndGameDialogComponent;
 
@@ -25,7 +27,7 @@ export class MathBingoComponent implements AfterViewInit {
     private numRows = Array(5);
     private numCols = Array(5);
 
-    constructor(private mathProblemsService: MathProblemsService, private renderer: Renderer) {}
+    constructor(private mathProblemsService: MathProblemsService, private renderer: Renderer, private apiService: ApiService) {}
 
     ngAfterViewInit() {
 
@@ -190,6 +192,8 @@ export class MathBingoComponent implements AfterViewInit {
 
                 // open the dialog that will prompt the user to play again
                  this.winDialog.openWinDialog();
+
+                 this.apiService.addCoins(this.score);
             }
 
             else {

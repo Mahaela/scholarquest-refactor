@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterContentInit, HostListener, ElementRef, Input, OnChanges,  OnDestroy} from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { EyesComponent } from '../eyes/eyes.component';
-import { StudentService } from '../../../student.service';
 import { CursorFollowerService } from '../cursor-follower.service';
 
 @Component({
@@ -23,7 +22,7 @@ export class CursorFollowerListComponent {
     subscription: Subscription;
 
 
-    constructor(private viewContainerRef: ViewContainerRef, private componentFactoryResolver: ComponentFactoryResolver, private studentService: StudentService, private cursorFollowerService: CursorFollowerService, private elementRef: ElementRef) {
+    constructor(private viewContainerRef: ViewContainerRef, private componentFactoryResolver: ComponentFactoryResolver, private cursorFollowerService: CursorFollowerService, private elementRef: ElementRef) {
        // this.cursorFollowers = cursorFollowerService.getCursorFollowerComponents();
         // this.subscription = this.studentService.cursorFollowerStartPositionObs.subscribe(cf => this.changeFollower(cf));
         // this.cursorFollowerIndex = this.studentService.getCursorFollower();

@@ -16,12 +16,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ApiService } from './shared/utils/api.service';
 import { ArrayService } from './shared/utils/array.service';
 import { CookieService } from './shared/utils/cookie.service';
-import { CursorFollowerListComponent } from './cursor-follower/cursor-follower-list/cursor-follower-list.component';
+import { StudentService } from './shared/utils/student.service';
+import { CursorFollowerListComponent } from './cursor-follower/cursor-follower/cursor-follower.component';
 import { EyesComponent } from './cursor-follower/eyes/eyes.component';
 import { CursorFollowerService } from './cursor-follower/cursor-follower.service';
-import { CursorDisplayComponent } from './cursor/cursor-display/cursor-display.component';
+import { CursorComponent } from './cursor/cursor/cursor.component';
 import { CursorService } from './cursor/cursor.service';
-import { CursorComponent } from './cursor/cursor.component';
 
 @NgModule({
     declarations: [
@@ -30,8 +30,7 @@ import { CursorComponent } from './cursor/cursor.component';
         NavbarComponent,
         CursorFollowerListComponent,
         EyesComponent,
-        CursorDisplayComponent,
-        CursorComponent
+        CursorComponent,
     ],  
     imports: [
         BrowserModule,
@@ -49,9 +48,8 @@ import { CursorComponent } from './cursor/cursor.component';
             { path: 'profile', loadChildren: './student/user-profile/user-profile.module' },
             { path: 'auth', loadChildren: './auth/auth.module.ts' }
         ])
-
     ],
-    providers: [ApiService, ArrayService, CookieService],
+    providers: [ApiService, ArrayService, CookieService, CursorService, CursorFollowerService, StudentService],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

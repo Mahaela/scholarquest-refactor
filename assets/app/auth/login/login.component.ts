@@ -9,6 +9,9 @@ import { Observable} from 'rxjs/Rx';
 import { Router } from '@angular/router';
 
 import { ApiService } from '../../shared/utils/api.service';
+import { CursorService } from '../../cursor/cursor.service';
+import { CursorFollowerService } from '../../cursor-follower/cursor-follower.service';
+import { StudentService } from '../../shared/utils/student.service';
 
 @Component({
     templateUrl: 'login.component.html',
@@ -19,7 +22,7 @@ export class LoginComponent {
     incUsernameOrPwd: boolean = false;
     serverError: boolean = false;
 
-    constructor(private formBuilder: FormBuilder,  private router: Router, private apiService: ApiService) {
+    constructor(private formBuilder: FormBuilder, private router: Router, private apiService: ApiService, private cursorService: CursorService, private studentService: StudentService, private cursorFollowerService: CursorFollowerService) {
         this.loginForm = formBuilder.group({
             email: ['', Validators.required],
             pwd: ['', Validators.required]
@@ -32,6 +35,9 @@ export class LoginComponent {
              'password': this.loginForm.controls['pwd'].value })
             .subscribe(
             data => {
+                this.cursorFollowerService.selectedCursorFollower.next(data.cursorFollower);
+                this.cursorService.selectedCursor.next(data.cursor);
+                this.studentService.coins.next(data.coins);
                 document.cookie = 'loggedIn=true; path=/;'
                 document.cookie = 'token=' + data.token + '; path=/;'
                 this.router.navigate(['/profile']);
@@ -39,7 +45,6 @@ export class LoginComponent {
             error => this.handleError(error)
         );
     }
-
 
      handleError(error: any) {
        if (error.error.message = "Invalid login credentials") {

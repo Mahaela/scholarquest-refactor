@@ -29,10 +29,7 @@ export class ButtonGridCardComponent{
     private normTiles: any[];
     private miniTiles: any[]
 
-    constructor(private apiService: ApiService, private renderer: Renderer){
- 
-
-    }
+    constructor(private apiService: ApiService, private renderer: Renderer){}
 
     ngAfterViewInit(){
       this.normTiles = this.normList._element.nativeElement.children[0].children;

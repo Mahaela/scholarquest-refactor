@@ -27,11 +27,8 @@ export class EditAvatarPageComponent {
 
     this.apiService.post('avatar/getAvatar',{})
       .subscribe(
-      data => {
-          console.log(data);
-          
-      },
-      error => console.log(error)
+      data => {},
+      error => {}
       )}
 
   /*
@@ -158,8 +155,8 @@ export class EditAvatarPageComponent {
   updateDatabase(params: any){
    this.apiService.patch('avatar/patchAvatar', params)
       .subscribe(
-        data =>  console.log(data),
-        error => console.log(error)
+        data =>  {},
+        error => {}
       )
   }
 

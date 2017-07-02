@@ -6,11 +6,7 @@ import { Component, ElementRef, ViewChild, Renderer, AfterViewInit, Input, trigg
   styleUrls: ['./eyes.component.css'],
 
   animations: [
-      trigger('show', [
-          state('*', style({ 'opacity': 1 })),
-          state('void', style({ 'opacity': 0 })),
-          transition('void => *', animate(5000))]),
-      trigger('move', [
+    trigger('move', [
           state('void', style({ 'opacity': 0 })),
           state('state1', style({ 'opacity': 1 })),
           state('state2', style({ 'opacity': 1 })),

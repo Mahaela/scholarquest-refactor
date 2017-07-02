@@ -81,21 +81,19 @@ router.post('/login', function(req, res, next){
     });
 });
 
-// router.use('/', function(req, res, next){
-//   console.log(req.body.token);
-//   jwt.verify(req.body.token, 'gamez', function(err, decoded){
+router.use('/', function(req, res, next){
+  jwt.verify(req.body.token, 'gamez', function(err, decoded){
     
-//     if(err) {
-      
-//       return res.status(401).json({
-//         title: 'Not Authenticated',
-//         error: err
-//       });
-//     }
+    if(err) {
+      return res.status(401).json({
+        title: 'Not Authenticated',
+        error: err
+      });
+    }
     
-//     next();
-//   })
-// });
+    next();
+  })
+});
 
 router.post('/getStudent', function(req, res, next){
 
@@ -122,7 +120,6 @@ router.post('/getStudent', function(req, res, next){
     });
   });
 });
-
 
 router.patch('/patchStudent', function(req, res, next){
   Student.findById(express.userId, function(err, student) {

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 
 import { AvatarService } from '../avatar-service/avatar.service';
 import { AvatarComponent } from '../avatar/avatar.component';
@@ -14,86 +14,39 @@ export class EditAvatarPageComponent {
 
   private faceOptions: any;
   private eyesOptions: any;
+  private avatarData = {};
 
   private menuDisplayed = 'face';
 
   @ViewChild('avatar') avatar: AvatarComponent;
-  @ViewChild('faceCard') faceCard: ButtonGridCardComponent;
-  @ViewChild('eyesCard') eyesCard: ButtonGridCardComponent;
 
   constructor(private avatarService: AvatarService, private apiService: ApiService){
-    this.faceOptions = avatarService.getFacesColor1();
-    this.eyesOptions = avatarService.getEyesColor1();
 
     this.apiService.post('avatar/getAvatar',{})
       .subscribe(
-      data => {},
-      error => {}
-      )}
+        data => {
+          this.avatarData = data.obj;
+          this.faceOptions = this.avatarService.getFacesByColor(data.obj.face);
+          this.eyesOptions = this.avatarService.getEyesByColor(data.obj.eyes);
+          this.avatarData.faceColor = data.obj.face.substring(0,2);
+          this.avatarData.eyeColor = data.obj.eyes.substring(0,2);
+      },
+      error => {console.log(error)}
+    )
+  }
 
   /*
    * change the faces that are displayed when a new face color is chosen
    */
   changeFaceList(event){
-    switch(event){
-      case '01':{
-        this.faceOptions = this.avatarService.getFacesColor1();
-        break;
-      }
-      case '02':{
-        this.faceOptions = this.avatarService.getFacesColor2();
-        break;
-      }
-      case '03':{
-       this.faceOptions = this.avatarService.getFacesColor3();
-        break;
-      }
-      case '04':{
-        this.faceOptions = this.avatarService.getFacesColor4();
-        break;
-      }
-      case '05':{
-        this.faceOptions = this.avatarService.getFacesColor5();
-        break;
-      }
-      case '06':{
-        this.faceOptions = this.avatarService.getFacesColor6();
-        break;
-      }
-    }
-
+    this.faceOptions = this.avatarService.getFacesByColor(event);
   }
 
   /*
    * change the eyes that are displayed when a new eye color is chosen
    */
   changeEyesList(event){
-    switch(event){
-      case '01':{
-        this.eyesOptions = this.avatarService.getEyesColor1();
-        break;
-      }
-      case '02':{
-        this.eyesOptions = this.avatarService.getEyesColor2();
-        break;
-      }
-      case '03':{
-        this.eyesOptions = this.avatarService.getEyesColor3();
-        break;
-      }
-      case '04':{
-        this.eyesOptions = this.avatarService.getEyesColor4();
-        break;
-      }
-      case '05':{
-        this.eyesOptions = this.avatarService.getEyesColor5();
-        break;
-      }
-      case '06':{
-        this.eyesOptions = this.avatarService.getEyesColor6();
-        break;
-      }
-    }
+      this.eyesOptions = this.avatarService.getEyesByColor(event);
   }
 
  /*

@@ -3,6 +3,7 @@
     <div *ngIf="miniOptions">
         <md-grid-list #miniList *ngIf="miniOptions" [cols]="miniOptions.length" rowHeight="20px">
             <md-grid-tile *ngFor="let miniOption of miniOptions"
+                [style.background-color]="(miniOption.index == selectedMini ? 'green' : '')"
                 (click)="miniClicked(miniOption.index)"
                 (mouseover)="onMouseOverMiniTile(miniOption.index)"
                 (mouseleave)="onMouseLeaveMiniTile(miniOption.index)">
@@ -13,6 +14,7 @@
     </div>
     <md-grid-list #normList [cols]=columns rowHeight="100px" (change)="change()">
         <md-grid-tile *ngFor="let option of options"
+            [style.background-color]="(option.index == selectedNorm ? 'green' : '')"
             (click)="clicked(option.index)"
             (mouseover)="onMouseOverTile(option.index)"
             (mouseleave)="onMouseLeaveTile(option.index)">

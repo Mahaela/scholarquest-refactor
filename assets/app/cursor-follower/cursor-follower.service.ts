@@ -4,11 +4,11 @@ import { BehaviorSubject } from 'Rxjs';
 
 @Injectable()
 export class CursorFollowerService {
-    private cursorFollower0: { img: string, index: number } = { img: require('../assets/clip-art/None.png'), index: 0 };
-    private cursorFollower1: { img: string, index: number } = { img: require('../assets/cursor-followers/EyesFollower.jpg'), index: 1 };
+    private cursorFollower0: { img: string, index: number } = { img: require('../assets/clip-art/None.png'), index: 1 };
+    private cursorFollower1: { img: string, index: number } = { img: require('../assets/cursor-followers/EyesFollower.jpg'), index: 2 };
    
     private cursorFollowers: { img: string, index: number }[] = [];
-    public selectedCursorFollower = new BehaviorSubject(0);
+    public selectedCursorFollower = new BehaviorSubject(1);
 
     constructor() {
         //add the cursor followers to an array        

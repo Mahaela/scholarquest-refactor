@@ -11,5 +11,7 @@
 a {
     padding-right: 4%;
     text-decoration: none;
+    text-align: center;
 }
 
+button:focus {outline:0;}

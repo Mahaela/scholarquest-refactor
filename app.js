@@ -12,15 +12,12 @@ const studentRoutes = require('./server/routes/student');
 const avatarRoutes = require('./server/routes/avatar');
 
 var app = express();
-mongoose.connect('localhost:/27017/scholarQuest');
+mongoose.connect('Mahaela:Pewpew12!!@ds053438.mlab.com:53438/scholar-quest');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-// app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());

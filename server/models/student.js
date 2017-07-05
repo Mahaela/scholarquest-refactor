@@ -9,7 +9,8 @@ var schema = new Schema({
   lastName: {type: String, required: true},
   coins: {type: Number, required: true},
   cursor: {type: Number, required: true},
-  cursorFollower: {type: Number, required: true}
+  cursorFollower: {type: Number, required: true},
+  valiatedEmail: {type: Boolean, required: true}
 });
 
 schema.plugin(mongooseUniqueValidator);

@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 
 import { AvatarService } from '../avatar-service/avatar.service';
 
@@ -10,7 +10,7 @@ import { ApiService } from '../../../shared/utils/api.service';
     styleUrls: ['./avatar.component.css']
     })
         
-export class AvatarComponent {
+export class AvatarComponent implements AfterViewInit{
 
     private hairImg: string;
     private faceImg: string;
@@ -26,36 +26,37 @@ export class AvatarComponent {
     // when a menu is selected, tell the parent component so that it can update the menu displayed
     @Output() menuClicked = new EventEmitter<string>();
 
-    constructor(private avatarService: AvatarService, private apiService: ApiService) {
-        
-    this.apiService.post('avatar/getAvatar',{})
-      .subscribe(
-      avatar => {
-          if(avatar.obj){
-            this.getHairByIndex(avatar.obj.hair);
-            this.getFaceByIndex(avatar.obj.face);
-            this.getEyesByIndex(avatar.obj.eyes);
-            this.getNoseByIndex(avatar.obj.nose);
-            this.getLipsByIndex(avatar.obj.mouth);
-            this.getNeckByIndex(avatar.obj.face);
-            this.getShirtByIndex(avatar.obj.shirt);
-            this.getArmByIndex(avatar.obj.face);
-            this.getPantsByIndex(avatar.obj.pants);
-            this.getShoesByIndex(avatar.obj.shoes);
-          }
-          else {
-              this.setAvatarDummyValues()
-          }
-          
-      },
-      error => {
-           this.setAvatarDummyValues();
-        }
-      )
+    constructor(private avatarService: AvatarService, private apiService: ApiService) {}
+
+    ngAfterViewInit(){
+        this.apiService.post('avatar/getAvatar',{})
+            .subscribe(
+            avatar => {
+                if(avatar.obj){
+                    this.getHairByIndex(avatar.obj.hair);
+                    this.getFaceByIndex(avatar.obj.face);
+                    this.getEyesByIndex(avatar.obj.eyes);
+                    this.getNoseByIndex(avatar.obj.nose);
+                    this.getLipsByIndex(avatar.obj.mouth);
+                    this.getNeckByIndex(avatar.obj.face);
+                    this.getShirtByIndex(avatar.obj.shirt);
+                    this.getArmByIndex(avatar.obj.face);
+                    this.getPantsByIndex(avatar.obj.pants);
+                    this.getShoesByIndex(avatar.obj.shoes);
+                }
+                else {
+                    this.setAvatarDummyValues()
+                }
+                
+            },
+            error => {
+                this.setAvatarDummyValues();
+            }
+        )
     }
 
     setAvatarDummyValues(){
-         this.getHairByIndex('03');
+        this.getHairByIndex('03');
         this.getFaceByIndex('0302');
         this.getEyesByIndex('0304');
         this.getNoseByIndex('02');

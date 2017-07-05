@@ -18,18 +18,19 @@ export class CursorComponent implements AfterViewInit {
     @ViewChild('cursor') cursor;
     @Input() xPos;
     @Input() yPos;
-    cursorIndex: number = 0;
+    cursorIndex: number = 1;
     displayedCursor: string;
     cursors: string[];
     cursorSubscription: Subscription;
     show = 'invisible';
 
-    constructor(private renderer: Renderer, private cursorService: CursorService) {}
+    constructor(private renderer: Renderer, private cursorService: CursorService) {
+    }
 
     ngAfterViewInit(){
         this.cursorService.selectedCursor.subscribe((value) => {
-            if (value) { 
-                this.displayedCursor = this.cursorService.getCursors()[value].img;
+            if (value != 1) { 
+                this.displayedCursor = this.cursorService.getCursors()[value -1].img;
                 this.show = 'visible';
             }
             else {

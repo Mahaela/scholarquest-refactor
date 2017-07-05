@@ -166,68 +166,70 @@ export class AvatarService {
 
     private shoes = [ this.shoes1 ]
 
-    getFacesColor1(): { img: string, index: string }[]{
-        return [ this.faceDiamondCl1, this.faceHeartCl1, this.faceLongCl1, this.faceOvalCl1,
+    getFacesByColor(index: string){
+        var skinIndex = index.substring(0, 2);
+
+        switch(skinIndex){
+            case '01': {
+                return [ this.faceDiamondCl1, this.faceHeartCl1, this.faceLongCl1, this.faceOvalCl1,
                         this.faceRoundCl1, this.faceSquareCl1 ];
+            }
+            case '02': {
+                return [ this.faceDiamondCl2, this.faceHeartCl2, this.faceLongCl2, this.faceOvalCl2,
+                        this.faceRoundCl2, this.faceSquareCl2 ];
+            }
+            case '03': {
+                return [ this.faceDiamondCl3, this.faceHeartCl3, this.faceLongCl3, this.faceOvalCl3,
+                        this.faceRoundCl3, this.faceSquareCl3 ];
+            }
+            case '04': {
+                 return [ this.faceDiamondCl4, this.faceHeartCl4, this.faceLongCl4, this.faceOvalCl4,
+                        this.faceRoundCl4, this.faceSquareCl4 ];
+            }
+            case '05': {
+                return [ this.faceDiamondCl5, this.faceHeartCl5, this.faceLongCl5, this.faceOvalCl5,
+                        this.faceRoundCl5, this.faceSquareCl5 ];
+            }
+            case '06': {
+                return [ this.faceDiamondCl6, this.faceHeartCl6, this.faceLongCl6, this.faceOvalCl6,
+                        this.faceRoundCl6, this.faceSquareCl6 ];
+            }
+        }
+    }
+
+        getEyesByColor(index: string){
+            var eyesIndex = index.substring(0, 2);
+
+            switch(eyesIndex){
+                case '01': {
+                   return [ this.eyes1Cl1, this.eyes2Cl1, this.eyes3Cl1, this.eyes4Cl1,
+                        this.eyes5Cl1, this.eyes6 ];
+                }
+                case '02': {
+                    return [ this.eyes1Cl2, this.eyes2Cl2, this.eyes3Cl2, this.eyes4Cl2,
+                        this.eyes5Cl2, this.eyes6 ];
+                }
+                case '03': {
+                    return [ this.eyes1Cl3, this.eyes2Cl3, this.eyes3Cl3, this.eyes4Cl3,
+                        this.eyes5Cl3, this.eyes6 ];
+                }
+                case '04': {
+                    return [ this.eyes1Cl4, this.eyes2Cl4, this.eyes3Cl4, this.eyes4Cl4,
+                        this.eyes5Cl4, this.eyes6 ];
+                }
+                case '05': {
+                    return [ this.eyes1Cl5, this.eyes2Cl5, this.eyes3Cl5, this.eyes4Cl5,
+                        this.eyes5Cl5, this.eyes6 ];
+                }
+                case '06': {
+                    return [ this.eyes1Cl6, this.eyes2Cl6, this.eyes3Cl6, this.eyes4Cl6,
+                        this.eyes5Cl6, this.eyes6 ];
+                }
+            }
     }
 
     getFaceColors(): { img: string, index: string }[] {
         return [ this.faceCl1, this.faceCl2, this.faceCl3, this.faceCl4, this.faceCl5, this.faceCl6 ];
-    }
-
-    getFacesColor2(): { img: string, index: string }[]{
-        return [ this.faceDiamondCl2, this.faceHeartCl2, this.faceLongCl2, this.faceOvalCl2,
-                        this.faceRoundCl2, this.faceSquareCl2 ];
-    }
-
-    getFacesColor3(): { img: string, index: string }[]{
-        return [ this.faceDiamondCl3, this.faceHeartCl3, this.faceLongCl3, this.faceOvalCl3,
-                        this.faceRoundCl3, this.faceSquareCl3 ];
-    }
-
-    getFacesColor4(): { img: string, index: string }[]{
-        return [ this.faceDiamondCl4, this.faceHeartCl4, this.faceLongCl4, this.faceOvalCl4,
-                        this.faceRoundCl4, this.faceSquareCl4 ];
-    }
-
-    getFacesColor5(): { img: string, index: string }[]{
-        return [ this.faceDiamondCl5, this.faceHeartCl5, this.faceLongCl5, this.faceOvalCl5,
-                        this.faceRoundCl5, this.faceSquareCl5 ];
-    }
-
-    getFacesColor6(): { img: string, index: string }[]{
-        return [ this.faceDiamondCl6, this.faceHeartCl6, this.faceLongCl6, this.faceOvalCl6,
-                        this.faceRoundCl6, this.faceSquareCl6 ];
-    }
-
-    getEyesColor1(): { img: string, index: string }[]{
-        return [ this.eyes1Cl1, this.eyes2Cl1, this.eyes3Cl1, this.eyes4Cl1,
-                        this.eyes5Cl1, this.eyes6 ];
-    }
-
-    getEyesColor2(): { img: string, index: string }[]{
-        return [ this.eyes1Cl2, this.eyes2Cl2, this.eyes3Cl2, this.eyes4Cl2,
-                        this.eyes5Cl2, this.eyes6 ];
-    }
-    
-    getEyesColor3(): { img: string, index: string }[]{
-        return [ this.eyes1Cl3, this.eyes2Cl3, this.eyes3Cl3, this.eyes4Cl3,
-                        this.eyes5Cl3, this.eyes6 ];
-    }
-    
-    getEyesColor4(): { img: string, index: string }[]{
-        return [ this.eyes1Cl4, this.eyes2Cl4, this.eyes3Cl4, this.eyes4Cl4,
-                        this.eyes5Cl4, this.eyes6 ];
-    }
-    
-    getEyesColor5(): { img: string, index: string }[]{
-        return [ this.eyes1Cl5, this.eyes2Cl5, this.eyes3Cl5, this.eyes4Cl5,
-                        this.eyes5Cl5, this.eyes6 ];
-    }
-
-    getEyesColor6(): { img: string, index: string }[]{
-        return [ this.eyes1Cl6, this.eyes2Cl6, this.eyes3Cl6, this.eyes4Cl6,
-                        this.eyes5Cl6, this.eyes6 ];
     }
 
     getEyesColors(): { img: string, index: string }[]{

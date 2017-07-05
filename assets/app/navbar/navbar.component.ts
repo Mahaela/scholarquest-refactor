@@ -53,9 +53,8 @@ export class NavbarComponent implements AfterViewInit{
     }
 
     logout() {
-        this.cursorFollowerService.selectedCursorFollower.next(0);
-        this.cursorService.selectedCursor.next(0);
-        this.cursorService.selectedCursor.next(0);
+        this.cursorFollowerService.selectedCursorFollower.next(1);
+        this.cursorService.selectedCursor.next(1);
         document.cookie = 'loggedIn=false; path=/;'
         document.cookie = 'token=; path=/;'
         this.router.navigate(['']);

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 
 import { CursorService } from '../../../cursor/cursor.service';
 import { CursorFollowerService } from '../../../cursor-follower/cursor-follower.service';
@@ -10,7 +10,17 @@ import { ApiService } from '../../../shared/utils/api.service';
     styleUrls: ['./user-profile-page.component.css'],
 })
 export class UserProfilePageComponent {
-   
+    studentData = {};
+
+
+    ngAfterViewInit(){
+        this.apiService.post('student/getStudent', {}).subscribe(
+            data =>{
+                this.studentData = data
+            },
+            error =>{console.log(error)} 
+        )
+    }   
     constructor(private cursorService: CursorService, private cursorFollowerService: CursorFollowerService, private apiService: ApiService) {
     }
 

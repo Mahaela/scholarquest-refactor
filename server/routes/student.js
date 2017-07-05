@@ -4,6 +4,8 @@ var bycrypt = require('bcryptjs');
 var Student = require('../models/student');
 var Avatar = require('../models/avatar')
 var jwt = require('jsonwebtoken');
+var nodemailer = require('nodemailer');
+var Cryptr = require('cryptr');
 
 router.post('/signup', function (req, res, next) {
   var student = new Student({
@@ -13,8 +15,10 @@ router.post('/signup', function (req, res, next) {
     lastName: req.body.lastName,
     coins: 0,
     cursor: 0,
-    cursorFollower: 0
+    cursorFollower: 0,
+    valiatedEmail: true
   });
+
   student.save(function(err, result){
     if (err) {
       return res.status(500).json({
@@ -40,6 +44,9 @@ router.post('/signup', function (req, res, next) {
           error: err
         });
       }
+
+      sendWelcomeEmail(req.body.email);
+      
       res.status(201).json({
           message: 'Saved user',
           obj: result
@@ -49,6 +56,7 @@ router.post('/signup', function (req, res, next) {
 });
 
 router.post('/login', function(req, res, next){
+
     Student.findOne({email: req.body.email}, function(err, student){
       if(err){
         return res.status(500).json({
@@ -81,6 +89,20 @@ router.post('/login', function(req, res, next){
     });
 });
 
+router.post('/verifyEmail', function(req, res, next){
+    Student.update({email: getCryptr().decrypt(req.body.id)}, {$set: {valiatedEmail: true}}, function(err, student) {
+      if(err){
+        return res.status(500).json({
+          title: 'An error occured',
+          error: err
+        });
+      }
+      res.status(200).json({
+        status: 'success'
+      });
+    });
+  });
+
 router.use('/', function(req, res, next){
   jwt.verify(req.body.token, 'gamez', function(err, decoded){
     
@@ -90,7 +112,6 @@ router.use('/', function(req, res, next){
         error: err
       });
     }
-    
     next();
   })
 });
@@ -157,5 +178,45 @@ router.patch('/patchStudent', function(req, res, next){
     });
   });
 });
+
+function sendWelcomeEmail(email){
+ 
+  try {
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',
+            secure: false,
+            port: 25,
+            auth: {
+                user: 'schquest@gmail.com',
+                pass: 'Pewpew12!!'
+            },
+            tls: {
+                rejectUnauthorized: false
+            }
+        });
+          
+        let HelperOptions = {
+            from: 'schquest@gmail.com',
+            to: 'mahaelajohnson@gmail.com',
+            subject: 'Welcome',
+            text: 'Thank you for creating a ScholarQuest account! Follow this link to verify your account: https://scholar-quest.herokuapp.com/auth/verified/' + getCryptr().encrypt(email)
+        };
+
+        transporter.sendMail(HelperOptions, (error, info) => {
+            if(error) {
+                console.log(error);
+            }
+            else console.log("email sent");
+        })
+		}
+		// email delivery failed
+		catch (e) {
+			console.log('Email Error: ', e);
+		}
+}
+
+function getCryptr() {
+  return new Cryptr('winkwink');
+}
 
 module.exports = router;

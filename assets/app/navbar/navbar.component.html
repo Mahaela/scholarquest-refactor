@@ -1,12 +1,12 @@
 <md-toolbar class="menu-toolbar" layout="row" layout-align="end center">
-    <a md-button [routerLink]="['/']" class="navbar-brand" >SQ</a>
-    <a md-button [routerLink]="['/profile']">Home</a>
+    <button md-button [routerLink]="['/']" class="navbar-brand" >SQ</button>
+    <button md-button [routerLink]="['/profile']">Home</button>
     <a id="coinWrapper" *ngIf="getLoggedIn()"><img src="../assets/clip-art/GoldCoin.png" class="coin">{{goldCoins}} 
           <img src="../assets/clip-art/SilverCoin.png" class="coin"/>{{silverCoins}}
           <img src="../assets/clip-art/BronzeCoin.png" class="coin"/>{{bronzeCoins}}
       </a>
-      <a md-button [routerLink]="['/games']" >Games</a>
-      <a md-button *ngIf="!getLoggedIn()" [routerLink]="['/auth/signup']" ><span class="glyphicon glyphicon-user"></span>Sign Up</a>
-      <a md-button *ngIf="!getLoggedIn()" [routerLink]="['/auth/login']" ><span class="glyphicon glyphicon-log-in"></span> Login</a>
-      <a md-button *ngIf="getLoggedIn()" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+      <button md-button [routerLink]="['/games']" >Games</button>
+      <button md-button *ngIf="!getLoggedIn()" [routerLink]="['/auth/signup']">Sign Up</button>
+      <button md-button *ngIf="!getLoggedIn()" [routerLink]="['/auth/login']">Login</button>
+      <button md-button *ngIf="getLoggedIn()" (click)="logout()">Logout</button>
 </md-toolbar>

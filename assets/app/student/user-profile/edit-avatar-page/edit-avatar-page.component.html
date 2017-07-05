@@ -9,6 +9,7 @@
       <md-tab-group>
       <md-tab label="Hair">
         <sq-button-grid-card
+            [selectedNorm]="avatarData.hair" 
             title="Hair" 
             [options]="avatarService.getHair()"
             (buttonClicked)="changeHair($event)">
@@ -19,13 +20,15 @@
      <md-tab-group>
       <md-tab label="Shirt">
         <sq-button-grid-card
-            title="Shirt" 
+            title="Shirt"
+            [selectedNorm]="avatarData.shirt" 
             [options]="avatarService.getShirts()"
             (buttonClicked)="changeShirt($event)">
           </sq-button-grid-card> 
       </md-tab>
         <md-tab label="Pants">
           <sq-button-grid-card
+            [selectedNorm]="avatarData.pants" 
             title="Pants" 
             [options]="avatarService.getPants()"
             (buttonClicked)="changePants($event)">
@@ -36,8 +39,9 @@
     <md-tab-group>
       <md-tab label="Face">
         <sq-button-grid-card
-            #faceCard 
-            title="Face" 
+            title="Face"
+            [selectedMini]="avatarData.faceColor"
+            [selectedNorm]="avatarData.face" 
             [options]="faceOptions"
             [miniOptions]="avatarService.getFaceColors()"
             (buttonClicked)="changeFace($event)"
@@ -46,8 +50,9 @@
       </md-tab>
       <md-tab label="Eyes">
         <sq-button-grid-card
-            #eyesCard 
             title="Eyes" 
+            [selectedMini]="avatarData.eyeColor"
+            [selectedNorm]="avatarData.eyes" 
             [options]="eyesOptions"
             [miniOptions]="avatarService.getEyesColors()"
             (buttonClicked)="changeEyes($event)"
@@ -57,18 +62,19 @@
       <md-tab label="Nose">
         <sq-button-grid-card
             title="Nose" 
+            [selectedNorm]="avatarData.nose" 
             [options]="avatarService.getNoses()"
             (buttonClicked)="changeNose($event)">
           </sq-button-grid-card>
     </md-tab>
     <md-tab label="Mouth">
-      <sq-button-grid-card 
+      <sq-button-grid-card
           title="Mouth" 
+          [selectedNorm]="avatarData.mouth" 
           [options]="avatarService.getLips()"
           (buttonClicked)="changeLips($event)">
         </sq-button-grid-card>
       </md-tab>
     </md-tab-group>
-
   </div>
 </div>

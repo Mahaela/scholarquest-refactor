@@ -43,7 +43,7 @@ export class SignupComponent {
         'password': this.signupForm.controls.passwords.controls.pwd1.value,
         'firstName': this.signupForm.controls['firstName'].value,
         'lastName': this.signupForm.controls['lastName'].value }).subscribe(result => {
-            this.router.navigate(['/profile']);
+            this.router.navigate(['/auth/welcome']);
         });       
     }
 

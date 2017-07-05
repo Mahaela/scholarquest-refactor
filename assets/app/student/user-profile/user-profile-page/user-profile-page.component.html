@@ -9,8 +9,23 @@
 
   </div>
   <div fxFlex="50">
-    <sq-button-grid-card title="Cursor" patchValue="cursor" [options]="cursorService.getCursors()" (buttonClicked)="changeCursor($event)"></sq-button-grid-card>
-    <sq-button-grid-card title="Cursor Follower" patchValue="cursorFollower" [options]="cursorFollowerService.getCursorFollowers()" (buttonClicked)="changeCursorFollower($event)"></sq-button-grid-card>
+    <sq-button-grid-card
+      [selectedNorm]="studentData.cursor"
+      title="Cursor"
+      patchValue="cursor"
+      [options]="cursorService.getCursors()" 
+      (buttonClicked)="changeCursor($event)" 
+      #cursorList>
+      </sq-button-grid-card>
+
+    <sq-button-grid-card
+    [selectedNorm]="studentData.cursorFollower"
+     title="Cursor Follower"
+     patchValue="cursorFollower" 
+     [options]="cursorFollowerService.getCursorFollowers()" 
+     (buttonClicked)="changeCursorFollower($event)" 
+     #cursorFollowerList>
+     </sq-button-grid-card>
   </div>
 </div>
 

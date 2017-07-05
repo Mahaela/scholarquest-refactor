@@ -18,7 +18,7 @@ export class CursorFollowerListComponent implements AfterViewInit{
     @ViewChild('cursorFollower', { read: ViewContainerRef }) cursorFollower;
     private componentRef;
     private cursorFollowers;
-    private cursorFollowerIndex = 0;
+    private cursorFollowerIndex = 1;
     @Input() xPos;
     @Input() yPos;
     private cursorFollowerReady = false;
@@ -26,58 +26,17 @@ export class CursorFollowerListComponent implements AfterViewInit{
     displayedCursorFollower: any;
     show = 'invisible';
     
-    constructor(private viewContainerRef: ViewContainerRef, private componentFactoryResolver: ComponentFactoryResolver, private cursorFollowerService: CursorFollowerService, private elementRef: ElementRef) {
-        //    this.cursorFollowers = cursorFollowerService.getCursorFollowerComponents();
-        //    this.subscription = this.studentService.cursorFollowerStartPositionObs.subscribe(cf => this.changeFollower(cf));
-        //    this.cursorFollowerIndex = this.studentService.getCursorFollower();
-    }
+    constructor(private viewContainerRef: ViewContainerRef, private componentFactoryResolver: ComponentFactoryResolver, private cursorFollowerService: CursorFollowerService, private elementRef: ElementRef) {}
 
-
-    
     ngAfterViewInit(){
         this.cursorFollowerService.selectedCursorFollower.subscribe((value) => {
-        if (value) { 
-            this.show = 'visible';
-        }
-        else {
-            this.show = 'invisible';
-        }
-        
-    })
-    }
-
-    // changeFollower(cf: number[]) {
-    //     if (this.cursorFollowerReady) {
-    //         this.cursorFollower.clear();
-    //         if (cf[0] != 0) {
-    //             let factory = this.componentFactoryResolver.resolveComponentFactory(this.cursorFollowers[cf[0]]);
-    //             this.componentRef = this.cursorFollower.createComponent(factory);
-    //             this.cursorFollowerIndex = cf[0];
-    //             this.moveCursorFollower();
-    //         }
-    //     }
-    // }
-
-    // ngAfterContentInit() {
-    //     this.cursorFollowerReady = true;
-    //     if (this.cursorFollowerIndex != 0) {
-    //         let factory = this.componentFactoryResolver.resolveComponentFactory(this.cursorFollowers[this.cursorFollowerIndex]);
-    //         this.componentRef = this.cursorFollower.createComponent(factory);
-    //         this.moveCursorFollower();
-    //     }
-    // }
+            if (value != 1) { 
+                this.show = 'visible';
+            }
+            else {
+                this.show = 'invisible';
+            }
             
-    // ngOnChanges() {
-    //     if (this.cursorFollowerIndex != 0 && this.cursorFollowerReady) {
-    //         this.moveCursorFollower();
-    //     }
-    // }
-
-    // moveCursorFollower() {
-    //     this.componentRef.instance.yPos = this.yPos;
-    //     this.componentRef.instance.xPos = this.xPos;
-    // }
-    // ngOnDestroy(){
-    //     this.subscription.unsubscribe();
-    // }
+        })
+    }
 }

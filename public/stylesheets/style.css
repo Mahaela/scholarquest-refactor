@@ -5,8 +5,23 @@ body {
 
 a {
   color: #00B7FF;
+  cursor: pointer;
 }
 
-h1{
-  color: blue;
+a:hover,
+a:active {
+  color: #00B7FF;
+  text-decoration: underline;
+}
+
+a.danger {
+  color: red;
+}
+
+.spacing {
+  margin-bottom: 20px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
 }

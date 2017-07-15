@@ -10,7 +10,7 @@ import { ApiService } from '../../../shared/utils/api.service';
     styleUrls: ['./user-profile-page.component.css'],
 })
 export class UserProfilePageComponent {
-    studentData = {};
+    studentData = {cursor: 1, cursorFollower: 1};
 
 
     ngAfterViewInit(){
@@ -18,7 +18,11 @@ export class UserProfilePageComponent {
             data =>{
                 this.studentData = data
             },
-            error =>{console.log(error)} 
+            error =>{
+                console.log('error getting student');
+                this.studentData.cursor = 1;
+                this.studentData.cursorFollower = 1;
+            } 
         )
     }   
     constructor(private cursorService: CursorService, private cursorFollowerService: CursorFollowerService, private apiService: ApiService) {

@@ -1,14 +1,26 @@
-import { Component, ElementRef, ViewChild, Renderer, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, Renderer, AfterViewInit, trigger, style, state, transition, animate, keyframes } from '@angular/core';
 
 import { ArrayService } from '../../../shared/utils/array.service';
 import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
 import { VocabularyService } from '../vocabulary/vocabulary.service';
 import { ApiService } from '../../../shared/utils/api.service';
+import * as _ from "lodash"
 
 @Component({
   selector: 'sq-word-pipes',
   templateUrl: './word-pipes.component.html',
-  styleUrls: ['./word-pipes.component.css']
+  styleUrls: ['./word-pipes.component.css'],
+    animations: [
+      trigger('shake', [
+          state('left', style({ 'transform': 'rotate(30deg)' })),
+          state('right', style({ 'transform': 'rotate(-30deg)' })),
+          state('normal', style({ 'transform': 'rotate(0deg)' })),
+          transition('normal => left', animate('250ms ease-in')),
+          transition('normal => right', animate('250ms ease-in')),
+          transition('* => normal', animate('250ms ease-out'))
+        ])
+      ]
+  
 })
 export class WordPipesComponent implements AfterViewInit{
 
@@ -17,38 +29,50 @@ export class WordPipesComponent implements AfterViewInit{
 
   private vocabFull = [];
   private vocabRemaining = [];
-  private endBoxes = [];
+  private finishBoxes = [];
   private definitionsShown = [];
   private numDefinitionsShown = 3;
   private activeVocabulary: any;
   private startBoxes = [];
-  private partsBoxes = [];
   private numParts = 3;
-  private dragImages = [];
+  private pipesInHoldingBoxes = [];
+  private holdingBoxes = []
   private draggedNum: number;
   private selectedPipeBox: any;
   private gameBoard = [];
+  private cornerOuterImg = require('../../../assets/games/word-pipes/corner_outer.png');
+  private cornerUnderImg = require('../../../assets/games/word-pipes/corner_under.png');
+  private straightOuterImg = require('../../../assets/games/word-pipes/straight_outer.png');
+  private straightUnderImg = require('../../../assets/games/word-pipes/straight_under.png');
+  private terrains = [ require('../../../assets/games/word-pipes/terrain_1.jpg'), require('../../../assets/games/word-pipes/terrain_2.jpg'), require('../../../assets/games/word-pipes/terrain_3.jpg') ] ;
+  private rotations = [ 'rotate(0deg)', 'rotate(90deg)', 'rotate(180deg)', 'rotate(270deg)'];
+  private waterBlockImg = require('../../../assets/games/word-pipes/water_block.jpg');
+  private gameTableRows = Array(6);
+  private gameTableData = Array(5);
+  private shakeState ='normal';
+  private hoveringOnRecycle = false;
+  private lastShakeState = 'left';
+  
   private pipes = [ 
-   { img: require('../../../assets/games/word-pipes/one_bottom_left.jpg'), connectors: ['bottom', 'left'] },
-   { img: require('../../../assets/games/word-pipes/one_bottom_right.jpg'), connectors: ['bottom', 'right'] },
-   { img: require('../../../assets/games/word-pipes/one_top_left.jpg'), connectors: ['top', 'left'] },
-   { img: require('../../../assets/games/word-pipes/one_top_right.jpg'), connectors: ['top', 'right'] },
-   { img: require('../../../assets/games/word-pipes/one_top_bottom.jpg'), connectors: ['bottom', 'top'] },
-   { img: require('../../../assets/games/word-pipes/one_left_right.jpg'), connectors: ['right', 'left'] }
+   { outerImg: this.cornerOuterImg, underImg: this.cornerUnderImg, connectors: ['bottom', 'left'], pipeRotation: 'rotate(270deg)' },
+   { outerImg: this.cornerOuterImg, underImg: this.cornerUnderImg, connectors: ['bottom', 'right'], pipeRotation: 'rotate(180deg)' },
+   { outerImg: this.cornerOuterImg, underImg: this.cornerUnderImg, connectors: ['top', 'left'], pipeRotation: 'rotate(0deg)' },
+   { outerImg: this.cornerOuterImg, underImg: this.cornerUnderImg, connectors: ['top', 'right'], pipeRotation: 'rotate(90deg)' },
+   { outerImg: this.straightOuterImg, underImg: this.straightUnderImg, connectors: ['bottom', 'top'], pipeRotation: 'rotate(90deg)' },
+   { outerImg: this.straightOuterImg, underImg: this.straightUnderImg, connectors: ['right', 'left'], pipeRotation: 'rotate(0deg)' }
   ]
  
-  //  require('../../../assets/games/word-pipes/two_v_bottom_left.jpg'),
-  //  require('../../../assets/games/word-pipes/two_v_bottom_right.jpg'),
-  //  require('../../../assets/games/word-pipes/two_v_top_left.jpg'),
-  //  require('../../../assets/games/word-pipes/two_v_top_right.jpg'),
-  //  require('../../../assets/games/word-pipes/two_h_bottom_left.jpg'),
-  //  require('../../../assets/games/word-pipes/two_h_bottom_right.jpg'),
-  //  require('../../../assets/games/word-pipes/two_h_top_left.jpg'),
-  //  require('../../../assets/games/word-pipes/two_h_top_right.jpg')
-  // ]
-  constructor( private renderer: Renderer, private arrayService: ArrayService, private vocabularyService: VocabularyService, private apiService: ApiService ){
+   constructor( private renderer: Renderer, private arrayService: ArrayService, private vocabularyService: VocabularyService, private apiService: ApiService ){
     // get the pipes to be displayed in the holding container
-    this.getDisplayedParts();
+    this.initPipesInHoldingBoxes();
+    for(let i = 0; i < this.gameTableData.length + 3; i++){
+       var tempArr = [];
+
+      for(let k = 0; k < this.gameTableRows.length; k++){
+        tempArr.push({connectors: [], piperotation: '', terrain: _.sample(this.terrains), terrainRotation: _.sample(this.rotations)});
+      }
+      this.gameBoard.push(tempArr);
+    }
   }
 
   /**
@@ -56,21 +80,20 @@ export class WordPipesComponent implements AfterViewInit{
    */
     ngAfterViewInit() {     
       this.vocabFull = this.vocabularyService.getVocabularyFirst();
-      for(var i = 0; i < document.body.getElementsByClassName('endBox').length; ++i){
-        this.endBoxes.push(document.body.getElementsByClassName('endBox')[i]);
+      for(var i = 0; i < document.body.getElementsByClassName('finishBox').length; ++i){
+        this.finishBoxes.push(document.body.getElementsByClassName('finishBox')[i]);
       }
       for(var i = 0; i < document.body.getElementsByClassName('startBox').length; ++i){
         this.startBoxes.push(document.body.getElementsByClassName('startBox')[i]);
       }
-      for(var i = 0; i < document.body.getElementsByClassName('partsBox').length; ++i){
-        this.partsBoxes.push(document.body.getElementsByClassName('partsBox')[i]);
+      for(var i = 0; i < document.body.getElementsByClassName('holdingBox').length; ++i){
+        this.holdingBoxes.push(document.body.getElementsByClassName('holdingBox')[i]);
       }
       for(let i = 0; i < this.gameTable.nativeElement.children[0].children[0].children.length; i++){
-        var tempArr = [];
         for(let k = 0; k < this.gameTable.nativeElement.children[0].children.length; k++){
-          tempArr.push({element: this.gameTable.nativeElement.children[0].children[k].children[i], connectors: []});
+
+          this.gameBoard[i][k].element = this.gameTable.nativeElement.children[0].children[k].children[i];
         }
-        this.gameBoard.push(tempArr);
       }
       this.loadGameboard();
     }
@@ -83,7 +106,7 @@ export class WordPipesComponent implements AfterViewInit{
 
       // get random definitions, including the definition for the active vocabulary, and disply it in random spots
       this.definitionsShown = this.arrayService.selectRandom(this.vocabRemaining, this.numDefinitionsShown);
-      var boxes = this.arrayService.selectRandom(this.endBoxes, this.numDefinitionsShown);
+      var boxes = this.arrayService.selectRandom(this.finishBoxes, this.numDefinitionsShown);
       for(let i = 0; i < this.numDefinitionsShown; i++) {
         boxes[i].textContent = this.definitionsShown[i].definition;
       }
@@ -93,29 +116,19 @@ export class WordPipesComponent implements AfterViewInit{
       this.arrayService.selectRandom(this.startBoxes, 1)[0].textContent = this.activeVocabulary.word;
     }
     
-    getDisplayedParts(){
-      var tempPipes = this.pipes.slice();
-      var tempPipes2 = this.pipes.slice();
-      this.dragImages = [];
+    initPipesInHoldingBoxes(){
 
-      // make sure there is a pipe starting out that can connect to the word
-      while(this.dragImages.length < 1){
-        
-        // randomly select pipes until one with a left connectr is found
-        var index = Math.floor(Math.random() * tempPipes.length);
-        var tempPipe = tempPipes.splice(index, 1)[0];
-        tempPipe.connectors.forEach(con =>{
-         if(con == 'left'){
-           this.dragImages.push(tempPipe);
-           tempPipes2.splice(index, 1);
-         }
+      this.pipesInHoldingBoxes = [];
+      let pipesWithLeftConnectors = [];
 
-       })
-      }
+      this.pipes.forEach(pipe =>{
+        if( _.includes(pipe.connectors, 'left')) pipesWithLeftConnectors.push(pipe);
+      })
 
-      // add two more different pipes
-       this.dragImages.push.apply(this.dragImages, this.arrayService.selectRandom(tempPipes2, 2));
-    }
+      var leftPipe = [_.sample(pipesWithLeftConnectors)];
+
+      this.pipesInHoldingBoxes = leftPipe.concat(_.sampleSize(_.difference(this.pipes, leftPipe), 2));
+  }
 
     /**
      * allow droping the pipes in the game squares
@@ -140,50 +153,26 @@ export class WordPipesComponent implements AfterViewInit{
   onDrop(ev, column, row) {
 
     // if the game square does not have a pipe yet add the pipe
-    if(ev.target.children.length > 0){
-      ev.preventDefault();
+    ev.preventDefault();
 
-      // change the img to visible
-      this.renderer.setElementStyle(ev.target.children[0], 'visibility', 'visible');
+    // change the under and outer pipe of the tile 
+    ev.path[1].children[1].src = this.pipesInHoldingBoxes[this.draggedNum].underImg;
+    ev.path[1].children[4].src = this.pipesInHoldingBoxes[this.draggedNum].outerImg;
 
-      // change the image of the game square to the pipe
-      ev.target.children[0].src = this.dragImages[this.draggedNum].img;
-      ev.target.children[0].draggable = false;
-    }
-
-    // if the game square already has a pipe, replace it
-    else {
-
-      // change the background image of the pipe
-      ev.target.src = this.dragImages[this.draggedNum].img;
-    }
+    // change the pipe to visible
+    this.renderer.setElementStyle(ev.path[1].children[1], 'visibility', 'visible');
+    this.renderer.setElementStyle(ev.path[1].children[4], 'visibility', 'visible');
 
     // add the connectors to the corresponding location in the gamebord so they can be used later
-    this.gameBoard[column][row].connectors = this.dragImages[this.draggedNum].connectors;
-
-    // this.dragImages[this.draggedNum] = this.arrayService.selectRandom(this.pipes,1)[0];
-    this.getNewDragImage()
-    this.checkWin();
-  }
-
- /**
-  * get a new pipe in the container area to replace the pipe that was dropped onto the game board
-  */
-  getNewDragImage(){
-    var tempPipes = this.pipes.slice();
-
-    // dont get a new pipe that is already a pipe in the container area
-    for(let i = 0; i < this.dragImages.length; ++i){
-      for(let k = 0; k < tempPipes.length; k++){
-        if(this.dragImages[i].img == tempPipes[k].img){
-          tempPipes.splice(k,1);
-          break;
-        }
-      }
-    }
-
+    this.gameBoard[column][row].connectors = this.pipesInHoldingBoxes[this.draggedNum].connectors;
+    this.gameBoard[column][row].pipeRotation = this.pipesInHoldingBoxes[this.draggedNum].pipeRotation;
+    
     // get a new pipe for the container
-    this.dragImages[this.draggedNum] = this.arrayService.selectRandom(tempPipes, 1)[0];
+    this.pipesInHoldingBoxes[this.draggedNum] = _.sample(_.difference(this.pipes, this.pipesInHoldingBoxes));
+
+    this.renderer.setElementStyle(ev.path[2], 'background-color', '');
+    
+    this.checkWin();
   }
 
  /**
@@ -257,7 +246,7 @@ export class WordPipesComponent implements AfterViewInit{
     canContinueCheckingForWin(curSquare){
 
       // the game is won
-      if(curSquare.column == this.gameBoard.length - 1 && this.endBoxes[curSquare.row].textContent == this.activeVocabulary.definition){
+      if(curSquare.column == this.gameBoard.length - 1 && this.finishBoxes[curSquare.row].textContent == this.activeVocabulary.definition){
         this.apiService.addCoins(100);
         this.endGameDialog.openWinDialog();
       }
@@ -310,8 +299,8 @@ export class WordPipesComponent implements AfterViewInit{
   reload(){
 
     // clear the definitions
-     for(var i = 0; i < this.endBoxes.length; ++i){
-        this.endBoxes[i].textContent = '';
+     for(var i = 0; i < this.finishBoxes.length; ++i){
+        this.finishBoxes[i].textContent = '';
       }
 
       // clear the word
@@ -322,15 +311,61 @@ export class WordPipesComponent implements AfterViewInit{
       // clear the pipes
       for(let i = 1; i< this.gameBoard.length; i++){
         for(let k = 0; k < this.gameBoard[i].length; k++){
-          if(this.gameBoard[i][k].element.children[0].children.length > 0) this.gameBoard[i][k].element.children[0].children[0].src = '';
           this.gameBoard[i][k].connectors = []; 
+          this.gameBoard[i][k].pipeRotation = ''; 
         }
+      }
+
+      for(var i = 0; i < document.body.getElementsByClassName('underPipe').length; ++i){
+       document.body.getElementsByClassName('underPipe')[i].src = '';
+       this.renderer.setElementStyle(document.body.getElementsByClassName('underPipe')[i], 'visibility', 'hidden');
+      }
+
+       for(var i = 0; i < document.body.getElementsByClassName('outerPipe').length; ++i){
+        document.body.getElementsByClassName('outerPipe')[i].src = '';
+        this.renderer.setElementStyle(document.body.getElementsByClassName('outerPipe')[i], 'visibility', 'hidden');
       }
       
       // get new pipes for the container
-      this.getDisplayedParts();
+      this.initPipesInHoldingBoxes();
 
       // reload the game board
       this.loadGameboard();
+  }
+
+  highlightGameboardTile(event)
+  {
+      this.renderer.setElementStyle(event.path[2], 'background-color', 'purple');
+  }
+
+  unhighlightGameBoardTile(event){
+    this.renderer.setElementStyle(event.path[2], 'background-color', '');
+  }
+
+  shakeRecycle(event){
+    this.shakeState = 'left';
+    this.hoveringOnRecycle = true;
+  }
+
+  doneWithShake(event){
+    if(this.shakeState != 'normal'){
+      this.lastShakeState = this.shakeState; 
+      this.shakeState = 'normal';
+      return;
+    }
+    if(this.hoveringOnRecycle){
+      this.lastShakeState == 'left' ? this.shakeState = 'right' : this.shakeState = 'left'; 
+    }
+  }
+
+  recyclePipe(event){
+    this.hoveringOnRecycle = false;
+
+    // get a new pipe for the container
+    this.pipesInHoldingBoxes[this.draggedNum] = _.sample(_.difference(this.pipes, this.pipesInHoldingBoxes));
+  }
+
+  stopShaking(){
+    this.hoveringOnRecycle = false;
   }
 }

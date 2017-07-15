@@ -13,82 +13,32 @@
             <md-icon>clear</md-icon>
         </div>
     </div>
-    <div class="frame">
-        <table class="big-table">
-            <tr>
-                 <td>
-                     <table #gameTable>
-                         <tr>
-                             <td><div class="partsBox"></div></td>
-                             <td><div class="startBox"></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 2, 0)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 3, 0)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 4, 0)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 5, 0)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 6, 0)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 7, 0)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="endBox"></div></td>
-                         </tr>
-                         <tr>
-                             <td><div class="partsBox"></div></td>                             
-                             <td><div class="startBox"></div></td>
- 
-                             <td><div class="dropBox" (drop)="onDrop($event, 2, 1)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 3, 1)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 4, 1)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 5, 1)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 6, 1)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 7, 1)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="endBox" ></div></td>
-                         </tr>
-                         <tr>
-                             <td><div class="partsBox" ></div></td>                             
-                             <td><div class="startBox"></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 2, 2)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 3, 2)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 4, 2)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 5, 2)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 6, 2)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 7, 2)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="endBox"></div></td>
-                         </tr>
-                         <tr> 
-                             <td><div class="partsBox"><img draggable="true" class="dragImg" [src]=dragImages[0].img (dragstart)="drag($event, 0)"></div></td>                             
-                             <td><div class="startBox"></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 2, 3)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 3, 3)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 4, 3)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 5, 3)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 6, 3)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 7, 3)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="endBox"></div></td>
-                         </tr>
-                         <tr>
-                             <td><div class="partsBox"><img draggable="true" class="dragImg" [src]="dragImages[1].img" (dragstart)="drag($event, 1)"></div></td>                             
-                             <td><div class="startBox"></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 2, 4)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 3, 4)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 4, 4)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 5, 4)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 6, 4)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 7, 4)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="endBox"></div></td>
-                         </tr>
-                         <tr>
-                             <td><div class="partsBox"><img draggable="true" class="dragImg" [src]="dragImages[2].img" (dragstart)="drag($event, 2)"></div></td>
-                             <td><div class="startBox"></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 2, 5)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 3, 5)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 4, 5)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 5, 5)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 6, 5)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="dropBox" (drop)="onDrop($event, 7, 5)" (dragover)="allowDrop($event)"><img class="dropImg" src=""></div></td>
-                             <td><div class="endBox"></div></td>
-                         </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>
+    <table #gameTable>
+        <tr *ngFor="let rows of gameTableRows; let r = index">
+            <td>
+                <div class="square">
+                    <div draggable="true" *ngIf='(r > 1 && r < 5)' (dragstart)="drag($event, r-2)" class="holdingBox square">
+                        <img draggable="false" [src]="pipesInHoldingBoxes[r-2].underImg" class="square pipe" [style.transform]='pipesInHoldingBoxes[r-2].pipeRotation'>
+                        <img draggable="false" [src]="pipesInHoldingBoxes[r-2].outerImg" class="square pipe" [style.transform]='pipesInHoldingBoxes[r-2].pipeRotation'>
+                    </div>
+                    <img class="square" *ngIf='r==5' src="../../../assets/games/word-pipes/recycle.png" (drop)="recyclePipe($event)" (dragover)="allowDrop($event)" (dragleave)="stopShaking()" (dragenter)="shakeRecycle($event)" [@shake]="shakeState" (@shake.done)="doneWithShake($event)"> 
+                </div>
+            </td>
+            <td><div class="startBox"></div></td>
+            <td *ngFor="let data of gameTableData; let d = index">
+                <div class="dropBox square" (drop)="onDrop($event, d+2, r)" (dragover)="allowDrop($event)" (dragleave)="unhighlightGameBoardTile($event)" (dragenter)="highlightGameboardTile($event)">
+                    <img class="square terrain" [src]="gameBoard[d+2][r].terrain">
+                    <img src="" class="gameboardSquare square underPipe" [style.transform]='gameBoard[d+2][r].pipeRotation'>
+                    <img class="waterBlockLeftRightImg" src="" class="gameboardSquare square" >
+                    <img class="waterBlockTopBottomImg" src="" class="gameboardSquare square">
+                    <img src="" class="gameboardSquare square outerPipe" [style.transform]='gameBoard[d+2][r].pipeRotation'>
+                </div>
+            </td>
+            <td><div class="finishBox"></div></td>
+        </tr>
+    </table>
 </sq-grade-sidenav>
 <sq-end-game-dialog (playAgainSelect)="reload()" #endGameDialog></sq-end-game-dialog>
+
+
+    

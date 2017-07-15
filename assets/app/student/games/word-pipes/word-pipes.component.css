@@ -1,45 +1,45 @@
-.dropBox {
-    width: 100px;
-    height: 100px;
-    background-color: red;
-    border: solid black 1px;
-}
-
-.partsBox{
-    background-color: blue;
-    width: 100px;
-    height: 100px;
-    border: solid black 1px;
-}
- .endBox{
-    background-color: green;
-    min-width: 100px;
-    max-width: 250px;
-    height: 100px;
-    border: solid black 1px;
-    
- }
-
- .startBox {
-    background-color: purple;
-    width: 100px;
-    height: 100px;
-    border: solid black 1px;
- }
-
- .dragImg {
-     height: 100px;
- }
- 
- .dropImg {
-     visibility: hidden;
-     height: 98px;
- }
-
  .title {
      text-align: center;
  }
 
- .big-table {
-     margin: auto;
- }
+.square {
+    width: 100px;
+    height: 100px;
+}
+
+.pipe {
+    position: absolute;
+}
+
+.gameboardSquare {
+    position: absolute;
+    visibility: hidden;
+}
+
+td {
+    border: solid grey;
+}
+
+.terrain{
+    position: absolute;
+}
+
+table {
+    margin: auto;
+}
+
+.startBox {
+    text-align: center;
+    margin: auto;
+    width: 100px;
+    font-family: Serif;
+    font-size: 18px;
+}
+
+.finishBox {
+    text-align: center;
+    margin: auto;
+    width: 250px;
+    font-family: Serif;
+    font-size: 18px;
+}

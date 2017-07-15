@@ -25,13 +25,28 @@ export class EditAvatarPageComponent {
     this.apiService.post('avatar/getAvatar',{})
       .subscribe(
         data => {
+          console.log('data');
           this.avatarData = data.obj;
           this.faceOptions = this.avatarService.getFacesByColor(data.obj.face);
           this.eyesOptions = this.avatarService.getEyesByColor(data.obj.eyes);
           this.avatarData.faceColor = data.obj.face.substring(0,2);
           this.avatarData.eyeColor = data.obj.eyes.substring(0,2);
       },
-      error => {console.log(error)}
+      error => {
+        console.log('error 2');
+        this.avatarData.hair = '03';
+        this.avatarData.face = '0302';
+        this.avatarData.eyes = '0304';
+        this.avatarData.nose = '02';
+        this.avatarData.mouth = '01';
+        this.avatarData.shirt = '0201';
+        this.avatarData.pants = '0301';
+        this.avatarData.shoes = '01';
+        this.avatarData.faceColor = '03';
+        this.avatarData.eyeColor = '03';
+        this.faceOptions = this.avatarService.getFacesByColor('0302');
+        this.eyesOptions = this.avatarService.getEyesByColor('0304');
+      }
     )
   }
 

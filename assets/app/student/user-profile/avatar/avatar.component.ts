@@ -29,10 +29,13 @@ export class AvatarComponent implements AfterViewInit{
     constructor(private avatarService: AvatarService, private apiService: ApiService) {}
 
     ngAfterViewInit(){
+        // console.log("getting avatar");
         this.apiService.post('avatar/getAvatar',{})
             .subscribe(
             avatar => {
+                // console.log(avatar);
                 if(avatar.obj){
+                    // console.log('fouund avatar');
                     this.getHairByIndex(avatar.obj.hair);
                     this.getFaceByIndex(avatar.obj.face);
                     this.getEyesByIndex(avatar.obj.eyes);
@@ -56,6 +59,7 @@ export class AvatarComponent implements AfterViewInit{
     }
 
     setAvatarDummyValues(){
+        console.log("setting dummy variables");
         this.getHairByIndex('03');
         this.getFaceByIndex('0302');
         this.getEyesByIndex('0304');

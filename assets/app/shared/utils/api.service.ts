@@ -16,8 +16,7 @@ export class ApiService {
     patch(path: string, params: any) {
         var token = this.cookieService.getCookie('token');
         if(token) params['token'] = token;
-
-        return this.http.patch('https://scholar-quest.herokuapp.com/' + path, params)
+        return this.http.patch('http://localhost:3000/' + path, params)
           .map((response: Response) => response.json())
           .catch((error: Response) => Observable.throw(error.json()));
     }
@@ -28,7 +27,7 @@ export class ApiService {
     post(path: string, params: any) {
         var token = this.cookieService.getCookie('token');
         if(token) params['token'] = token;
-        return this.http.post('https://scholar-quest.herokuapp.com/' + path, params)
+        return this.http.post('http://localhost:3000/' + path, params)
           .map((response: Response) => response.json())
           .catch((error: Response) => Observable.throw(error));
     }
@@ -46,3 +45,5 @@ export class ApiService {
 
     }
 }   
+
+//http://Sample-env.d2apiyj8p6.us-west-2.elasticbeanstalk.com/

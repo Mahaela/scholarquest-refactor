@@ -14,12 +14,12 @@ export class GradeSidenavComponent implements AfterViewInit {
   @Output() buttonClicked = new EventEmitter<string>();
 
   private options = [
-    {img: require('../../../assets/clip-art/grades/first-grade.jpg'), index: 1},
-    {img: require('../../../assets/clip-art/grades/second-grade.jpg'), index: 2},
-    {img: require('../../../assets/clip-art/grades/third-grade.jpg'), index: 3},
-    {img: require('../../../assets/clip-art/grades/fourth-grade.jpg'), index: 4},
-    {img: require('../../../assets/clip-art/grades/fifth-grade.jpg'), index: 5},
-    {img: require('../../../assets/clip-art/grades/sixth-grade.jpg'), index: 6}
+    {img: require('../../../../assets/clip-art/grades/first-grade.jpg'), index: 1},
+    {img: require('../../../../assets/clip-art/grades/second-grade.jpg'), index: 2},
+    {img: require('../../../../assets/clip-art/grades/third-grade.jpg'), index: 3},
+    {img: require('../../../../assets/clip-art/grades/fourth-grade.jpg'), index: 4},
+    {img: require('../../../../assets/clip-art/grades/fifth-grade.jpg'), index: 5},
+    {img: require('../../../../assets/clip-art/grades/sixth-grade.jpg'), index: 6}
   ]
 
   ngAfterViewInit(){

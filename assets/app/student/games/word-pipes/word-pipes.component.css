@@ -2,12 +2,24 @@
      text-align: center;
  }
 
+ .waterBlock {
+    background-color: #40a4df;
+    height: 40px;
+    margin-top: 30px;
+    margin-left: 50px;
+}
+
 .square {
     width: 100px;
     height: 100px;
 }
+.waterSpill{
+    width: 40px;
+}
 
 .pipe {
+    width: 109px;
+    height: 100px;
     position: absolute;
 }
 
@@ -18,28 +30,137 @@
 
 td {
     border: solid grey;
+
 }
 
-.terrain{
+.terrain {
     position: absolute;
+    width: 97px;
+    height: 97px;
+    margin: 1.6px;
 }
 
 table {
     margin: auto;
+    align-content: center;
 }
 
 .startBox {
     text-align: center;
-    margin: auto;
-    width: 100px;
+    min-width: 100px;
+    display: inline-block;
+    vertical-align:top;
+    margin-top: 40px;
+    
+}
+
+.startBox p {
     font-family: Serif;
     font-size: 18px;
 }
 
 .finishBox {
-    text-align: center;
-    margin: auto;
-    width: 250px;
+    min-width: 250px;
+    display: inline-block;
+    vertical-align:top;
+    margin-top: 40px;
+    max-width: 350px;
+    margin-right: 10px;
+}
+
+.finishBox p {
     font-family: Serif;
     font-size: 18px;
+}
+
+.startPipe {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    vertical-align:top;
+    margin-right: -1px;
+}
+
+.endPipe {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    vertical-align:top;
+}
+
+.endPipe .pipe {
+    transform: rotate(180deg);
+}
+
+.pipe {
+    width: 100px;
+}
+
+.fastForward{
+    background-color: lightgray;
+}
+
+.fastForward img {
+    height: 60px;
+    width: 60px;
+}
+
+.pipeFitting {
+    visibility: hidden;
+    position: absolute;
+    height: 100px;
+}
+
+
+.pipeFittingLeft{
+    height: 100px;
+    position: absolute;
+    margin-left: -10px;
+    /*visibility: visible;*/
+    z-index: 100;
+}
+
+.pipeFittingRight{
+    height: 100px;
+    position: absolute;
+    margin-left: 95px;
+    /*visibility: visible;*/
+    z-index: 100;
+}
+
+.pipeFittingDown {
+    height: 100px;
+    position: absolute;
+     margin-top: 53px;
+    margin-left: 43px;
+    transform:rotate(90deg);
+    /*visibility: hidden;*/
+    z-index: 100;
+}
+
+.pipeFittingUp{
+    height: 100px;
+    position: absolute;
+    margin-top: -52px;
+    margin-left: 43px;
+    transform:rotate(90deg);
+    /*visibility: hidden;*/
+    z-index: 100;
+}
+
+.rock {
+    visibility: hidden;
+    position: absolute;
+    /*margin-left: -35px;*/
+}
+
+.holdingPipe {
+    width: 96px;
+    height: 96px;
+    position: absolute;
+    margin: 2px;
+}
+
+.noPointer {
+    pointer-events: none;
 }

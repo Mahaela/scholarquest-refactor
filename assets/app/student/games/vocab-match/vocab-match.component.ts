@@ -1,8 +1,6 @@
 import { Component, ElementRef, ViewChild, Renderer } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { VocabularyService } from '../vocabulary/vocabulary.service';
-import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
 import { ApiService } from '../../../shared/utils/api.service';
 
 @Component({
@@ -22,12 +20,12 @@ export class VocabMatchComponent{
   private score = 0;
 
   @ViewChild('score') scoreTxt: ElementRef;
-  @ViewChild('winDialog') winDialog: EndGameDialogComponent;
+  // @ViewChild('winDialog') winDialog: EndGameDialogComponent;
 
-  constructor(private vocabularyService: VocabularyService, private renderer: Renderer, private apiService: ApiService) {
+  constructor(private renderer: Renderer, private apiService: ApiService) {
 
     // get the vocabulary that will be use (the first grade vocabulary)
-    this.vocabFullList = this.vocabularyService.getVocabularyFirst();
+    // this.vocabFullList = this.vocabularyService.getVocabularyFirst();
     this.initGameBoard();
   }
   
@@ -99,7 +97,7 @@ dragover(event){
           // if the game is over, open the dialog that will prompt the user to play again
           if(this.vocabWords.length == 0){
                   this.apiService.addCoins(this.score);
-                 this.winDialog.openWinDialog();
+                //  this.winDialog.openWinDialog();
           }    
         }
       }
@@ -117,37 +115,37 @@ dragover(event){
 /*
  * change the vocabulary when a new word is selected
  */
- changeGradeLevel(event){
+//  changeGradeLevel(event){
   
-    switch(event) { 
-        case 2: { 
-            this.vocabFullList = this.vocabularyService.getVocabularySecond(); 
-            break; 
-        }
-        case 3: { 
-            this.vocabFullList  = this.vocabularyService.getVocabularyThird();
-            console.log(this.vocab);
-            break; 
-        }
-        case 4: { 
-            this.vocabFullList  = this.vocabularyService.getVocabularyFourth(); 
-            break; 
-        }
-        case 5: { 
-            this.vocabFullList  = this.vocabularyService.getVocabularyFifth(); 
-            break; 
-        }
-        case 6: { 
-            this.vocabFullList  = this.vocabularyService.getVocabularySixth();
-            break; 
-        } 
-        default: { 
-            this.vocabFullList  = this.vocabularyService.getVocabularyFirst();
-            break; 
-        } 
-    }
-    this.reload();
- }
+//     switch(event) { 
+//         case 2: { 
+//             this.vocabFullList = this.vocabularyService.getVocabularySecond(); 
+//             break; 
+//         }
+//         case 3: { 
+//             this.vocabFullList  = this.vocabularyService.getVocabularyThird();
+//             console.log(this.vocab);
+//             break; 
+//         }
+//         case 4: { 
+//             this.vocabFullList  = this.vocabularyService.getVocabularyFourth(); 
+//             break; 
+//         }
+//         case 5: { 
+//             this.vocabFullList  = this.vocabularyService.getVocabularyFifth(); 
+//             break; 
+//         }
+//         case 6: { 
+//             this.vocabFullList  = this.vocabularyService.getVocabularySixth();
+//             break; 
+//         } 
+//         default: { 
+//             this.vocabFullList  = this.vocabularyService.getVocabularyFirst();
+//             break; 
+//         } 
+//     }
+//     this.reload();
+//  }
 
 /*
  * start a new game

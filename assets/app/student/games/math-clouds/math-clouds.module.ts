@@ -7,8 +7,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MathCloudsComponent } from './math-clouds.component';
-import { GradeSidenavModule } from '../grade-sidenav/grade-sidenav.module';
-import { EndGameDialogModule } from '../end-game-dialog/end-game-dialog.module';
 
 const routes: Routes = [
 	{ path: '', component: MathCloudsComponent },
@@ -21,8 +19,6 @@ const routes: Routes = [
 		MaterialModule,
 		FlexLayoutModule,
 		RouterModule.forChild(routes),
-		GradeSidenavModule,
-		EndGameDialogModule
 	],
 	declarations: [
 		MathCloudsComponent

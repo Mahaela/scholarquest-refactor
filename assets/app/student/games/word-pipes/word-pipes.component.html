@@ -1,5 +1,4 @@
-<sq-grade-sidenav (buttonClicked)="changeGradeLevel($event)">
-
+<sq-game>
     <div class="title">
         <h1>Vocabulary Pipes</h1>
     </div>
@@ -17,28 +16,56 @@
         <tr *ngFor="let rows of gameTableRows; let r = index">
             <td>
                 <div class="square">
-                    <div draggable="true" *ngIf='(r > 1 && r < 5)' (dragstart)="drag($event, r-2)" class="holdingBox square">
-                        <img draggable="false" [src]="pipesInHoldingBoxes[r-2].underImg" class="square pipe" [style.transform]='pipesInHoldingBoxes[r-2].pipeRotation'>
-                        <img draggable="false" [src]="pipesInHoldingBoxes[r-2].outerImg" class="square pipe" [style.transform]='pipesInHoldingBoxes[r-2].pipeRotation'>
+                    <button md-fab *ngIf='r==0' class="square fastForward">
+                        <img  (click)="speedUpWater()" src="../../../assets/clip-art/fast-forward.png" class="fastForward" draggable="false">
+                    </button>
+                    <div *ngIf='(r > 1 && r < 5)' (dragstart)="drag($event, r-2)" class="holdingBox square">
+                        <img draggable="true" [src]="pipesInHoldingBoxes[r-2].fullImg" class="holdingPipe">
                     </div>
-                    <img class="square" *ngIf='r==5' src="../../../assets/games/word-pipes/recycle.png" (drop)="recyclePipe($event)" (dragover)="allowDrop($event)" (dragleave)="stopShaking()" (dragenter)="shakeRecycle($event)" [@shake]="shakeState" (@shake.done)="doneWithShake($event)"> 
+                    <img class="square" *ngIf='r==5' src="../../../assets/games/word-pipes/recycle.png" (drop)="recyclePipe($event)" (dragover)="allowDrop($event)" (dragleave)="stopShaking()" (dragenter)="shakeRecycle($event)" [@shake]="shakeState" (@shake.done)="doneWithShake($event)" draggable="false"> 
                 </div>
             </td>
-            <td><div class="startBox"></div></td>
-            <td *ngFor="let data of gameTableData; let d = index">
-                <div class="dropBox square" (drop)="onDrop($event, d+2, r)" (dragover)="allowDrop($event)" (dragleave)="unhighlightGameBoardTile($event)" (dragenter)="highlightGameboardTile($event)">
-                    <img class="square terrain" [src]="gameBoard[d+2][r].terrain">
-                    <img src="" class="gameboardSquare square underPipe" [style.transform]='gameBoard[d+2][r].pipeRotation'>
-                    <img class="waterBlockLeftRightImg" src="" class="gameboardSquare square" >
-                    <img class="waterBlockTopBottomImg" src="" class="gameboardSquare square">
-                    <img src="" class="gameboardSquare square outerPipe" [style.transform]='gameBoard[d+2][r].pipeRotation'>
+            <td>
+                <div class="startBox">
+                    <p></p>
+                </div>
+                <div class="startPipe" >
+                    <!--under pipe-->
+                    <img src="" class="gameboardSquare pipe" draggable="false">
+                    <!--water-->
+                    <div  class="gameboardSquare waterBlock"></div>
+                    <!--outer pipe-->
+                    <img src="" class="gameboardSquare pipe" draggable="false">
                 </div>
             </td>
-            <td><div class="finishBox"></div></td>
+            <td *ngFor="let data of gameTableData; let d = index" (drop)="onDrop($event, d+2, r)" (dragover)="allowDrop($event)" (dragleave)="unhighlightGameBoardTile($event, d+2, r)" (dragenter)="highlightGameboardTile($event, d+2, r)">
+                <div class="dropBox square noPointer">
+                    <img class="terrain noPointer" [src]="gameBoard[d+2][r].terrain" draggable="false">
+                    <img src="" class="gameboardSquare pipe underPipe noPointer" [style.transform]='gameBoard[d+2][r].pipeRotation' draggable="false">
+                     <!--water-->
+                    <div class="gameboardSquare waterBlock noPointer"></div>
+                    <div class="gameboardSquare waterBlock noPointer"></div>
+                    <!--special effect-->
+                    <img src="" class="gameboardSquare specialEffect noPointer"  draggable="false">
+                    <img src="" class="gameboardSquare pipe outerPipe noPointer" [style.transform]='gameBoard[d+2][r].pipeRotation' draggable="false">
+                    <img src="../../../assets/games/word-pipes/pipe-fitting.png" class="pipeFitting noPointer"  draggable="false">
+                    <img src="../../../assets/games/word-pipes/pipe-fitting.png" class="pipeFitting noPointer"  draggable="false">
+                    <img *ngIf="d != 0 && d != 4" src="" class="square rock noPointer"  draggable="false"> 
+                </div>
+            </td>
+            <td>
+                <div class="endPipe" >
+                    <!--under pipe-->   
+                    <img src="" class="gameboardSquare pipe" draggable="false">
+                    <!--water-->
+                    <div src="" class="gameboardSquare waterBlock"></div>
+                    <!--outer pipe-->
+                    <img src="" class="gameboardSquare pipe" draggable="false">
+                </div>
+                <div class="finishBox">
+                    <p></p>
+                </div>
+            </td>
         </tr>
     </table>
-</sq-grade-sidenav>
-<sq-end-game-dialog (playAgainSelect)="reload()" #endGameDialog></sq-end-game-dialog>
-
-
-    
+</sq-game>

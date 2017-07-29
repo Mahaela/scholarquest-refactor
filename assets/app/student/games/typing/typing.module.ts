@@ -5,8 +5,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
 
 import { TypingComponent } from './typing.component';
-import { GradeSidenavModule } from '../grade-sidenav/grade-sidenav.module';
-import { EndGameDialogModule } from '../end-game-dialog/end-game-dialog.module';
 
 const routes: Routes = [
 	{ path: '', component: TypingComponent },
@@ -19,8 +17,6 @@ const routes: Routes = [
 		MaterialModule,
 		FlexLayoutModule,
 		RouterModule.forChild(routes),
-		GradeSidenavModule,
-		EndGameDialogModule
 	],
 	declarations: [
 		TypingComponent

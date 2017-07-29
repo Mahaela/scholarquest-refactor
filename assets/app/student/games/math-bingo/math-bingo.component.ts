@@ -1,6 +1,5 @@
 import { Component, AfterViewInit, Renderer, ViewChild } from '@angular/core';
-import { MathProblemsService } from '../math-problems/math-problems.service';
-import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
+
 
 import { ApiService } from '../../../shared/utils/api.service';
 
@@ -11,7 +10,7 @@ import { ApiService } from '../../../shared/utils/api.service';
 })
 export class MathBingoComponent implements AfterViewInit{
 
-    @ViewChild('winDialog') winDialog: EndGameDialogComponent;
+    // @ViewChild('winDialog') winDialog: EndGameDialogComponent;
 
     private squares = [];
     private equations = [];
@@ -27,12 +26,12 @@ export class MathBingoComponent implements AfterViewInit{
     private numRows = Array(5);
     private numCols = Array(5);
 
-    constructor(private mathProblemsService: MathProblemsService, private renderer: Renderer, private apiService: ApiService) {}
+    constructor( private renderer: Renderer, private apiService: ApiService) {}
 
     ngAfterViewInit() {
 
         // get all the equations for a given grade
-        this.totEquations = this.mathProblemsService.getFirstGradeMathEquations();
+        // this.totEquations = this.mathProblemsService.getFirstGradeMathEquations();
 
        // get the table data cells 
         for(var i = 0; i < Object.keys(document.body.querySelectorAll('td')).length; ++i){
@@ -46,45 +45,45 @@ export class MathBingoComponent implements AfterViewInit{
     /*
      * change the equations when a new grade level is selected
      */ 
-    changeGradeLevel(event){
+    // changeGradeLevel(event){
 
-        switch(event) { 
-            case 2: { 
-                //statements;
-                this.totEquations = this.mathProblemsService.getSecondGradeMathEquations(); 
-                break; 
-            }
-            case 3: { 
-                //statements; 
-                this.totEquations = this.mathProblemsService.getThirdGradeMathEquations();
-                break; 
-            }
-            case 4: { 
-                //statements;
-                this.totEquations = this.mathProblemsService.getFourthGradeMathEquations(); 
-                break; 
-            }
-            case 5: { 
-                //statements;
-                this.totEquations = this.mathProblemsService.getFifthGradeMathEquations(); 
-                break; 
-            }
-            case 6: { 
-                //statements; 
-                this.totEquations = this.mathProblemsService.getSixthGradeMathEquations();
-                break; 
-            } 
-            default: { 
-                //statements;
-                this.totEquations = this.mathProblemsService.getFirstGradeMathEquations(); 
-                break; 
-            } 
-        }
-        // stop the clock
-        clearInterval(this.clock);
+    //     switch(event) { 
+    //         case 2: { 
+    //             //statements;
+    //             this.totEquations = this.mathProblemsService.getSecondGradeMathEquations(); 
+    //             break; 
+    //         }
+    //         case 3: { 
+    //             //statements; 
+    //             this.totEquations = this.mathProblemsService.getThirdGradeMathEquations();
+    //             break; 
+    //         }
+    //         case 4: { 
+    //             //statements;
+    //             this.totEquations = this.mathProblemsService.getFourthGradeMathEquations(); 
+    //             break; 
+    //         }
+    //         case 5: { 
+    //             //statements;
+    //             this.totEquations = this.mathProblemsService.getFifthGradeMathEquations(); 
+    //             break; 
+    //         }
+    //         case 6: { 
+    //             //statements; 
+    //             this.totEquations = this.mathProblemsService.getSixthGradeMathEquations();
+    //             break; 
+    //         } 
+    //         default: { 
+    //             //statements;
+    //             this.totEquations = this.mathProblemsService.getFirstGradeMathEquations(); 
+    //             break; 
+    //         } 
+    //     }
+    //     // stop the clock
+    //     clearInterval(this.clock);
         
-        this.initGameboard();
-    }
+    //     this.initGameboard();
+    // }
 
     initGameboard() {
         this.initClock();
@@ -191,7 +190,7 @@ export class MathBingoComponent implements AfterViewInit{
                 this.currEquation.problem = "";
 
                 // open the dialog that will prompt the user to play again
-                 this.winDialog.openWinDialog();
+                //  this.winDialog.openWinDialog();
 
                  this.apiService.addCoins(this.score);
             }

@@ -5,10 +5,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GameModule } from '../game/game.module';
 
 import { WordPipesComponent } from './word-pipes.component';
-import { GradeSidenavModule } from '../grade-sidenav/grade-sidenav.module';
-import { EndGameDialogModule } from '../end-game-dialog/end-game-dialog.module';
 
 const routes: Routes = [
 	{ path: '', component: WordPipesComponent },
@@ -21,8 +20,7 @@ const routes: Routes = [
 		MaterialModule,
 		FlexLayoutModule,
 		RouterModule.forChild(routes),
-		GradeSidenavModule,
-		EndGameDialogModule
+		GameModule
 	],
 	declarations: [
 		WordPipesComponent

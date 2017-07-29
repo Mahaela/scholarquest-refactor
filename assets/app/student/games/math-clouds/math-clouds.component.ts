@@ -1,8 +1,7 @@
 import { Component, ElementRef, ViewChild, Renderer } from '@angular/core';
 
 import { ArrayService } from '../../../shared/utils/array.service';
-import { EndGameDialogComponent } from '../end-game-dialog/end-game-dialog.component';
-import { MathProblemsService } from '../math-problems/math-problems.service';
+
 import { ApiService } from '../../../shared/utils/api.service';
 
 
@@ -29,12 +28,12 @@ export class MathCloudsComponent {
  
    @ViewChild('box') box: ElementRef;
  
-   @ViewChild('endGameDialog') endGameDialog: EndGameDialogComponent;
+  //  @ViewChild('endGameDialog') endGameDialog: EndGameDialogComponent;
 
-  constructor( private renderer: Renderer, private mathProblemsService: MathProblemsService, private arrayService: ArrayService, private apiService: ApiService ){
+  constructor( private renderer: Renderer,  private arrayService: ArrayService, private apiService: ApiService ){
     
-    this.mathProblemsFull = this.mathProblemsService.getFirstGradeMathEquations();
-    this.mathProblemsRemaining = this.mathProblemsService.getFirstGradeMathEquations(); 
+    // this.mathProblemsFull = this.mathProblemsService.getFirstGradeMathEquations();
+    // this.mathProblemsRemaining = this.mathProblemsService.getFirstGradeMathEquations(); 
     this.getProblems();  
   }
 
@@ -113,7 +112,7 @@ checkCorrect(position){
          this.strikes++;
          // if the player has lost, open a dialog prompting the user to play again
          if(this.strikes == this.strikeIcons.length){ 
-           this.endGameDialog.openLoseDialog();
+          //  this.endGameDialog.openLoseDialog();
            this.apiService.addCoins(this.score);
            // stop the clock
            clearInterval(this.boxMovingInterval);
@@ -128,37 +127,37 @@ checkCorrect(position){
    /*
    * change the vocabulary when a new word is selected
    */
-   changeGradeLevel(event){
+  //  changeGradeLevel(event){
  
-     switch(event) { 
-         case 2: { 
-             this.mathProblemsFull = this.mathProblemsService.getSecondGradeMathEquations();
-             break; 
-         }
-         case 3: { 
-             this.mathProblemsFull = this.mathProblemsService.getThirdGradeMathEquations();
-             break; 
-         }
-         case 4: { 
-             this.mathProblemsFull = this.mathProblemsService.getFourthGradeMathEquations();            
-             break; 
-         }
-         case 5: { 
-             this.mathProblemsFull = this.mathProblemsService.getFifthGradeMathEquations();                         
-             break; 
-         }
-         case 6: { 
-             this.mathProblemsFull  = this.mathProblemsService.getSixthGradeMathEquations();
-             break; 
-         } 
-         default: { 
-             this.mathProblemsFull = this.mathProblemsService.getFirstGradeMathEquations();
-             break; 
-         }
-     }
-     this.mathProblemsRemaining = this.mathProblemsFull.slice();
-     this.replay(); 
-   }
+  //    switch(event) { 
+  //        case 2: { 
+  //            this.mathProblemsFull = this.mathProblemsService.getSecondGradeMathEquations();
+  //            break; 
+  //        }
+  //        case 3: { 
+  //            this.mathProblemsFull = this.mathProblemsService.getThirdGradeMathEquations();
+  //            break; 
+  //        }
+  //        case 4: { 
+  //            this.mathProblemsFull = this.mathProblemsService.getFourthGradeMathEquations();            
+  //            break; 
+  //        }
+  //        case 5: { 
+  //            this.mathProblemsFull = this.mathProblemsService.getFifthGradeMathEquations();                         
+  //            break; 
+  //        }
+  //        case 6: { 
+  //            this.mathProblemsFull  = this.mathProblemsService.getSixthGradeMathEquations();
+  //            break; 
+  //        } 
+  //        default: { 
+  //            this.mathProblemsFull = this.mathProblemsService.getFirstGradeMathEquations();
+  //            break; 
+  //        }
+  //    }
+  //    this.mathProblemsRemaining = this.mathProblemsFull.slice();
+  //    this.replay(); 
+  //  }
  
    /*
    * reload the gameboard;

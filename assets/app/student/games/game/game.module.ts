@@ -7,7 +7,7 @@ import { GradeSidenavComponent } from './grade-sidenav/grade-sidenav.component';
 import { EndGameDialogComponent, WinDialogInnerTextComponent, LoseDialogInnerTextComponent } from './end-game-dialog/end-game-dialog.component';
 import { VocabularyService } from './vocabulary/vocabulary.service';
 import { MathProblemsService } from './math-problems/math-problems.service';
-
+import { CountdownOuterDialogComponent, CountdownInnerDialogComponent} from './countdown-dialog/countdown-dialog.component';
 
 @NgModule({
 	imports: [
@@ -20,9 +20,11 @@ import { MathProblemsService } from './math-problems/math-problems.service';
 		WinDialogInnerTextComponent,
 		LoseDialogInnerTextComponent,
 		GradeSidenavComponent,
-		GameComponent
+		GameComponent,
+		CountdownOuterDialogComponent,
+		CountdownInnerDialogComponent
 	],
-	bootstrap: [ EndGameDialogComponent, WinDialogInnerTextComponent, LoseDialogInnerTextComponent ],
+	bootstrap: [ EndGameDialogComponent, WinDialogInnerTextComponent, LoseDialogInnerTextComponent, CountdownOuterDialogComponent, CountdownInnerDialogComponent ],
 	exports: [ GameComponent ],
 	providers: [ VocabularyService, MathProblemsService ]
 })

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'sq-game',
@@ -7,5 +7,16 @@ import { Component } from '@angular/core';
 })
 export class GameComponent {
 
+  @ViewChild('countdown') countdownDialog;
+  @ViewChild('endGame') endGameDialog;
+
   constructor() { }
+
+  startCountdown(){
+    this.countdownDialog.openCountdownDialog();
+  }
+
+  openEndGameDialog(){
+    this.endGameDialog.openWinDialog();
+  }
 }

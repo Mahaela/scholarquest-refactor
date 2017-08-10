@@ -1,4 +1,4 @@
-<sq-game #game>
+<sq-game #game (countdownDoneEvent)="countdownDone()">
     <div class="title">
         <img class="title" src="../../../assets/games/word-pipes/title.png"> 
     </div>
@@ -24,7 +24,7 @@
                     <!--under pipe-->
                     <img src="" class="gameboardSquare pipe underPipe" draggable="false">
                     <!--water-->
-                    <div  class="gameboardSquare waterBlock" oanimationend='test()' animationend='test()' webkitAnimationEnd='test()'></div>
+                    <div  class="gameboardSquare waterBlock"></div>
                     <!--special effect-->
                     <img src="" class="gameboardSquare specialEffect noPointer"  draggable="false">
                     <!--outer pipe-->
@@ -36,8 +36,8 @@
                     <img class="terrain noPointer" [src]="gameBoard[d+2][r].terrain" draggable="false">
                     <img src="" class="gameboardSquare pipe underPipe noPointer" [style.transform]='gameBoard[d+2][r].pipeRotation' draggable="false">
                      <!--water-->
-                    <div class="gameboardSquare waterBlock noPointer " (oanimationend)='test()' (animationend)='test()' (webkitAnimationEnd)='test()'></div>
-                    <div class="gameboardSquare waterBlock noPointer" (oanimationend)='test()' (animationend)='test()' (webkitAnimationEnd)='test()'></div>
+                    <div class="gameboardSquare waterBlock noPointer "></div>
+                    <div class="gameboardSquare waterBlock noPointer"></div>
                     <!--special effect-->
                     <img src="" class="gameboardSquare specialEffect noPointer"  draggable="false">
                     <img src="" class="gameboardSquare pipe outerPipe noPointer" [style.transform]='gameBoard[d+2][r].pipeRotation' draggable="false">

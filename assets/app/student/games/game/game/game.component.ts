@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'sq-game',
@@ -9,7 +9,7 @@ export class GameComponent {
 
   @ViewChild('countdown') countdownDialog;
   @ViewChild('endGame') endGameDialog;
-
+  @Output() countdownDoneEvent = new EventEmitter<boolean>();
   constructor() { }
 
   startCountdown(){
@@ -18,5 +18,9 @@ export class GameComponent {
 
   openEndGameDialog(){
     this.endGameDialog.openWinDialog();
+  }
+
+  countdownDone(){
+    this.countdownDoneEvent.emit(true);
   }
 }

@@ -13,6 +13,7 @@
   "typeRoots": [
     "node_modules/@types"
   ],
+  "types": ["Paper"],
   "lib": [
     "es5",
     "dom"

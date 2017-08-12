@@ -1,2 +1,10 @@
-<p align="center">You Lost</p>
-<button md-button (click)="dialogRef.close('true')">Play Again</button>
+<img *ngIf="coins > 0" src="../../../../assets/games/coins.gif">
+<div class="coinText">
+    <p align="center"class="inline">You won </p>
+    <p align="center"class="inline coins">{{ data.coins }} </p>
+    <p align="center"class="inline"> coins</p>
+</div>
+<p align="center">{{ data.text }}</p>
+<md-dialog-actions>
+    <button md-button (click)="dialogRef.close('true')">Play Again</button>
+</md-dialog-actions>

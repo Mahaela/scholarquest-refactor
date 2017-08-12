@@ -3,5 +3,5 @@
         <ng-content></ng-content>
     </md-card>
 </sq-grade-sidenav>
-<sq-end-game-dialog #endGame></sq-end-game-dialog>
+<sq-end-game-dialog #endGame (playAgainSelect)="playAgain()"></sq-end-game-dialog>
 <sq-countdown-outer-dialog #countdown (countdownDone)="countdownDone()"></sq-countdown-outer-dialog>

@@ -30,8 +30,8 @@ export class CountdownOuterDialogComponent {
     trigger('fade', [
       state('normal', style({ 'opacity': '100' })),
       state('faded', style({ 'opacity': '0' })),
-      transition('normal => faded', animate('2s ease-out')),
-      transition('faded => normal', animate('.01s')),
+      transition('normal => faded', animate('1s ease-out')),
+      transition('faded => normal', animate('.1s')),
     ])
   ] 
 })

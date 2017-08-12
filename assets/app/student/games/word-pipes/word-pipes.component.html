@@ -1,14 +1,14 @@
-<sq-game #game (countdownDoneEvent)="countdownDone()">
+<sq-game #game (countdownDoneEvent)="countdownDone()" (playAgainEvent)="playAgain()" (changeGradeLevelEvent)="changeGradeLevel(grade)">
     <div class="title">
         <img class="title" src="../../../assets/games/word-pipes/title.png"> 
     </div>
-    <div class="score">{{scoreText}}</div>
+    <h3 class="score">Score: {{score}}</h3>
     <table #gameTable>
         <tr *ngFor="let rows of gameTableRows; let r = index">
             <td>
                 <div class="square">
-                    <button md-fab *ngIf='r==0' class="square fastForward">
-                        <img  (click)="speedUpWater()" src="../../../assets/clip-art/fast-forward.png" class="fastForward" draggable="false">
+                    <button md-fab *ngIf='r==0' class="square fastForward" (click)="speedUpWater()"> 
+                        <img  src="../../../assets/clip-art/fast-forward.png" class="fastForward" draggable="false">
                     </button>
                     <div *ngIf='(r > 1 && r < 5)' (dragstart)="drag($event, r-2)" class="holdingBox square">
                         <img draggable="true" [src]="pipesInHoldingBoxes[r-2].fullImg" class="holdingPipe">
@@ -62,5 +62,5 @@
             </td>
         </tr>
     </table>
-     <img class="waterSpill" src="../../../assets/games/word-pipes/waterSpill.png" [@spill]="spillState"> 
+     <img class="waterSpill" [src]="spillImg" [@spill]="spillState"> 
 </sq-game>

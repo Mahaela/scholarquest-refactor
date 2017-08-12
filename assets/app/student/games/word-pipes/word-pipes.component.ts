@@ -23,6 +23,7 @@ import * as _ from "lodash";
           state('normal', style({ 'width': '60px', 'height': '60px' })),
           state('spilled', style({ 'width': '300px', 'height': '150px', 'transform': 'translateY(-60px) translateX(-100px)' })),
           transition('normal => spilled', animate('4s ease-out')),
+          transition('spilled => spilled', animate('.1s')),
       ])
     ]
 })
@@ -31,7 +32,6 @@ export class WordPipesComponent implements AfterViewInit{
   @ViewChild('gameTable') gameTable;
   @ViewChild('game') gameController;
   private spillState = 'normal';
-
   private vocabFull = [];
   private finishBoxes = [];
   private numDefinitionsShown = 3;
@@ -55,6 +55,7 @@ export class WordPipesComponent implements AfterViewInit{
   private endUnderImg = require('../../../assets/games/word-pipes/end_pipe_under.png');
   private endOuterImg = require('../../../assets/games/word-pipes/end_pipe_outer.png');
   private waterSpillImg = require('../../../assets/games/word-pipes/waterSpill.png');
+  private acidSpillImg = require('../../../assets/games/word-pipes/acidSpill.png');
   private terrains = [ require('../../../assets/games/word-pipes/terrain_1.jpg'), require('../../../assets/games/word-pipes/terrain_2.jpg'), require('../../../assets/games/word-pipes/terrain_3.jpg'), require('../../../assets/games/word-pipes/terrain_4.jpg'), require('../../../assets/games/word-pipes/terrain_5.jpg') ] ;
   private terrainsGrass = [ require('../../../assets/games/word-pipes/terrain_grass_1.jpg'), require('../../../assets/games/word-pipes/terrain_grass_2.jpg'), require('../../../assets/games/word-pipes/terrain_grass_3.jpg')]
   private rotations = [ 'rotate(0deg)', 'rotate(90deg)', 'rotate(180deg)', 'rotate(270deg)'];
@@ -67,6 +68,7 @@ export class WordPipesComponent implements AfterViewInit{
   private hoveringOnRecycle = false;
   private lastShakeState = 'left';
   public waterDirection = 'right';
+  private waterTimeout;
   private level = 0;
   private defaultWaterSpeed = 10; 
   private waterPipeLocation = {row: 0, column: 1};
@@ -78,6 +80,10 @@ export class WordPipesComponent implements AfterViewInit{
   private rockSquares = [];
   private waterSpill;
   private waterPipes = [];
+  private acidColor = '#91C82F';
+  private lavaColor = '#CF2010'
+  private spillImg = this.waterSpillImg;
+  private score = 0;
   private pipes = [ 
    { outerImg: this.cornerOuterImg, underImg: this.cornerUnderImg, fullImg: this.cornerFullImg4, connectors: ['down', 'left'], pipeRotation: 'rotate(270deg)', fittingsClasses: ['pipeFittingDown', 'pipeFittingLeft'] },
    { outerImg: this.cornerOuterImg, underImg: this.cornerUnderImg, fullImg: this.cornerFullImg3, connectors: ['down', 'right'], pipeRotation: 'rotate(180deg)', fittingsClasses: ['pipeFittingDown', 'pipeFittingRight'] },
@@ -163,29 +169,8 @@ export class WordPipesComponent implements AfterViewInit{
      */
     loadGameboard() {
       var vocabRemaining = this.vocabFull;
-
-      // for(let i = 1; i< this.gameBoard.length; i++){
-      //   for(let k = 0; k < this.gameBoard[i].length; k++){
-      //     if (this.gameBoard[i][k].connectors.length > 0){
-      //       console.log('connectors');
-      //       console.log(this.gameBoard[i][k].connectors[0].className);
-      //       console.log(this.gameBoard[i][k].connectors[1].className);
-      //     }
-
-      //      if (this.gameBoard[i][k].water.length > 0){
-      //       console.log('water');
-      //       console.log(this.gameBoard[i][k].water[0].className);
-      //       if (this.gameBoard[i][k].water[1]) console.log(this.gameBoard[i][k].water[1].className);
-      //      }
-      //     console.log(this.gameBoard[i][k]);
-      //     console.log(this.gameBoard[i][k].outerPipe.className);
-      //     console.log(this.gameBoard[i][k].underPipe.className);
-      //     console.log(this.gameBoard[i][k].specialEffect.className);
-      //     console.log(this.gameBoard[i][k].pipeFitting);
-      //     console.log('____________________');
-
-      //   }
-      // }
+      
+      if(this.level > 4) this.spillImg = this.acidSpillImg;
 
       // get random definitions, including the definition for the active vocabulary, and disply it in random spots
       var definitionsShown = this.arrayService.selectRandom(vocabRemaining, this.numDefinitionsShown);
@@ -328,8 +313,7 @@ export class WordPipesComponent implements AfterViewInit{
   }
 
   resetPipeFitting( i, column, row ){
-  
-      this.renderer.setElementClass(this.gameBoard[column][row].fittings[i], this.gameBoard[column][row].fittingsClasses, false);
+      this.renderer.setElementClass(this.gameBoard[column][row].fittings[i], this.gameBoard[column][row].fittingsClasses[i], false);
       this.renderer.setElementClass(this.gameBoard[column][row].fittings[i], this.defaultPipeFittingClass, true);
   }
   
@@ -379,53 +363,40 @@ export class WordPipesComponent implements AfterViewInit{
    * 
    */
   startWater(){
-    this.levelWaterSpeed = this.defaultWaterSpeed - this.level;
-     for(let i = 1; i< this.gameBoard.length; i++){
-        for(let k = 0; k < this.gameBoard[i].length; k++){
-          if(this.gameBoard[i][k].water[1]) console.log(this.gameBoard[i][k].water[1].className);
-        }
-     }
 
     this.renderer.setElementStyle(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0], 'visibility', 'visible');
     this.renderer.setElementClass(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0], 'waterBlockRightHalfFirst', true);
     this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0].waterClass = 'waterBlockRightHalfFirst';
-    
+
+    if(this.level > 4) this.renderer.setElementStyle(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0], 'background-color', this.acidColor);
     
     this.waterPipes.push(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row]);
     
-    this.setWaterEventListeners(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0]);
+    console.log('setting timeout')
+    this.waitForWaterAnimationtoFinish(this.defaultWaterSpeed * 1000);
   }
 
   setWaterAnimation(water, animationLength){
-    this.setWaterEventListeners(water);
+    if(this.level > 4) this.renderer.setElementStyle(water, 'background-color', this.acidColor);
+    
     this.renderer.setElementStyle(water, 'visibility', 'visible');
-
+    
     var waterSpeedModified = this.levelWaterSpeed;
     if (animationLength == 'firstHalf') waterSpeedModified = this.levelWaterSpeed * (2/3);
     if (animationLength == 'secondHalf') waterSpeedModified = this.levelWaterSpeed * (1/3)
     this.renderer.setElementStyle(water, '-webkit-animation-duration', waterSpeedModified + 's');
     this.renderer.setElementStyle(water, 'animation-duration', waterSpeedModified + 's');
+    this.waitForWaterAnimationtoFinish(waterSpeedModified * 1000)
   }
 
-  setWaterEventListeners(water){
-    water.addEventListener("webkitAnimationEnd", this.getNextWaterPipe.bind(this), false);
-    water.addEventListener("animationend", this.getNextWaterPipe.bind(this), false);
-    water.addEventListener("oanimationend", this.getNextWaterPipe.bind(this), false);
-    water.addEventListener("MSAnimationEnd", this.getNextWaterPipe.bind(this), false);
-  }
-
-  removeWaterEventListeners(water){
-    console.log(water);
-    water.removeEventListener("webkitAnimationEnd", function(){}, false);
-    water.removeEventListener("animationend", function(){}, false);
-    water.removeEventListener("oanimationend", function(){}, false);
-    water.removeEventListener("MSAnimationEnd", function(){}, false);
+  waitForWaterAnimationtoFinish(time){
+    this.waterTimeout = setTimeout(function(){this.getNextWaterPipe()}.bind(this), time)
   }
 
   getNextWaterPipe(){
+    console.log('getting next pipe');
     if(this.nextWaterDirection){
-      console.log('1');
-      this.removeWaterEventListeners(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[1]);
+      clearTimeout(this.waterTimeout);      
       this.waterDirection = this.nextWaterDirection;
       this.nextWaterDirection = '';
       switch (this.waterDirection) {
@@ -452,18 +423,16 @@ export class WordPipesComponent implements AfterViewInit{
     else {
 
       if(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[1] && this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[1].style.visibility == 'visible'){
-        console.log(2); 
-        this.removeWaterEventListeners(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[1]);
       }
-      else {console.log(3); this.removeWaterEventListeners(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0]);}
       switch (this.waterDirection) {
           case 'up':
            if(this.waterPipeLocation.row -1 < 0 || this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row - 1].connectors.length < 1 || !_.includes(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row - 1].connectors, 'down')){
+             console.log('waterspillup');
             this.renderer.setElementClass(this.waterSpill, 'waterSpill', false);
             this.renderer.setElementClass(this.waterSpill, 'waterSpillUp', true);
+            this.waterSpill.waterClass = 'waterSpillUp';
             this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].element.appendChild(this.waterSpill);
             
-            // this.renderer.setElementClass(this.waterSpill, 'waterSpill', false);
             this.loseGame();
             return;
            }
@@ -485,8 +454,10 @@ export class WordPipesComponent implements AfterViewInit{
           break;
           case 'down':
             if(this.waterPipeLocation.row + 1 == this.gameTableRows.length || this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row + 1].connectors.length < 1 || !_.includes(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row + 1].connectors, 'up')){
+             console.log('waterspilldown');
               this.renderer.setElementClass(this.waterSpill, 'waterSpill', false);
               this.renderer.setElementClass(this.waterSpill, 'waterSpillDown', true);
+              this.waterSpill.waterClass = 'waterSpillDown';
               this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].element.appendChild(this.waterSpill);
               
               this.loseGame();
@@ -514,12 +485,14 @@ export class WordPipesComponent implements AfterViewInit{
             if(this.waterPipeLocation.column  - 1 < 1 || this.gameBoard[this.waterPipeLocation.column - 1][this.waterPipeLocation.row].connectors.length < 1 || !_.includes(this.gameBoard[this.waterPipeLocation.column - 1][this.waterPipeLocation.row].connectors, 'right')){
             this.renderer.setElementClass(this.waterSpill, 'waterSpill', false);
             this.renderer.setElementClass(this.waterSpill, 'waterSpillLeft', true);
+              this.waterSpill.waterClass = 'waterSpillLeft';
+            
               this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].element.appendChild(this.waterSpill);
               this.loseGame();
               return;
             }
             this.waterPipeLocation.column -= 1;
-            this.renderer.setElementStyle(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0], 'margin-left', '100px');
+            // this.renderer.setElementStyle(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0], 'margin-left', '100px');
             if(_.difference(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].connectors, ['right'])[0] == 'left'){
               this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].waterDirection = 'RightLeft';
               this.renderer.setElementClass(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0], 'waterBlockLeftFull', true);
@@ -545,6 +518,7 @@ export class WordPipesComponent implements AfterViewInit{
               else {
                 this.renderer.setElementClass(this.waterSpill, 'waterSpill', false);
                 this.renderer.setElementClass(this.waterSpill, 'waterSpillRight', true);
+                this.waterSpill.waterClass = 'waterSpillRight';
                 this.gameBoard[this.waterPipeLocation.column - 2][this.waterPipeLocation.row].element.appendChild(this.waterSpill);
                 this.loseGame();
               }
@@ -554,6 +528,7 @@ export class WordPipesComponent implements AfterViewInit{
                 (this.waterPipeLocation.column < this.gameTableData.length + 2 && (this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].connectors.length < 1 || !_.includes(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].connectors, 'left'))) ||
                 (this.waterPipeLocation.column == this.gameTableData.length + 2 && this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].outerPipe.style.visibility != 'visible' )
               ){
+                this.waterSpill.waterClass = 'waterSpillRight';
                 this.renderer.setElementClass(this.waterSpill, 'waterSpill', false);
                 this.renderer.setElementClass(this.waterSpill, 'waterSpillRight', true);
                 this.waterPipeLocation.column -= 1;
@@ -563,7 +538,7 @@ export class WordPipesComponent implements AfterViewInit{
                 this.loseGame();
                 return;
             }
-            this.renderer.setElementStyle(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0], 'margin-left', '0px');
+            // this.renderer.setElementStyle(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0], 'margin-left', '0px');
             if(this.waterPipeLocation.column == this.gameTableData.length + 2){
               this.renderer.setElementClass(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0], 'waterBlockRightHalfLast', true);
               this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0].waterClass = 'waterBlockRightHalfLast';
@@ -585,8 +560,8 @@ export class WordPipesComponent implements AfterViewInit{
           break;
         }
       this.waterPipes.push(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row]);
-      if(this.waterPipes.length > 2) this.moveBubbles();
-      if(this.waterPipes.length % 3 == 0) this.newBubbles();
+      if(this.waterPipes.length > 2 && this.waterPipeLocation.column < this.endColumn) this.moveBubbles();
+      if(this.waterPipes.length % 2 == 0) this.newBubbles();
      }
   }
 
@@ -599,8 +574,11 @@ export class WordPipesComponent implements AfterViewInit{
   }
 
   moveBubbles(){
+    // console.log('this.waterPipes.length ' + this.waterPipes.length);
+    var j = 0;
     for(let i = this.waterPipes.length - 1; i > 0; i--){
       if(this.waterPipes[i - 1].specialEffect.style.visibility == 'visible'){
+        j++;
         this.renderer.setElementStyle(this.waterPipes[i - 1].specialEffect, 'visibility', 'hidden');
         this.renderer.setElementStyle(this.waterPipes[i].specialEffect, 'visibility', 'visible');
         this.waterPipes[i].specialEffect.src = this.waterPipes[i - 1].specialEffect.src;
@@ -610,6 +588,7 @@ export class WordPipesComponent implements AfterViewInit{
         this.renderer.setElementClass(this.waterPipes[i].specialEffect, 'bubbles' + this.waterPipes[i].waterDirection, true);
       }
     }
+    // console.log(j);
   }
 
   reload(){
@@ -627,16 +606,31 @@ export class WordPipesComponent implements AfterViewInit{
       // clear the pipes
       for(let i = 1; i< this.gameBoard.length; i++){
         for(let k = 0; k < this.gameBoard[i].length; k++){
-          this.waterPipes[i].specialEffect.src = '';
+ 
+          this.gameBoard[i][k].specialEffect.src = '';
           this.gameBoard[i][k].connectors = [];
           _.unset(this.gameBoard[i][k], 'pipeRotation'); 
           this.gameBoard[i][k].water.forEach(wat => {
             this.renderer.setElementClass(wat, wat.waterClass, false)
             this.renderer.setElementStyle(wat, 'visibility', 'hidden');
-            _.unset(wat, wat.waterClass);
+            _.unset(wat, 'waterClass');
+           
           });
-          if(this.gameBoard[i][k].fittings) this.resetPipeFitting(0, i, k);
-          if(this.gameBoard[i][k].fittings) this.resetPipeFitting(1, i, k);
+
+          if(this.gameBoard[i][k].waterDirection) {
+            // console.log('found');
+            this.renderer.setElementClass(this.gameBoard[i][k].specialEffect, 'bubbles' + this.gameBoard[i][k].waterDirection, false);
+            this.gameBoard[i][k].waterDirection = '';
+            // console.log(this.gameBoard[i][k].specialEffect.className);
+            // console.log(this.gameBoard[i][k].element);
+          }
+
+           if(this.gameBoard[i][k].fittingsClasses){
+              this.resetPipeFittings(i, k);
+              _.unset(this.gameBoard[i][k], 'fittingsClasses')
+            }
+
+            // console.log(this.gameBoard[i][k].specialEffect.className);
         }
       }
 
@@ -662,16 +656,16 @@ export class WordPipesComponent implements AfterViewInit{
 
         this.renderer.setElementClass(this.waterPipes[0].specialEffect, 'bubblesStart', false);
 
-        this.renderer.setElementClass(this.waterPipes[0].specialEffect, 'bubblesStart', false);
-        for(let i = 1; i < this.waterPipes.length; i++){
-          this.waterPipes[i].waterDirection = '';
-          this.renderer.setElementClass(this.waterPipes[i].specialEffect, 'bubbles' + this.waterPipes[i].waterDirection, false);
-        }
-
       this.waterPipes = [];
-      console.log(this.waterPipes.length);
-
       this.waterPipeLocation = {row: 0, column: 1};
+
+      this.levelWaterSpeed = this.defaultWaterSpeed - this.level;
+
+      this.waterDirection = 'right';
+      this.nextWaterDirection = '';
+
+      this.renderer.setElementClass(this.waterSpill, 'waterSpill', true);
+      this.renderer.setElementClass(this.waterSpill, this.waterSpill.waterClass, true);
       
       // reload the game board
       this.loadGameboard();
@@ -723,20 +717,17 @@ export class WordPipesComponent implements AfterViewInit{
   }
 
   loseGame(){
-    this.waterPipes.forEach(p => console.log(p));
-    console.log(this.waterPipes.length);
     this.hideBubbles();
     this.spillState = 'spilled';
     this.renderer.setElementStyle(this.waterSpill, 'visibility', 'visible');
     this.gameDone = true;
-
+    this.gameController.openLoseGameDialog(this.score, this.activeVocabulary.word + ': ' + this.activeVocabulary.definition);
   }
 
   hideBubbles(){
-    for(let i = 0; i < this.waterPipes.length; i++){
-      if(this.waterPipes[i].specialEffect.style.visibility == 'visible'){
-        this.renderer.setElementStyle(this.waterPipes[i].specialEffect, 'visibility', 'hidden');
-      }
+     for(let i = 0; i< this.waterPipes.length; i++){
+      this.renderer.setElementClass(this.waterPipes[i].specialEffect, 'bubbles' + this.waterPipes[i].waterDirection, false);
+      this.renderer.setElementStyle(this.waterPipes[i].specialEffect, 'visibility', 'hidden');
     }
   }
 
@@ -749,24 +740,46 @@ export class WordPipesComponent implements AfterViewInit{
 
   winGame(){
     this.level++;
-    this.reload();
+    this.score += 50;
+    if(this.level > 8) this.level = 8;
     this.hideBubbles();
+    this.reload();
     this.gameDone = true;
   }
+
   speedUpWater() {
     if(this.gameDone) return;
+    clearTimeout(this.waterTimeout);
     this.levelWaterSpeed /= 5;
     if(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[1] && this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[1].style.visibility == 'visible') {
       this.renderer.setElementStyle(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[1], '-webkit-animation-duration', this.levelWaterSpeed + 's');
       this.renderer.setElementStyle(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[1], 'animation-duration', this.levelWaterSpeed + 's');
     }
-    else 
+    else {
       this.renderer.setElementStyle(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0], '-webkit-animation-duration', this.levelWaterSpeed + 's');
       this.renderer.setElementStyle(this.gameBoard[this.waterPipeLocation.column][this.waterPipeLocation.row].water[0], 'animation-duration', this.levelWaterSpeed + 's');
+    }
+    this.getNextWaterPipe();
    }
 
   countdownDone() {
     this.gameDone = false;
-      this.startWater();
+    this.startWater();
+  }
+
+  playAgain(){
+    this.level = 0;
+    this.score = 0;
+    this.spillState = 'normal';
+    this.renderer.setElementStyle(this.waterSpill, 'visibility', 'hidden');
+    this.reload();
+    this.gameBoard[0][0].element.appendChild(this.waterSpill);
+  }
+
+  changeGradeLevel(grade){
+    console.log('____');
+    console.log(grade);
+      this.vocabFull = this.vocabularyService.getVocabularyFirst();
+    
   }
 }

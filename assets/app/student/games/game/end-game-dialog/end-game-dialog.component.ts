@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import { Component, EventEmitter, Output, Inject } from '@angular/core';
+import { MdDialog, MdDialogRef, MdDialogConfig, MD_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'sq-end-game-dialog',
@@ -21,7 +21,6 @@ export class EndGameDialogComponent {
   openWinDialog() {
     if(!this.isOpen){
       let dialogRef = this.dialog.open(WinDialogInnerTextComponent, this.config);
-      this.dialog
       this.isOpen = true;
         dialogRef.afterClosed().subscribe(result => {
           if(result == 'true') {
@@ -31,9 +30,12 @@ export class EndGameDialogComponent {
         });
       }
     }
-    openLoseDialog() {
+    openLoseDialog(coins, text) {
     if(!this.isOpen){
-      let dialogRef = this.dialog.open(LoseDialogInnerTextComponent, this.config);
+      this.config.hasBackdrop = false;
+      let dialogRef = this.dialog.open(LoseDialogInnerTextComponent, {data: {coins: coins, text: text}});
+      dialogRef.updateSize('350px');
+      dialogRef.disableClose = true;
       this.isOpen = true;
         dialogRef.afterClosed().subscribe(result => {
           if(result == 'true') {
@@ -48,21 +50,25 @@ export class EndGameDialogComponent {
 @Component({
   selector: 'sq-win-dialog-inner-text',
   templateUrl: './win-dialog-inner-text.html',
+  
 })
 export class WinDialogInnerTextComponent {
 
   constructor(public dialogRef: MdDialogRef<WinDialogInnerTextComponent>) {
-    dialogRef._containerInstance.dialogConfig.disableClose = true;    
+    // dialogRef._containerInstance.dialogConfig.disableClose = true;    
   }
 }
 
 @Component({
   selector: 'sq-lose-game-dialog-inner-text',
   templateUrl: './lose-game-dialog-inner-text.html',
+  styleUrls: ['./lose-game-dialog-inner-text.css']
 })
 export class LoseDialogInnerTextComponent {
 
-  constructor(public dialogRef: MdDialogRef<LoseDialogInnerTextComponent>) {
-    dialogRef._containerInstance.dialogConfig.disableClose = true;
+  coins;
+  constructor(@Inject(MD_DIALOG_DATA) public data: any, public dialogRef: MdDialogRef<LoseDialogInnerTextComponent>) {
+    this.coins = data.coins;
+    // dialogRef._containerInstance.dialogConfig.disableClose = true;
   }
 }

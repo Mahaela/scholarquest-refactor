@@ -28,7 +28,10 @@
 
 td {
     border: solid grey;
+}
 
+.score {
+    margin-left: 25px;
 }
 
 .terrain {
@@ -282,12 +285,12 @@ table {
     margin-left: 50px;
     z-index: 4;
     -webkit-animation-name: waterBlockRightHalfFirstAni; 
-    -webkit-animation-duration: 15.0s; 
-    -webkit-animation: waterBlockRightHalfFirstAni 15.0s forwards;
+    -webkit-animation-duration: 10.0s; 
+    -webkit-animation: waterBlockRightHalfFirstAni 10.0s forwards;
     -webkit-animation-timing-function: linear;
-    animation-duration: 15s;
+    animation-duration: 10s;
     animation-name: waterBlockRightHalfFirstAni;
-    animation: waterBlockRightHalfFirstAni 15.0s forwards;
+    animation: waterBlockRightHalfFirstAni 10.0s forwards;
     animation-timing-function: linear;
 }
 
@@ -378,7 +381,7 @@ table {
     background-color: #40a4df;
     height: 40px;
     margin-top: 30px;
-    margin-left: 50px;
+    margin-left: 0px;
     z-index: 4;
     -webkit-animation-name: waterBlockRightFullAni; /* Safari 4.0 - 8.0 */
     -webkit-animation-duration: 5.0s; /* Safari 4.0 - 8.0 */
@@ -547,7 +550,7 @@ table {
      background-color: #40a4df;
     height: 40px;
     margin-top: 30px;
-    margin-left:0px;
+    margin-left:100px;
     z-index: 4;
     -webkit-animation-name: waterBlockLeftFull; 
     -webkit-animation-duration: 5.0s; 

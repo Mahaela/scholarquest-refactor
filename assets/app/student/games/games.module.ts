@@ -14,7 +14,8 @@ const routes: Routes = [
 	{ path: 'vocab-match', loadChildren: './vocab-match/vocab-match.module.ts' },
 	{ path: 'typing', loadChildren: './typing/typing.module' },
 	{ path: 'math-clouds', loadChildren: './math-clouds/math-clouds.module' },
-	{ path: 'word-pipes', loadChildren: './word-pipes/word-pipes.module' }	
+	{ path: 'word-pipes', loadChildren: './word-pipes/word-pipes.module' },	
+	{ path: 'apple-drop', loadChildren: './apple-drop/apple-drop.module' },	
 ];
 
 @NgModule({

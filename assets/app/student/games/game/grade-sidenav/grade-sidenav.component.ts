@@ -12,6 +12,8 @@ export class GradeSidenavComponent implements AfterViewInit {
   @ViewChild('sidenav') sidenav;
 
   @Output() buttonClicked = new EventEmitter<string>();
+  @Output() openedSidenav = new EventEmitter<boolean>();
+  @Output() closedSidenav = new EventEmitter<boolean>();
 
   private options = [
     {img: require('../../../../assets/clip-art/grades/first-grade.jpg'), index: 1},
@@ -30,5 +32,13 @@ export class GradeSidenavComponent implements AfterViewInit {
     this.buttonClicked.emit(index);
     // close the sidenav
     this.sidenav.close();
+  }
+
+  openSidenav(){
+    this.openedSidenav.emit(true);
+  }
+
+  closeSidenav(){
+    this.closedSidenav.emit(true);
   }
 }

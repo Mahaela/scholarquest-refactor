@@ -52,16 +52,16 @@ export class VocabularyService {
     }
 
     getVocabularyThird(): any[] {
-        return [ { word: 'annoy', definition: 'To make someone a little angry'},
-            { word: 'compfortable', definition: 'providing physical ease and relaxation'},
+        return [ { word: 'contain', definition: 'to hold something within iteslf'},
+            { word: 'elegant', definition: 'showing good taste; graceful; beautiful'},
             { word: 'directions', definition: 'the path along which something moves, lies, or points'},
-            { word: 'ignore', definition: 'refuse to take notice of or acknowledge'},
-            { word: 'mumble', definition: 'say something indistinctly and quietly'},
-            { word: 'precious', definition: 'of great value; not to be wasted or treated carelessly'},
-            { word: 'protect', definition: 'keep safe from harm or injury'},
-            { word: 'searching', definition: 'thoroughly scrutinizing, especially in a disconcerting way'},
-            { word: 'squirm', definition: 'wriggle or twist the body from side to side, especially as a result of nervousness or discomfort'},
-            { word: 'wonder', definition: 'a feeling of surprise mingled with admiration'}
+            { word: 'enable', definition: 'to make possible'},
+            { word: 'grasp', definition: 'hold firmly'},
+            { word: 'limit', definition: 'as far as something can go'},
+            { word: 'observe', definition: 'to watch carefully'},
+            { word: 'rely', definition: 'To count on'},
+            { word: 'survey', definition: 'the collection of data by having people answer a series of questions'},
+            { word: 'wit', definition: 'intelligence and the ability to think quickly'}
          ]
     }
 

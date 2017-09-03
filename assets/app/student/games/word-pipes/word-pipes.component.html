@@ -1,4 +1,4 @@
-<sq-game #game (countdownDoneEvent)="countdownDone()" (playAgainEvent)="playAgain()" (changeGradeLevelEvent)="changeGradeLevel(grade)">
+<sq-game #game (countdownDoneEvent)="countdownDone()" (playAgainEvent)="playAgain()" (changeGradeLevelEvent)="changeGradeLevel($event)" (openSidenavEvent)="pauseGame()" (closeSidenavEvent)="playGame()">
     <div class="title">
         <img class="title" src="../../../assets/games/word-pipes/title.png"> 
     </div>
@@ -10,7 +10,7 @@
                     <button md-fab *ngIf='r==0' class="square fastForward" (click)="speedUpWater()"> 
                         <img  src="../../../assets/clip-art/fast-forward.png" class="fastForward" draggable="false">
                     </button>
-                    <div *ngIf='(r > 1 && r < 5)' (dragstart)="drag($event, r-2)" class="holdingBox square">
+                    <div *ngIf='(r > 1 && r < 5)' (dragstart)="drag(r-2)" class="holdingBox square">
                         <img draggable="true" [src]="pipesInHoldingBoxes[r-2].fullImg" class="holdingPipe">
                     </div>
                     <img class="square" *ngIf='r==5' src="../../../assets/games/word-pipes/recycle.png" (drop)="recyclePipe($event)" (dragover)="allowDrop($event)" (dragleave)="stopShaking()" (dragenter)="shakeRecycle($event)" [@shake]="shakeState" (@shake.done)="doneWithShake($event)" draggable="false"> 
@@ -24,7 +24,7 @@
                     <!--under pipe-->
                     <img src="" class="gameboardSquare pipe underPipe" draggable="false">
                     <!--water-->
-                    <div  class="gameboardSquare waterBlock"></div>
+                    <div  class="gameboardSquare waterBlock" (webkitAnimationEnd)="getNextWaterPipe()" (animationend)="getNextWaterPipe()"></div>
                     <!--special effect-->
                     <img src="" class="gameboardSquare specialEffect noPointer"  draggable="false">
                     <!--outer pipe-->
@@ -36,8 +36,8 @@
                     <img class="terrain noPointer" [src]="gameBoard[d+2][r].terrain" draggable="false">
                     <img src="" class="gameboardSquare pipe underPipe noPointer" [style.transform]='gameBoard[d+2][r].pipeRotation' draggable="false">
                      <!--water-->
-                    <div class="gameboardSquare waterBlock noPointer "></div>
-                    <div class="gameboardSquare waterBlock noPointer"></div>
+                    <div class="gameboardSquare waterBlock noPointer" (webkitAnimationEnd)="getNextWaterPipe()" (animationend)="getNextWaterPipe()"></div>
+                    <div class="gameboardSquare waterBlock noPointer" (webkitAnimationEnd)="getNextWaterPipe()" (animationend)="getNextWaterPipe()"></div>
                     <!--special effect-->
                     <img src="" class="gameboardSquare specialEffect noPointer"  draggable="false">
                     <img src="" class="gameboardSquare pipe outerPipe noPointer" [style.transform]='gameBoard[d+2][r].pipeRotation' draggable="false">
@@ -51,7 +51,7 @@
                     <!--under pipe-->   
                     <img src="" class="gameboardSquare underPipe pipe" draggable="false">
                     <!--water-->
-                    <div src="" class="gameboardSquare waterBlock"></div>
+                    <div src="" class="gameboardSquare waterBlock" (webkitAnimationEnd)="getNextWaterPipe()" (animationend)="getNextWaterPipe()"></div>
                     <img src="" class="gameboardSquare specialEffect noPointer"  draggable="false">
                     <!--outer pipe-->
                     <img src="" class="gameboardSquare outerPipe  pipe" draggable="false">

@@ -1,4 +1,5 @@
 import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
+import { ApiService } from '../../../../shared/utils/api.service';
 
 @Component({
   selector: 'sq-game',
@@ -11,9 +12,14 @@ export class GameComponent {
   @ViewChild('endGame') endGameDialog;
   @Output() countdownDoneEvent = new EventEmitter<boolean>();
   @Output() playAgainEvent = new EventEmitter<boolean>();
-  @Output() changeGradeLevelEvent = new EventEmitter<number>();
+  @Output() changeGradeLevelEvent = new EventEmitter<Array<{}>>();
+  @Output() openSidenavEvent = new EventEmitter<boolean>();
+  @Output() closeSidenavEvent = new EventEmitter<boolean>();
   
-  constructor() { }
+  
+  constructor(private apiService: ApiService) {
+      
+   }
 
   startCountdown(){
     this.countdownDialog.openCountdownDialog();
@@ -36,8 +42,21 @@ export class GameComponent {
   }
 
   changeGradeLevel(event){
-    console.log(event);
-    console.log('game.ts');
-    this.changeGradeLevelEvent.emit(event);
+     this.apiService.post('student/getVocabulary', {grade: event}).subscribe(
+        data =>  this.changeGradeLevelEvent.emit(data.vocab),
+        error => { console.log(error) }
+      )
+  }
+
+  openSidenav(){
+    this.openSidenavEvent.emit(true);
+  }
+
+  closedSidenav(){
+    this.closeSidenavEvent.emit(true);
+  }
+
+ getVocabulary(){
+  return this.apiService.post('student/getVocabulary', {grade: 1})
   }
 }

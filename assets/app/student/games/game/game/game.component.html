@@ -1,4 +1,4 @@
-<sq-grade-sidenav (buttonClicked)="changeGradeLevel($event)">
+<sq-grade-sidenav (buttonClicked)="changeGradeLevel($event)" (openedSidenav)="openSidenav()" (closedSidenav)="closedSidenav()">
     <md-card>
         <ng-content></ng-content>
     </md-card>

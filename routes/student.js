@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var bycrypt = require('bcryptjs');
 var Student = require('../models/student');
+var Math = require('../models/math');
+var Vocabulary = require('../models/vocabulary');
 var Avatar = require('../models/avatar')
 var jwt = require('jsonwebtoken');
 var nodemailer = require('nodemailer');
@@ -18,7 +20,6 @@ router.post('/signup', function (req, res, next) {
     cursorFollower: 0,
     valiatedEmail: true
   });
-
   student.save(function(err, result){
     if (err) {
       return res.status(500).json({
@@ -55,8 +56,28 @@ router.post('/signup', function (req, res, next) {
   });
 });
 
-router.post('/login', function(req, res, next){
+ router.post('/getVocabulary', function(req, res, next){
+    Vocabulary.find({grade: req.body.grade}, function(err, vocab){
+      if (err) {
+       return res.status(500).json({
+          title: 'An error occured',
+          error: err
+        });
+      }
+      if (!vocab) {
+        return res.status(500).json({
+          title: 'No vocab found',
+          error: {message: 'Vocab not found'}
+        });
+      }
+      res.status(200).json({
+          vocab: vocab,
+          message: 'vocab returned',
+        });
+    });
+  });
 
+router.post('/login', function(req, res, next){
     Student.findOne({email: req.body.email}, function(err, student){
       if(err){
         return res.status(500).json({
@@ -103,18 +124,20 @@ router.post('/verifyEmail', function(req, res, next){
     });
   });
 
-router.use('/', function(req, res, next){
-  jwt.verify(req.body.token, 'gamez', function(err, decoded){
+
+
+// router.use('/', function(req, res, next){
+//   jwt.verify(req.body.token, 'gamez', function(err, decoded){
     
-    if(err) {
-      return res.status(401).json({
-        title: 'Not Authenticated',
-        error: err
-      });
-    }
-    next();
-  })
-});
+//     if(err) {
+//       return res.status(401).json({
+//         title: 'Not Authenticated',
+//         error: err
+//       });
+//     }
+//     next();
+//   })
+// });
 
 router.post('/getStudent', function(req, res, next){
 

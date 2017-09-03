@@ -1,10 +1,10 @@
-import { Component, EventEmitter, trigger, style, state, transition, animate, AfterViewInit, Output } from '@angular/core';
+import { Component, EventEmitter, AfterViewInit, Output, ViewChild } from '@angular/core';
 import { MdDialog, MdDialogRef, MdDialogConfig} from '@angular/material';
+import { Router, NavigationStart }   from '@angular/router';
 
 @Component({
   selector: 'sq-countdown-outer-dialog',
   templateUrl: './countdown.component.html',
-  // styleUrls: ['./end-game-dialog.component.css']
 })
 
 export class CountdownOuterDialogComponent {
@@ -13,6 +13,7 @@ export class CountdownOuterDialogComponent {
 
   constructor(private dialog: MdDialog){
     this.config.disableClose = true;
+ 
   }
 
   openCountdownDialog() {
@@ -26,43 +27,95 @@ export class CountdownOuterDialogComponent {
 @Component({
   selector: 'sq-countdown-inner-dialog',
   templateUrl: './countdown-dialog.html',
-  animations: [
-    trigger('fade', [
-      state('normal', style({ 'opacity': '100' })),
-      state('faded', style({ 'opacity': '0' })),
-      transition('normal => faded', animate('1s ease-out')),
-      transition('faded => normal', animate('.1s')),
-    ])
-  ] 
 })
 
 export class CountdownInnerDialogComponent implements AfterViewInit {
   
-  numbers = [ require('../../../../assets/games/countdown3.png'), require('../../../../assets/games/countdown2.png'), require('../../../../assets/games/countdown1.png') ]
-  activeNumberIndex = 0;
-  activeNumberImg = '';
-  fadeState = 'normal';
-  test = 0;
+  numbers = [ 
+    require('../../../../assets/games/countdown/countdown10.png'),
+    require('../../../../assets/games/countdown/countdown15.png'), 
+    require('../../../../assets/games/countdown/countdown110.png'), 
+    require('../../../../assets/games/countdown/countdown115.png'), 
+    require('../../../../assets/games/countdown/countdown120.png'), 
+    require('../../../../assets/games/countdown/countdown125.png'), 
+    require('../../../../assets/games/countdown/countdown130.png'), 
+    require('../../../../assets/games/countdown/countdown135.png'), 
+    require('../../../../assets/games/countdown/countdown140.png'), 
+    require('../../../../assets/games/countdown/countdown145.png'), 
+    require('../../../../assets/games/countdown/countdown150.png'), 
+    require('../../../../assets/games/countdown/countdown155.png'), 
+    require('../../../../assets/games/countdown/countdown160.png'), 
+    require('../../../../assets/games/countdown/countdown165.png'), 
+    require('../../../../assets/games/countdown/countdown170.png'), 
+    require('../../../../assets/games/countdown/countdown175.png'), 
+    require('../../../../assets/games/countdown/countdown180.png'), 
+    require('../../../../assets/games/countdown/countdown185.png'), 
+    require('../../../../assets/games/countdown/countdown190.png'), 
+    require('../../../../assets/games/countdown/countdown195.png'), 
+    require('../../../../assets/games/countdown/countdown1100.png'),
+    require('../../../../assets/games/countdown/countdown20.png'),
+    require('../../../../assets/games/countdown/countdown25.png'), 
+    require('../../../../assets/games/countdown/countdown210.png'), 
+    require('../../../../assets/games/countdown/countdown215.png'), 
+    require('../../../../assets/games/countdown/countdown220.png'), 
+    require('../../../../assets/games/countdown/countdown225.png'), 
+    require('../../../../assets/games/countdown/countdown230.png'), 
+    require('../../../../assets/games/countdown/countdown235.png'), 
+    require('../../../../assets/games/countdown/countdown240.png'), 
+    require('../../../../assets/games/countdown/countdown245.png'), 
+    require('../../../../assets/games/countdown/countdown250.png'), 
+    require('../../../../assets/games/countdown/countdown255.png'), 
+    require('../../../../assets/games/countdown/countdown260.png'), 
+    require('../../../../assets/games/countdown/countdown265.png'), 
+    require('../../../../assets/games/countdown/countdown270.png'), 
+    require('../../../../assets/games/countdown/countdown275.png'), 
+    require('../../../../assets/games/countdown/countdown280.png'), 
+    require('../../../../assets/games/countdown/countdown285.png'), 
+    require('../../../../assets/games/countdown/countdown290.png'), 
+    require('../../../../assets/games/countdown/countdown295.png'), 
+    require('../../../../assets/games/countdown/countdown2100.png'),
+    require('../../../../assets/games/countdown/countdown30.png'),
+    require('../../../../assets/games/countdown/countdown35.png'), 
+    require('../../../../assets/games/countdown/countdown310.png'), 
+    require('../../../../assets/games/countdown/countdown315.png'), 
+    require('../../../../assets/games/countdown/countdown320.png'), 
+    require('../../../../assets/games/countdown/countdown325.png'), 
+    require('../../../../assets/games/countdown/countdown330.png'), 
+    require('../../../../assets/games/countdown/countdown335.png'), 
+    require('../../../../assets/games/countdown/countdown340.png'), 
+    require('../../../../assets/games/countdown/countdown345.png'), 
+    require('../../../../assets/games/countdown/countdown350.png'), 
+    require('../../../../assets/games/countdown/countdown355.png'), 
+    require('../../../../assets/games/countdown/countdown360.png'), 
+    require('../../../../assets/games/countdown/countdown365.png'), 
+    require('../../../../assets/games/countdown/countdown370.png'), 
+    require('../../../../assets/games/countdown/countdown375.png'), 
+    require('../../../../assets/games/countdown/countdown380.png'), 
+    require('../../../../assets/games/countdown/countdown385.png'), 
+    require('../../../../assets/games/countdown/countdown390.png'), 
+    require('../../../../assets/games/countdown/countdown395.png'), 
+    require('../../../../assets/games/countdown/countdown3100.png')    
+    ]
 
-  constructor(public dialogRef: MdDialogRef<CountdownInnerDialogComponent>) {
-    this.activeNumberImg = this.numbers[0];
+    activeNumberIndex = this.numbers.length -1;
+    countdown;
+
+  constructor(public dialogRef: MdDialogRef<CountdownInnerDialogComponent>, private router: Router) {
+    router.events.forEach((event) => {
+     if(event instanceof NavigationStart) {
+        clearInterval(this.countdown);
+      }
+    });
   }
 
   
   ngAfterViewInit(){
-    this.activeNumberImg = this.numbers[0];
-    // this.fadeState = 'faded';
-  }
-
-  doneWithFade(event){
-    if(this.fadeState == 'faded'){
-      this.activeNumberIndex++;
-      if(this.activeNumberIndex > 2){
+    this.countdown = setInterval(function(){
+      this.activeNumberIndex--;
+      if(this.activeNumberIndex < 0){
+        clearInterval(this.countdown);
         this.dialogRef.close();
-        return;
       }
-      this.activeNumberImg = this.numbers[this.activeNumberIndex];
-    }
-    this.fadeState == 'faded' ? this.fadeState = 'normal' : this.fadeState = 'faded';
+    }.bind(this), 50)
   }
 }

@@ -17,7 +17,11 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [{ loader: 'raw-loader' }]
+                loaders: ['raw-loader', 'resolve-url-loader']
+            },
+            {
+                test   : /\.scss$/,
+                loaders: ['raw-loader', 'resolve-url-loader', 'sass-loader?sourceMap']
             },
              {
                 test: /\.(jpe?g|png)$/i,

@@ -6,8 +6,8 @@ button {
 
 img { 
     position: absolute;
-    margin-top: -150px;
-    width: 300px;
+    margin-top: -300px;
+    width: 350px;
     z-index: -1;
 }
 

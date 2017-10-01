@@ -5,6 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GameModule } from '../game/game.module';
 
 import { AppleDropComponent } from './apple-drop.component';
 
@@ -19,10 +20,11 @@ const routes: Routes = [
 		CommonModule,
 		MaterialModule,
 		FlexLayoutModule,
-		RouterModule.forChild(routes)
+		RouterModule.forChild(routes),
+		GameModule
 	],
 	declarations: [
 		AppleDropComponent
 	]
 })
-export default class MathCloudsModule {}
+export default class AppleDropModule {}

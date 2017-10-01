@@ -1,5 +1,7 @@
-
-<div class="background-container">
-    <img class="background-image" src="../../../assets/games/appleDrop/background.jpg">
-    <canvas id="canvas"></canvas>
+<sq-game #game (countdownDoneEvent)="countdownDone()" (playAgainEvent)="playAgain()" (changeGradeLevelEvent)="changeGradeLevel($event)" (openSidenavEvent)="pauseGame()" (closeSidenavEvent)="playGame()">
+    
+<div id="background-container">
+    <!-- <img class="background-image" src="../../../assets/games/appleDrop/background.jpg">
+    <canvas id="canvas"></canvas> -->
 </div>
+</sq-game>

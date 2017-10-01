@@ -31,6 +31,7 @@
 }
 
 .background-container {
+  margin: auto;
   width: 1000px;
   height: 750px;
   border: solid black 2px;

@@ -29,4 +29,8 @@ const routes: Routes = [
 		GamesListComponent
 	]
 })
-export default class GamesModule {}
+export default class GamesModule {
+	constructor(){
+
+	}
+}

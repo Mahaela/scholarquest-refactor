@@ -38,4 +38,28 @@ router.patch('/patchAvatar', function(req, res, next){
   });
 });
 
+router.post('/getSkinColor', function(req, res, next){
+  var query = Avatar.findOne({'userId': express.userId});
+  query.select('skin')
+
+  query.exec(function (err, avatar) {
+    if (err) {
+        return res.status(500).json({
+            title: 'An error occurred',
+            error: err
+        });
+    }
+    else if (!avatar) {
+      return res.status(200).json({
+        status: 'Success',
+        skin: '03'
+      });
+    }
+    res.status(200).json({
+      status: 'Success',
+        skin: avatar.skin
+    });
+  });
+  });
+
 module.exports = router;

@@ -35,9 +35,10 @@ export class LoginComponent {
              'password': this.loginForm.controls['pwd'].value })
             .subscribe(
             data => {
-                this.cursorFollowerService.selectedCursorFollower.next(data.cursorFollower);
-                this.cursorService.selectedCursor.next(data.cursor);
-                this.studentService.coins.next(data.coins);
+                console.log(data);
+                // this.cursorFollowerService.selectedCursorFollower.next(data.cursorFollower);
+                // this.cursorService.selectedCursor.next(data.cursor);
+                // this.studentService.coins.next(data.coins);
                 document.cookie = 'loggedIn=true; path=/;'
                 document.cookie = 'token=' + data.token + '; path=/;'
                 this.router.navigate(['/profile']);

@@ -30,13 +30,14 @@ router.post('/signup', function (req, res, next) {
     var avatar = new Avatar({
       userId: student._id,
       hair: '03',
-      face: '0302',
+      face: '02',
       eyes: '0304',
       nose: '02',
       mouth: '01',
       shirt: '0201',
       pants: '0301',
-      shoes: '01'
+      shoes: '01',
+      skin: '03'
     });
     avatar.save(function(err, result){
       if (err) {
@@ -203,7 +204,6 @@ router.patch('/patchStudent', function(req, res, next){
 });
 
 function sendWelcomeEmail(email){
- 
   try {
         let transporter = nodemailer.createTransport({
             service: 'gmail',

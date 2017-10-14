@@ -59,4 +59,11 @@ export class GameComponent {
  getVocabulary(){
   return this.apiService.post('student/getVocabulary', {grade: 1})
   }
+
+  updateCoins(coins) {
+     this.apiService.post('student/getVocabulary', {grade: event}).subscribe(
+        data =>  this.changeGradeLevelEvent.emit(data.vocab),
+        error => { console.log(error) }
+      )
+  }
 }

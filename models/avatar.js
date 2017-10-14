@@ -6,6 +6,7 @@ var schema = new Schema({
   userId: {type: String, required: true},
   hair: {type: String, required: true},
   face: {type: String, required: true},
+  skin: {type: String, required: true},
   eyes: {type: String, required: true},
   nose: {type: String, required: true},
   mouth: {type: String, required: true},

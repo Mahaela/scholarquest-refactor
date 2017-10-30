@@ -34,9 +34,9 @@ button {
 }
 
 #shirt {
-    top: 170px;
-    width: 310px;
-    right: 95px;
+    top: 155px;
+    width: 500px;
+    right: 0px;
 }
 
 #arms {
@@ -46,9 +46,9 @@ button {
 }
 
 #pants {
-    top: 475px;
-    right: 105px;
-    width: 290px;
+    top: 450px;
+    right: 85px;
+    width: 330px;
 }
 
 #shoes {

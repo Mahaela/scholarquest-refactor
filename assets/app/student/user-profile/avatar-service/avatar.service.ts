@@ -141,9 +141,9 @@ export class AvatarService {
 
     private necks = [ this.neckCl1, this.neckCl2, this.neckCl3, this.neckCl4, this.neckCl5, this.neckCl6 ]
 
-    private shirt1Yellow = { img: require('../../../assets/avatars/shirts/shirt-yellow.png'), index: '0101' }
-    private shirt2Red = { img: require('../../../assets/avatars/shirts/shirt-red.png'), index: '0201' }
-    private shirt2Blue = { img: require('../../../assets/avatars/shirts/shirt-blue.png'), index: '0301'}
+    private shirt1Yellow = { img: require('../../../assets/avatars/shirts/shirt_yellow.png'), index: '0101' }
+    private shirt2Red = { img: require('../../../assets/avatars/shirts/shirt_red.png'), index: '0201' }
+    private shirt2Blue = { img: require('../../../assets/avatars/shirts/shirt_blue.png'), index: '0301'}
 
     private shirts = [ this.shirt1Yellow, this.shirt2Red, this.shirt2Blue ];
 
@@ -156,9 +156,9 @@ export class AvatarService {
 
     private arms = [ this.armsCl1, this.armsCl2, this.armsCl3, this.armsCl4, this.armsCl5, this.armsCl6 ]
     
-    private pants1Blue = { img: require('../../../assets/avatars/pants/pants-blue.png'), index: '0101' }
-    private pants1DarkBlue = { img: require('../../../assets/avatars/pants/pants-dark-blue.png'), index: '0201' }
-    private pants1Brown = { img: require('../../../assets/avatars/pants/pants-brown.png'), index: '0301' }
+    private pants1Blue = { img: require('../../../assets/avatars/pants/pants_blue.png'), index: '0101' }
+    private pants1DarkBlue = { img: require('../../../assets/avatars/pants/pants_dark_blue.png'), index: '0201' }
+    private pants1Brown = { img: require('../../../assets/avatars/pants/pants_brown.png'), index: '0301' }
 
     private pants = [ this.pants1Blue, this.pants1DarkBlue, this.pants1Brown ];
 

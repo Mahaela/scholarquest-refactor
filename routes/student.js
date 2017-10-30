@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var bycrypt = require('bcryptjs');
 var Student = require('../models/student');
-var Math = require('../models/math');
+var MathProbs = require('../models/math');
 var Vocabulary = require('../models/vocabulary');
 var Avatar = require('../models/avatar')
 var jwt = require('jsonwebtoken');
@@ -74,6 +74,30 @@ router.post('/signup', function (req, res, next) {
       res.status(200).json({
           vocab: vocab,
           message: 'vocab returned',
+        });
+    });
+  });
+
+  router.post('/getMath', function(req, res, next){
+    
+    MathProbs.find({grade: 1.0}, function(err, mathProbs){
+      console.log(err);
+      console.log(mathProbs);
+      if (err) {
+       res.status(500).json({
+          title: 'An error occured',
+          error: err
+        });
+      }
+      if (!mathProbs) {
+        res.status(500).json({
+          title: 'No math problems found',
+          error: {message: 'Math problems not found'}
+        });
+      }
+      res.status(200).json({
+          math: mathProbs,
+          message: 'Math returned'
         });
     });
   });

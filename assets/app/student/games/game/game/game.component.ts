@@ -56,8 +56,13 @@ export class GameComponent {
     this.closeSidenavEvent.emit(true);
   }
 
- getVocabulary(){
-  return this.apiService.post('student/getVocabulary', {grade: 1})
+  getVocabulary(){
+    return this.apiService.post('student/getVocabulary', {grade: 1})
+  }
+
+  getMath() {
+    console.log('math');
+    return this.apiService.post('student/getMath', {grade: 1})
   }
 
   updateCoins(coins) {

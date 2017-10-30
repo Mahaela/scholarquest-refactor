@@ -57,6 +57,7 @@ export class AppleDropComponent implements AfterViewInit{
   private gameReady = false;
   private coinsAnim;
   private isStartDialogDisplayed;
+  private background;
 
   @ViewChild('game') gameController;
 
@@ -73,7 +74,7 @@ export class AppleDropComponent implements AfterViewInit{
    * load the background image
    */
   preload() {
-    this.game.load.image('stone_background', require('../../../assets/backgrounds/test_loading.png'));
+    this.game.load.spritesheet('loading_spritesheet', require('../../../assets/games/loading_spritesheet.png'), 1355, 761, 8);
   }
 
   /**
@@ -82,7 +83,9 @@ export class AppleDropComponent implements AfterViewInit{
   create(){
 
     // display the background
-    const background = this.game.add.image(0, 0, 'stone_background');
+    this.background = this.game.add.image(0, 0, 'loading_spritesheet');
+    const load = this.background.animations.add('load');
+    load.play(4, true);
     
     // after the assets load, display things
     this.game.load.onLoadComplete.add(this.onAssetsLoaded, this);
@@ -111,7 +114,7 @@ export class AppleDropComponent implements AfterViewInit{
    * once the assets load, display things
    */
   onAssetsLoaded() {
-  
+    this.background.destroy();
     this.setBackground();
     this.setPhysics();
     this.setCollisionGroups();

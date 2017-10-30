@@ -1,55 +1,9 @@
-.test {
-    background-image: url('../test.jpg');
-    width: 1000px;
-    height: 1000px;
-    border: 2px solid black;
-    
-}
 
-.tt{
-      background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    background-image: url("../../../assets/games/appleDrop/background.jpg");
 
-}
-
-.featured-img-display {
-  width: 200px;
-  height: 500px;
-  opacity: 1;
-  border: 1px solid #F2F2F2;
-  padding: 40px;
-  padding-top: 100px;
-  box-sizing: border-box;
-  /*background-image: url(http://lorempixel.com/800/800/sports);
-  */
-  background: url(test.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.background-container {
+.title {
   margin: auto;
-  width: 1000px;
-  height: 750px;
-  border: solid black 2px;
-  position: relative;
-
-}
-
-.background-image {
-  width: 100%;
-  height: 100%;
-  /*margin-top:  -;
-  */
-  position: absolute;
-}
-
-#canvas {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  /*top: 0;*/
+  display: block;
+  width: 40%;
+  height: 40%;
+  margin-bottom: 30px;
 }
